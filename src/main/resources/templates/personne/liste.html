@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Clients-Fournisseurs</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="row ">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse</th>
+                <th>Telephone</th>
+                <th>Type Compte</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="personne : ${ personnes }">
+                <td th:text="${ personne.nom }"></td>
+                <td th:text="${ personne.prenom }"></td>
+                <td th:text="${ personne.adresse }"></td>
+                <td th:text="${ personne.telephone }"></td>
+                <td th:text="${ personne.typeCompte }"></td>
+                <td>
+                    <button class="btn btn-danger">
+                        <a onclick="return confirm('Etes-vous sur?')"
+                           th:href="@{/client-fournisseur/delete(id=${personne.id})}">supprimer</a>
+                    </button>
+                    <button class="btn btn-info">
+                        <a th:href="@{/client-fournisseur/update(id=${personne.id})}">Modifier</a>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

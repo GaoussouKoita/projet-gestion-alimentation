@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouveau Produit</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
+
+</head>
+<body>
+<div th:include="header.html"></div>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de Produit</h2>
+        </div>
+        <div class="panel-body">
+            <form th:object="${produit}" th:action="@{/produit/add}" method="POST"
+                  class="form-horizontal" enctype="multipart/form-data">
+
+                <input type="hidden" th:field="*{id}" class="form-control"/>
+
+                <div class="form-group">
+                    <label for="sel2" class="control-label col-md-2">Categorie</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{categorie.id}">
+                            <option th:each="cat:${categories}" th:value="${cat.id}"
+                                    th:text="${cat.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Nom</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{nom}" class="form-control"/>
+                        <span th:errors="*{nom}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Prix</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{prix}" class="form-control"/>
+                        <span th:errors="*{prix}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sel1" class="control-label col-md-2">Type Engros</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel1" th:field="*{typeEngros}">
+                            <option th:value="Bidon" th:text="Bidon"></option>
+                            <option th:value="Boite" th:text="Boite"></option>
+                            <option th:value="Caisse" th:text="Caisse"></option>
+                            <option th:value="Carton" th:text="Carton"></option>
+                            <option th:value="Paquet" th:text="Paquet"></option>
+                            <option th:value="Sac" th:text="Sac"></option>
+                            <option th:value="Sachet" th:text="Sachet"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Nombre Engros</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{nombreEngros}" class="form-control"/>
+                        <span th:errors="*{nombreEngros}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Prix Engros</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{prixEngros}" class="form-control"/>
+                        <span th:errors="*{prixEngros}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Image</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{image}" class="form-control"/>
+                        <span th:errors="*{image}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Code Barre 1</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{codeBarre1}" class="form-control"/>
+                        <span th:errors="*{codeBarre1}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Code Barre 2</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{codeBarre2}" class="form-control"/>
+                        <span th:errors="*{codeBarre2}"></span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

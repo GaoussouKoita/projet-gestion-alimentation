@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="row ">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="cat : ${ categories }">
+                <td th:text="${ cat.id }"></td>
+                <td th:text="${ cat.nom }"></td>
+                <td>
+                    <button class="btn btn-danger">
+                        <a onclick="return confirm('Etes-vous sur?')"
+                           th:href="@{/categorie/delete(id=${cat.id})}">supprimer</a>
+                    </button>
+                    <button class="btn btn-info">
+                        <a th:href="@{/categorie/update(id=${cat.id})}">Modifier</a>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

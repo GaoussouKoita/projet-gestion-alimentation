@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouvelle Dette</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
+
+</head>
+<body>
+<div th:include="header.html"></div>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de Dette Client</h2>
+        </div>
+        <div class="panel-body">
+            <form th:object="${detteClient}" th:action="@{/detteClient/add}" method="POST"
+                  class="form-horizontal">
+                <input type="hidden" th:field="*{id}" class="form-control"/>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Date</label>
+                    <div class="col-md-10">
+                        <input type="date" th:field="*{date}" class="form-control"/>
+                        <span th:errors="*{date}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Montant</label>
+                    <div class="col-md-10">
+                        <input type="number" th:field="*{montant}" class="form-control"/>
+                        <span th:errors="*{montant}"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="sel1" class="control-label col-md-2">Satut Dette</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel1" th:field="*{statutDette}">
+                            <option th:value="NON_REGLER" th:text="NON_REGLER"></option>
+                            <option th:value="REGLER" th:text="REGLER"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sel2" class="control-label col-md-2">Client-Fournisseur</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{personne.id}">
+                            <option th:each="person:${personnes}" th:value="${person.id}"
+                                    th:text="${person.prenom}+' '+${person.nom}+' | '+ ${person.telephone}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

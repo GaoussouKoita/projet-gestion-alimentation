@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Ajout de Role à Utilisateur</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
+
+</head>
+<body>
+<div th:include="header.html"></div>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de Role a Utilisateurss </h2>
+        </div>
+        <div class="panel-body">
+            <p>Well done !</p>
+            <form th:object="${userRole}" th:action="@{/user/addRoleToUser}" method="POST"
+                  class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="sel2" class="control-label col-md-2">Login</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{login}">
+                            <option th:each="user:${users}" th:value="${user.login}"
+                                    th:text="${user.prenom}+' '+${user.nom}+' | '+ ${user.telephone}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sel" class="control-label col-md-2">Role Name</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel" th:field="*{roleName}">
+                            <option th:each="r:${roles}" th:value="${r.roleName}"
+                                    th:text="${r.roleName}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

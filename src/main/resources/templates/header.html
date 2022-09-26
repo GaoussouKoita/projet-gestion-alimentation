@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Application Gestion Alimentation </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Gestion Alimentation</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown" th:with="urls=${'/categorie/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/categorie/add}">Categorie<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/categorie/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/categorie/add}">Nouvelle Categorie</a></li>
+                    <li th:with="urls=${'/categorie/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/categorie/liste}">Liste Categorie</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/produit/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/produit/add}">Produit<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/produit/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/produit/add}">Nouveau Produit</a></li>
+                    <li th:with="urls=${'/produit/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/produit/liste}">Liste Produit</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/commande/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/commande/add}">Commande<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/commande/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/commande/add}">Nouvelle Commande</a></li>
+                    <li th:with="urls=${'/commande/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/commande/liste}">Liste Commande</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/depense/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/depense/add}">Depense<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/depense/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/depense/add}">Nouvelle Depense</a></li>
+                    <li th:with="urls=${'/depense/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/depense/liste}">Liste Depense</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/detteClient/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/detteClient/add}">Dette Client<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/detteClient/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/detteClient/add}">Nouvelle Dette Client</a></li>
+                    <li th:with="urls=${'/detteClient/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/detteClient/liste}">Liste Dette Client</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/magasin/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/magasin/add}">Magasin<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/magasin/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/magasin/add}">Nouvelle Magasin</a></li>
+                    <li th:with="urls=${'/magasin/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/magasin/liste}">Liste Magasin</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/client-fournisseur/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/client-fournisseur/add}">Client
+                    Fournisseur<span
+                            class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/client-fournisseur/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/client-fournisseur/add}">Nouveau Client Fournisser</a></li>
+                    <li th:with="urls=${'/client-fournisseur/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/client-fournisseur/liste}">Liste Clients Fournisseur</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown" th:with="urls=${'/user/add'}"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/user/add}">User<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:with="urls=${'/user/add'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/user/add}">Nouvelle User</a></li>
+                    <li th:with="urls=${'/user/liste'}"
+                        th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"><a
+                            th:href="@{/user/liste}">Liste User</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
+            <li>
+                <form th:action="@{/logout}" method="post" th:hiden="true">
+                    <input class="btn btn-link" type="submit" value="Deconnexion"/>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
