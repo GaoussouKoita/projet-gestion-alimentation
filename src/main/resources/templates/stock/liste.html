@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org">
 <head>
-    <title>Categories</title>
+    <title>Stocks</title>
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -10,23 +10,27 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>id</th>
-                <th>Nom</th>
+                <th>Quantite</th>
+                <th>Magasin</th>
+                <th>Produit</th>
+
                 <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr th:each="cat : ${ categories }">
-                <td th:text="${ cat.id }"></td>
-                <td th:text="${ cat.nom }"></td>
+            <tr th:each="stock : ${ stocks }">
+                <td th:text="${ stock.quantite }"></td>
+
+                <td th:text="${stock.magasin.nom}+' '+${stock.magasin.adresse}"></td>
+                <td th:text="${stock.produit.categorie.nom}+' '+${stock.produit.nom}"></td>
                 <td>
                     <button class="btn btn-danger">
                         <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/categorie/delete(id=${cat.id})}">supprimer</a>
+                           th:href="@{/stock/delete(id=${stock.id})}">supprimer</a>
                     </button>
                     <button class="btn btn-info">
-                        <a th:href="@{/categorie/update(id=${cat.id})}">Modifier</a>
+                        <a th:href="@{/stock/update(id=${stock.id})}">Modifier</a>
                     </button>
                 </td>
             </tr>

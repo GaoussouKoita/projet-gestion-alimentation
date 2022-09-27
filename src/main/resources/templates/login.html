@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="www.thymeleaf.org">
 <head>
     <title>Authentification </title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
 </head>
 <body>
 </br></br></br>
@@ -12,28 +12,31 @@
             <h2 class="panel-title text-center   margin-top:25px">Authentification Utilisateur</h2>
         </div>
         <div class="panel-body">
-            <form th:action="@{/login}" method="POST"
-                  class="form-horizontal">
+            <form class="form-horizontal" method="POST"
+                  th:action="@{/login}">
                 <fieldset>
-                    <legend th:if="${param.error}" class="text-danger text-center">Invalide Login et/ou Password !</legend>
+                    <legend class="text-danger text-center" th:if="${param.error}">Invalide+ Login et/ou Password !
+                    </legend>
                     <div class="form-group">
                         <label class="control-label col-md-2">Login</label>
                         <div class="col-md-10">
-                            <input type="text" name="username" id="username" placeholder="Entre votre login" required
-                                   autofocus class="form-control"/>
+                            <input autofocus class="form-control" id="username" name="username"
+                                   placeholder="Entre votre login"
+                                   required type="text"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">Password</label>
                         <div class="col-md-10">
-                            <input type="password" name="password" id="password" placeholder="Entre votre mot de passe"
-                                   class="form-control"/>
+                            <input class="form-control" id="password" name="password"
+                                   placeholder="Entre votre mot de passe"
+                                   type="password"/>
                         </div>
                     </div>
                     <div class="text-center">
-                        <input type="submit" value="Se connecter" class="btn btn-success">
+                        <input class="btn btn-success" type="submit" value="Se connecter">
                     </div>
-                    </fieldset>
+                </fieldset>
             </form>
         </div>
     </div>

@@ -44,13 +44,14 @@ public class SecuriteConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").permitAll();
+
+        /*http.formLogin().loginPage("/login").permitAll();
         http.logout().permitAll();
         http.authorizeRequests().antMatchers("/user/**").hasAuthority("ADMINISTRATEUR");
         http.authorizeRequests().antMatchers("/login", "/css/**").permitAll();
-//        http.exceptionHandling().accessDeniedPage("/403");
         http.authorizeRequests().anyRequest().authenticated();
+*/
 
-        //http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().anyRequest().permitAll();
     }
 }

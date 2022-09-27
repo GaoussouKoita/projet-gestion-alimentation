@@ -2,7 +2,6 @@ package ml.pic.tech.app.alimentation.domaine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -22,21 +21,18 @@ public class User {
     private String telephone;
     private String login;
     private String password;
-
-    public User() {
-
-        roles=new ArrayList<>();
-    }
-
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private List<Commande> commandes;
-
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private List<Depense> depenses;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    public User() {
+
+        roles = new ArrayList<>();
+    }
 
 }

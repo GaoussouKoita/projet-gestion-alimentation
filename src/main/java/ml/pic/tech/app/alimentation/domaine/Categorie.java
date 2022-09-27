@@ -10,7 +10,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Categorie {
     @Id

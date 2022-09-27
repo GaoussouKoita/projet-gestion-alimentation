@@ -2,7 +2,6 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Utilisateur</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -39,9 +38,9 @@
                         <a th:href="@{/user/update(id=${user.id})}">Modifier</a>
                     </button>
                     <button class="btn btn-danger">
-                    <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/user/delete(id=${user.id})}">supprimer</a>
-                </button>
+                        <a onclick="return confirm('Etes-vous sur?')"
+                           th:href="@{/user/delete(id=${user.id})}">supprimer</a>
+                    </button>
                 </td>
             </tr>
             </tbody>

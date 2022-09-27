@@ -13,7 +13,7 @@ public class CommandeService {
     private CommandeRepository commandeRepository;
 
     public void ajout(Commande commande) {
-               commandeRepository.save(commande);
+        commandeRepository.save(commande);
     }
 
     public Commande lecture(Long id) {

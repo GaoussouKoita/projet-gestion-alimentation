@@ -3,7 +3,6 @@ package ml.pic.tech.app.alimentation.domaine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -21,7 +20,7 @@ public class Produit {
     private int nombreEngros;
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    private String  image;
+    private String image;
     private double prixEngros;
     private Long codeBarre1;
     private Long codeBarre2;

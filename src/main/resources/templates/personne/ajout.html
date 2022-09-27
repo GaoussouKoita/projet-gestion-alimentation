@@ -2,8 +2,6 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Nouveau Client-Fournisseur</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
-
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -14,49 +12,49 @@
             <h2 class="panel-title text-center">Ajout et Update de Client-Fournisseur</h2>
         </div>
         <div class="panel-body">
-            <form th:object="${personne}" th:action="@{/client-fournisseur/add}" method="POST"
-                  class="form-horizontal">
-                <input type="hidden" th:field="*{id}" class="form-control"/>
+            <form class="form-horizontal" method="POST" th:action="@{/client-fournisseur/add}"
+                  th:object="${personne}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
 
                 <div class="form-group">
                     <label class="control-label col-md-2">Nom</label>
                     <div class="col-md-10">
-                        <input type="text" th:field="*{nom}" class="form-control"/>
+                        <input class="form-control" th:field="*{nom}" type="text"/>
                         <span th:errors="*{nom}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Prenom</label>
                     <div class="col-md-10">
-                        <input type="text" th:field="*{prenom}" class="form-control"/>
+                        <input class="form-control" th:field="*{prenom}" type="text"/>
                         <span th:errors="*{prenom}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Adresse</label>
                     <div class="col-md-10">
-                        <input type="text" th:field="*{adresse}" class="form-control"/>
+                        <input class="form-control" th:field="*{adresse}" type="text"/>
                         <span th:errors="*{adresse}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Telephone</label>
                     <div class="col-md-10">
-                        <input type="tel" th:field="*{telephone}" class="form-control"/>
+                        <input class="form-control" th:field="*{telephone}" type="tel"/>
                         <span th:errors="*{telephone}"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="sel1" class="control-label col-md-2">Type</label>
+                    <label class="control-label col-md-2" for="sel1">Type</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel1" th:field="*{typeCompte}">
-                            <option th:value="Fournisseur" th:text="Fournisseur"></option>
-                            <option th:value="Client" th:text="Client"></option>
+                            <option th:text="Fournisseur" th:value="Fournisseur"></option>
+                            <option th:text="Client" th:value="Client"></option>
                         </select>
                     </div>
                 </div>
                 <div class="text-center">
-                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                    <input class="btn btn-primary" type="submit" value="Sauvegarder">
                 </div>
             </form>
         </div>

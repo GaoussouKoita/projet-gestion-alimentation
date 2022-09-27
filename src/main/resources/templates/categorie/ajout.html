@@ -2,8 +2,6 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Novelle Categorie</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
-
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -14,19 +12,19 @@
             <h2 class="panel-title text-center">Ajout et Update de Categorie</h2>
         </div>
         <div class="panel-body">
-            <form th:object="${categorie}" th:action="@{/categorie/add}" method="POST"
-                  class="form-horizontal">
-                <input type="hidden" th:field="*{id}" class="form-control"/>
+            <form class="form-horizontal" method="POST" th:action="@{/categorie/add}"
+                  th:object="${categorie}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
 
                 <div class="form-group">
                     <label class="control-label col-md-2">Nom</label>
                     <div class="col-md-10">
-                        <input type="text" th:field="*{nom}" class="form-control"/>
+                        <input class="form-control" th:field="*{nom}" type="text"/>
                         <span th:errors="*{nom}"></span>
                     </div>
                 </div>
                 <div class="text-center">
-                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                    <input class="btn btn-primary" type="submit" value="Sauvegarder">
                 </div>
             </form>
         </div>

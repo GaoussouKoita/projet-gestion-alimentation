@@ -2,7 +2,6 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Produits</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -16,19 +15,16 @@
                 <ul>
 
 
-
-
-                    <form th:action="@{/produit/search}" method="GET" class="navbar-form navbar-right">
+                    <form class="navbar-form navbar-right" method="GET" th:action="@{/produit/search}">
                         <div class="form-group">
-                            <input type="text" th:name="nom" class="form-control" placeholder="Entre le nom du produit">
+                            <input class="form-control" placeholder="Entre le nom du produit" th:name="nom" type="text">
                         </div>
-                        <button type="submit" class="btn btn-default">Rechercher</button>
+                        <button class="btn btn-default" type="submit">Rechercher</button>
                     </form>
                 </ul>
             </div>
         </nav>
     </div>
-
 
 
     <div class="col-md-10 col-md-offset-1">

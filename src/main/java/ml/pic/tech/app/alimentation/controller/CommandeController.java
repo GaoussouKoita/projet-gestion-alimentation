@@ -24,8 +24,8 @@ public class CommandeController {
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("commande", new Commande());
-        model.addAttribute("personnes", personneService.liste() );
-        model.addAttribute("users", userService.liste() );
+        model.addAttribute("personnes", personneService.liste());
+        model.addAttribute("users", userService.liste());
 
         return "commande/ajout";
     }
@@ -40,8 +40,8 @@ public class CommandeController {
     @GetMapping("/update")
     public String modifier(@RequestParam("id") Long id, Model model) {
         model.addAttribute("commande", service.lecture(id));
-        model.addAttribute("personnes", personneService.liste() );
-        model.addAttribute("users", userService.liste() );
+        model.addAttribute("personnes", personneService.liste());
+        model.addAttribute("users", userService.liste());
         all(model);
         return "commande/ajout";
     }

@@ -2,8 +2,6 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Nouvelle Commande</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}"/>
-
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -13,50 +11,52 @@
         <div class="panel-heading">
             <h2 class="panel-title text-center">Ajout et Update de Commande</h2></div>
         <div class="panel-body">
-            <form th:object="${commande}" th:action="@{/commande/add}" method="POST"
-                  class="form-horizontal">
-                <input type="hidden" th:field="*{id}" class="form-control"/>
+            <form class="form-horizontal" method="POST" th:action="@{/commande/add}"
+                  th:object="${commande}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
 
                 <div class="form-group">
                     <label class="control-label col-md-2">Date</label>
                     <div class="col-md-10">
-                        <input type="date" th:field="*{date}" class="form-control"/>
+                        <input class="form-control" th:field="*{date}" type="date"/>
                         <span th:errors="*{date}"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="sel1" class="control-label col-md-2">Statut Commande</label>
+                    <label class="control-label col-md-2" for="sel1">Statut Commande</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel1" th:field="*{statutCommande}">
-                            <option th:value="NON_REGLER" th:text="NON_REGLER"></option>
-                            <option th:value="REGLER" th:text="REGLER"></option>
+                            <option th:text="NON_REGLER" th:value="NON_REGLER"></option>
+                            <option th:text="REGLER" th:value="REGLER"></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="sel2" class="control-label col-md-2">Client-Fournisseur</label>
+                    <label class="control-label col-md-2" for="sel2">Client-Fournisseur</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel2" th:field="*{personne.id}">
-                            <option th:each="person:${personnes}" th:value="${person.id}"
-                                    th:text="${person.prenom}+' '+${person.nom}+' | '+ ${person.telephone}"></option>
+                            <option th:each="person:${personnes}"
+                                    th:text="${person.prenom}+' '+${person.nom}+' | '+ ${person.telephone}"
+                                    th:value="${person.id}"></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="sel3" class="control-label col-md-2">Utilisateur</label>
+                    <label class="control-label col-md-2" for="sel3">Utilisateur</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel3" th:field="*{user.id}">
-                            <option th:each="user:${users}" th:value="${user.id}"
-                                    th:text="${user.prenom}+' '+${user.nom}+' | '+ ${user.telephone}" ></option>
+                            <option th:each="user:${users}"
+                                    th:text="${user.prenom}+' '+${user.nom}+' | '+ ${user.telephone}"
+                                    th:value="${user.id}"></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                    <input class="btn btn-primary" type="submit" value="Sauvegarder">
                 </div>
             </form>
         </div>

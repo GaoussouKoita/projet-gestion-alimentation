@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProduitRepository extends JpaRepository<Produit,Long> {
+public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     public Produit findByCodeBarre1(Long codeBarre1);
+
     public List<Produit> findByNomContaining(String nom);
 
 }

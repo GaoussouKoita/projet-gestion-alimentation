@@ -10,7 +10,8 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Personne {
 
     @Id

@@ -1,6 +1,5 @@
 package ml.pic.tech.app.alimentation.controller;
 
-import ml.pic.tech.app.alimentation.domaine.Categorie;
 import ml.pic.tech.app.alimentation.domaine.User;
 import ml.pic.tech.app.alimentation.securite.AccontService;
 import ml.pic.tech.app.alimentation.securite.UserRole;
@@ -22,19 +21,20 @@ public class UserController {
 
 
     @GetMapping("/add")
-    public String addForm(Model model){
+    public String addForm(Model model) {
         model.addAttribute("user", new User());
         return "user/ajout";
     }
+
     @PostMapping("/add")
-    public String add(@ModelAttribute("user") User user, Model model){
+    public String add(@ModelAttribute("user") User user, Model model) {
         accontService.addUser(user);
         all(model);
         return "redirect:liste";
     }
 
     @GetMapping("/update")
-    public String  modifier(@RequestParam("id")Long id, Model model){
+    public String modifier(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", service.lecture(id));
         model.addAttribute("userRoles", service.lecture(id).getRoles());
 
@@ -43,26 +43,26 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public String  delete(@RequestParam("id")Long id){
+    public String delete(@RequestParam("id") Long id) {
         service.suppression(id);
         return "redirect:liste";
 
     }
 
     @GetMapping("/search")
-    public String rechercher(@RequestParam("id")Long id, Model model){
+    public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", service.lecture(id));
         return "user/search";
     }
 
     @GetMapping("/liste")
-    public String all(Model model){
+    public String all(Model model) {
         model.addAttribute("users", service.liste());
         return "user/liste";
     }
 
     @GetMapping("/addRoleToUSer")
-    public String addRToU(Model model){
+    public String addRToU(Model model) {
         model.addAttribute("userRole", new UserRole());
         model.addAttribute("users", accontService.allUsers());
         model.addAttribute("roles", accontService.allRoles());
@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @PostMapping("/addRoleToUser")
-    public String addRoletoU(@ModelAttribute("userRoles") UserRole userRole){
+    public String addRoletoU(@ModelAttribute("userRoles") UserRole userRole) {
         accontService.addRoleToUser(userRole.getLogin(), userRole.getRoleName());
         return "redirect:liste";
     }
