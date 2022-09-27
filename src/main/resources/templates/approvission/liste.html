@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Approvissions</title>
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="row ">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Quantite</th>
+                <th>Statut</th>
+                <th>Montant Total</th>
+                <th>Montant Paye</th>
+                <th>Montant Restant</th>
+                <th>Nom et Prenom Client-Fournisseur</th>
+                <th>Nom et Prenom Utilisateur</th>
+
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="approvission : ${ approvissions }">
+                <td th:text="${ approvission.date }"></td>
+                <td th:text="${ approvission.quantite }"></td>
+                <td th:text="${ approvission.statutApprovission }"></td>
+                <td th:text="${ approvission.montantTotal }"></td>
+                <td th:text="${ approvission.montantPaye }"></td>
+                <td th:text="${ approvission.montantRestant }"></td>
+
+
+                <td th:text="${approvission.personne.prenom}+' '+${approvission.personne.nom}+' | '+ ${approvission.personne.telephone}"></option>
+                </td>
+                <td th:text="${approvission.user.prenom}+' '+${approvission.user.nom}+' | '+ ${approvission.user.telephone}"></td>
+                <td>
+                    <button class="btn btn-danger">
+                        <a onclick="return confirm('Etes-vous sur?')"
+                           th:href="@{/approvission/delete(id=${approvission.id})}">supprimer</a>
+                    </button>
+                    <button class="btn btn-info">
+                        <a th:href="@{/approvission/update(id=${approvission.id})}">Modifier</a>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

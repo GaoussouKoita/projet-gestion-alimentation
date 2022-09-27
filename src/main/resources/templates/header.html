@@ -58,6 +58,35 @@
 
             <li class="dropdown"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                th:with="urls=${'/vente/add'}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/vente/add}">Vente<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/vente/add'}"><a
+                            th:href="@{/vente/add}">Nouvelle Vente</a></li>
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/vente/liste'}"><a
+                            th:href="@{/vente/liste}">Liste Vente</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                th:with="urls=${'/approvission/add'}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/vente/add}">Approvission<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/approvission/add'}"><a
+                            th:href="@{/approvission/add}">Nouvelle Approvission</a></li>
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/approvission/liste'}"><a
+                            th:href="@{/approvission/liste}">Liste Approvission</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/stock/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/stock/add}">Stock<span
                         class="caret"></span></a>
