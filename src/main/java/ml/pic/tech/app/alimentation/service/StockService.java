@@ -38,6 +38,10 @@ public class StockService {
         return stockRepository.findByProduitAndMagasin(prod, mag);
     }
 
+    public Stock rechercheParProd(Produit produit){
+        return stockRepository.findByProduit(produit);
+    }
+
     public List<Stock> liste() {
         return stockRepository.findAll();
     }

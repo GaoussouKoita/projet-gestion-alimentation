@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,9 @@ public class TransfertStock {
     private Long id;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Veuillez inserer une date svp !")
     private Date date;
+    @NotNull(message = "Veuillez inserer la quantite du produit svp !")
     private int quantite;
     @ManyToOne
     private Produit produit;

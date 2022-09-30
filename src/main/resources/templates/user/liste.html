@@ -5,47 +5,42 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Adresse</th>
-                <th>Telephone</th>
-                <th>Login</th>
-                <th>Roles</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Adresse</th>
+            <th>Telephone</th>
+            <th>Login</th>
+            <th scope="col">Roles</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
 
-            <tr th:each="user : ${ users }">
-                <td th:text="${ user.nom }"></td>
-                <td th:text="${ user.prenom }"></td>
-                <td th:text="${ user.adresse }"></td>
-                <td th:text="${ user.telephone }"></td>
-                <td th:text="${ user.login }"></td>
-                <td th:each="r:${ user.roles}" th:text="${r.roleName}"></td>
+        <tr th:each="user : ${ users }">
+            <td th:text="${ user.nom }"></td>
+            <td th:text="${ user.prenom }"></td>
+            <td th:text="${ user.adresse }"></td>
+            <td th:text="${ user.telephone }"></td>
+            <td th:text="${ user.login }"></td>
+            <td th:each="r : ${user.roles}" th:text="${r.roleName}"></td>
 
-                <td>
-                    <button class="btn btn-info">
-                        <a th:href="@{/user/addRoleToUSer}">Add Role</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/user/update(id=${user.id})}">Modifier</a>
-                    </button>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/user/delete(id=${user.id})}">supprimer</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/user/update(id=${user.id})}">Modifier</a>
+                </button>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/user/delete(id=${user.id})}">supprimer</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

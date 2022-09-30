@@ -5,69 +5,60 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-
-<div class="row ">
-
-
-    <div class="row">
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <ul>
-
-
-                    <form class="navbar-form navbar-right" method="GET" th:action="@{/produit/search}">
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Entre le nom du produit" th:name="nom" type="text">
-                        </div>
-                        <button class="btn btn-default" type="submit">Rechercher</button>
-                    </form>
-                </ul>
-            </div>
-        </nav>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul>
+            <form class="navbar-form navbar-right" method="GET" th:action="@{/produit/search}">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Entre le nom du produit" th:name="nom" type="text">
+                </div>
+                <button class="btn btn-default" type="submit">Rechercher</button>
+            </form>
+        </ul>
     </div>
+</nav>
+</div>
 
 
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Categorie</th>
-                <th>Nom</th>
-                <th>Type Engros</th>
-                <th>Nombre Engros</th>
-                <th>Prix</th>
-                <th>Prix Engros</th>
-                <th>Code Barre 1</th>
-                <th>Code Barre 2</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Categorie</th>
+            <th>Nom</th>
+            <th>Type Engros</th>
+            <th>Nombre Engros</th>
+            <th>Prix</th>
+            <th>Prix Engros</th>
+            <th>Code Barre 1</th>
+            <th>Code Barre 2</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <tr th:each="prod : ${ produits }">
-                <td></td>
-                <td th:text="${ prod.categorie.nom }"></td>
-                <td th:text="${ prod.nom }"></td>
-                <td th:text="${ prod.typeEngros }"></td>
-                <td th:text="${ prod.nombreEngros }"></td>
-                <td th:text="${ prod.prix }+' F CFA'"></td>
-                <td th:text="${ prod.prixEngros }+' F CFA'"></td>
-                <td th:text="${ prod.codeBarre1 }"></td>
-                <td th:text="${ prod.codeBarre2 }"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/produit/delete(id=${prod.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/produit/update(id=${prod.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tr th:each="prod : ${ produits }">
+            <td th:text="${ prod.categorie.nom }"></td>
+            <td th:text="${ prod.nom }"></td>
+            <td th:text="${ prod.typeEngros }"></td>
+            <td th:text="${ prod.nombreEngros }"></td>
+            <td th:text="${ prod.prix }+' F CFA'"></td>
+            <td th:text="${ prod.prixEngros }+' F CFA'"></td>
+            <td th:text="${ prod.codeBarre1 }"></td>
+            <td th:text="${ prod.codeBarre2 }"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/produit/delete(id=${prod.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/produit/update(id=${prod.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

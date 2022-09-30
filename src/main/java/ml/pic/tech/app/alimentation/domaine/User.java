@@ -2,9 +2,10 @@ package ml.pic.tech.app.alimentation.domaine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +19,16 @@ public class User {
     private String nom;
     private String prenom;
     private String adresse;
-    private String telephone;
+    @NotNull(message = "Le numero de telephone doit etre sans espace")
+    private Long telephone;
+    @Size(min = 3, message = "Le login doit contenir au moins 3 caracteres")
     private String login;
+
+    @Size(min = 8, message = "Le password doit contenir au moins 8 caracteres")
     private String password;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "user")
-    private List<Commande> commandes;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "user")
-    private List<Depense> depenses;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     public User() {
 

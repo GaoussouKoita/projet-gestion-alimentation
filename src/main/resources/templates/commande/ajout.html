@@ -19,12 +19,12 @@
                     <label class="control-label col-md-2">Date</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{date}" type="date"/>
-                        <span th:errors="*{date}"></span>
+                        <span class="text-danger" th:errors="*{date}"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="sel1">Statut Commande</label>
+                    <label class="control-label col-md-2" for="sel1">Statut</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel1" th:field="*{statutCommande}">
                             <option th:text="NON_REGLER" th:value="NON_REGLER"></option>
@@ -43,17 +43,19 @@
                         </select>
                     </div>
                 </div>
+                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="control-label col-md-2" for="sel3">Utilisateur</label>
                     <div class="col-md-10">
+
                         <select class="form-control" id="sel3" th:field="*{user.id}">
                             <option th:each="user:${users}"
                                     th:text="${user.prenom}+' '+${user.nom}+' | '+ ${user.telephone}"
                                     th:value="${user.id}"></option>
                         </select>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="text-center">
                     <input class="btn btn-primary" type="submit" value="Sauvegarder">

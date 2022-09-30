@@ -20,21 +20,21 @@
                     <label class="control-label col-md-2">Nom</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{nom}" type="text"/>
-                        <span th:errors="*{nom}"></span>
+                        <span class="text-danger" th:errors="*{nom}"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2">adresse</label>
+                    <label class="control-label col-md-2">Adresse</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{adresse}" type="text"/>
-                        <span th:errors="*{adresse}"></span>
+                        <span class="text-danger" th:errors="*{adresse}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Telephone</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{telephone}" type="text"/>
-                        <span th:errors="*{telephone}"></span>
+                        <span class="text-danger" th:errors="*{telephone}"></span>
                     </div>
                 </div>
                 <div class="text-center">

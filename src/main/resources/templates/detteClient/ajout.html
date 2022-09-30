@@ -20,20 +20,20 @@
                     <label class="control-label col-md-2">Date</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{date}" type="date"/>
-                        <span th:errors="*{date}"></span>
+                        <span class="text-danger" th:errors="*{date}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Montant</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{montant}" type="number"/>
-                        <span th:errors="*{montant}"></span>
+                        <span class="text-danger" th:errors="*{montant}"></span>
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="sel1">Satut Dette</label>
+                    <label class="control-label col-md-2" for="sel1">Satut</label>
                     <div class="col-md-10">
                         <select class="form-control" id="sel1" th:field="*{statutDette}">
                             <option th:text="NON_REGLER" th:value="NON_REGLER"></option>

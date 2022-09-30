@@ -20,12 +20,11 @@ public class AccontService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public PasswordEncoder passwordEncoder;
 
 
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
     }
 
@@ -39,12 +38,6 @@ public class AccontService {
 
     public Role findByRoleName(String roleName) {
         return roleRepository.findByRoleName(roleName);
-    }
-
-    public void addRoleToUser(String login, String roleName) {
-        User user = userRepository.findByLogin(login);
-        Role role = roleRepository.findByRoleName(roleName);
-        user.getRoles().add(role);
     }
 
     public List<User> allUsers() {

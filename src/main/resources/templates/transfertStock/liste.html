@@ -5,43 +5,40 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Quantite</th>
-                <th>Date</th>
-                <th>Produit</th>
-                <th>Magasin de Depart</th>
-                <th>Magasin de Destination</th>
-                <th>Utilisateur</th>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Quantite</th>
+            <th>Date</th>
+            <th>Produit</th>
+            <th>Magasin de Depart</th>
+            <th>Magasin de Destination</th>
+            <th>Utilisateur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="transfertStock : ${ transfertStocks }">
-                <td th:text="${ transfertStock.quantite }"></td>
-                <td th:text="${ transfertStock.date }"></td>
-                <td th:text="${transfertStock.produit.categorie.nom}+' '+${transfertStock.produit.nom}"></td>
-                <td th:text="${transfertStock.magasinDepart.nom}+' '+${transfertStock.magasinDepart.adresse}"></td>
-                <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
-                <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/transfertStock/delete(id=${transfertStock.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/transfertStock/update(id=${transfertStock.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tr th:each="transfertStock : ${ transfertStocks }">
+            <td th:text="${ transfertStock.quantite }"></td>
+            <td th:text="${ transfertStock.date }"></td>
+            <td th:text="${transfertStock.produit.categorie.nom}+' '+${transfertStock.produit.nom}"></td>
+            <td th:text="${transfertStock.magasinDepart.nom}+' '+${transfertStock.magasinDepart.adresse}"></td>
+            <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
+            <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/transfertStock/delete(id=${transfertStock.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/transfertStock/update(id=${transfertStock.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

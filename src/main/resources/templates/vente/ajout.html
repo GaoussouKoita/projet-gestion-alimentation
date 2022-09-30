@@ -19,78 +19,48 @@
                     <label class="control-label col-md-2">Date</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{date}" type="date"/>
-                        <span th:errors="*{date}"></span>
+                        <span class="text-danger" th:errors="*{date}"></span>
                     </div>
                 </div>
 
-                <div class="form-group">
+               <!-- <div class="form-group">
                     <label class="control-label col-md-2">Quantite</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{quantite}" type="number"/>
-                        <span th:errors="*{quantite}"></span>
+                        <span class="text-danger" th:errors="*{quantite}"></span>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <label class="control-label col-md-2">Montant</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{montant}" type="number"/>
-                        <span th:errors="*{montant}"></span>
+                        <span class="text-danger" th:errors="*{montant}"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Remise</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{remise}" type="number"/>
-                        <span th:errors="*{remise}"></span>
+                        <span class="text-danger" th:errors="*{remise}"></span>
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel5">Produits</label>
+<!--
+                Doit etre un IO_Produits
+-->
+               <!-- <div class="form-group">
+                    <label class="control-label col-md-2" for="sel3">Produit</label>
                     <div class="col-md-10">
-
-                        <button type="button" class="btn btn" data-toggle="modal" data-target="#myModal">
-                            Ajouter des produit
-                        </button>
-                        <div id="myModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Ajout de Produit</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <select class="form-control" id="sel5" th:field="*{produits}">
-                                            <option th:each="produit:${produits}"
-                                                    th:text="${produit.categorie.nom}+' '+${produit.nom}"
-                                                    th:value="${produit.id}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel3">Utilisateur</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel3" th:field="*{user.id}">
-                            <option th:each="user:${users}"
-                                    th:text="${user.prenom}+' '+${user.nom}+' | '+ ${user.telephone}"
-                                    th:value="${user.id}"></option>
+                        <select class="form-control" id="sel3" th:field="*{produit.id}">
+                            <option th:each="produit:${produits}"
+                                    th:text="${produit.categorie.nom}+' '+${produit.nom}"
+                                    th:value="${produit.id}"></option>
                         </select>
                     </div>
-                </div>
+                </div>-->
+
+                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
 
                 <div class="text-center">
                     <input class="btn btn-primary" type="submit" value="Sauvegarder">

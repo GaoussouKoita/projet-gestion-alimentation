@@ -20,7 +20,7 @@
                     <label class="control-label col-md-2">Nom</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{nom}" type="text"/>
-                        <span th:errors="*{nom}"></span>
+                        <span class="text-danger" th:errors="*{nom}"></span>
                     </div>
                 </div>
                 <div class="text-center">

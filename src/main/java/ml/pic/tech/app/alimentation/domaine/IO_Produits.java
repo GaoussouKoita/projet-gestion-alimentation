@@ -6,20 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Stock {
+public class IO_Produits {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Min(value = 1, message = "Veuillez inserer la quantite du produit >= 1 svp !")
+    @Min(value = 1, message = "Veuillez inserer la quantite >=1 svp !")
     private int quantite;
-    @ManyToOne
-    private Magasin magasin;
+    private double prix;
+    private String type;
     @ManyToOne
     private Produit produit;
+
 }

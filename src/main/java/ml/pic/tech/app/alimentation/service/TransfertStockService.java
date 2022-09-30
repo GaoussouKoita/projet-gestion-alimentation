@@ -19,30 +19,41 @@ public class TransfertStockService {
     @Autowired
     private StockService stockService;
 
-    public void ajout(TransfertStock transfert) throws Exception {
+    public void ajout(TransfertStock transfert) {
 
 
-        Stock stockSortie = stockService.rechercheParProdAndMag(transfert.getProduit(),
-                transfert.getMagasinDepart());
-        Stock stockEntree = stockService.rechercheParProdAndMag(transfert.getProduit(),
-                transfert.getMagasinDestination());
+        Produit produitTransf = transfert.getProduit();
+        Magasin magDepart = transfert.getMagasinDepart();
+        Magasin magDest = transfert.getMagasinDestination();
 
-        Produit produit = stockSortie.getProduit();
-        Magasin magasinDepart = stockSortie.getMagasin();
-        Magasin magasinDestination = transfert.getMagasinDestination();
+
+        Stock stockSortie = new Stock();
+        Stock stockEntree = new Stock();
+        stockSortie = stockService.rechercheParProdAndMag(produitTransf, magDepart);
+        stockEntree = stockService.rechercheParProdAndMag(produitTransf, magDest);
+
 
         Long idStockSortie = stockSortie.getId();
-        Long idStockEntree = stockEntree.getId();
+        Long idStockEntree = Long.valueOf(0);
         int qteTransf = transfert.getQuantite();
         int qteStock = stockSortie.getQuantite();
+        if (qteStock >= qteTransf) {
+            stockService.updateSortie(idStockSortie, qteTransf);
 
-        if (qteStock>=qteTransf) {
-            stockService.updateSortie(idStockSortie, qteTransf );
-            stockService.updateEntree(idStockEntree, qteTransf );
+            if (stockEntree == null) {
+                stockEntree = new Stock();
+                stockEntree.setQuantite(qteTransf);
+                stockEntree.setMagasin(magDest);
+                stockEntree.setProduit(produitTransf);
+                stockService.ajout(stockEntree);
+            } else {
+                idStockEntree = stockEntree.getId();
+                stockService.updateEntree(idStockEntree, qteTransf);
+            }
+
+            System.err.println("Stock entree" + stockEntree);
+
             TransfertRepository.save(transfert);
-        } else {
-            throw new Exception("La quantite de transfert est superieure a celle du stock");
-
         }
 
     }

@@ -2,40 +2,54 @@ package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Personne;
 import ml.pic.tech.app.alimentation.service.PersonneService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/client-fournisseur")
 public class PersonneController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
 
     @Autowired
     private PersonneService service;
 
     @GetMapping("/add")
     public String addForm(Model model) {
+        LOGGER.info("Formulaire Client-Fournisseur");
         model.addAttribute("personne", new Personne());
         return "personne/ajout";
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("personne") Personne personne, Model model) {
+    public String add(@ModelAttribute("personne") @Valid Personne personne, Errors errors, Model model) {
+        LOGGER.info("Ajout de Client-Fournisseur dans la bd");
+        if (errors.hasErrors()) {
+            return "personne/ajout";
+
+        } else {
         service.ajout(personne);
-        all(model);
+        }
         return "redirect:liste";
     }
 
     @GetMapping("/update")
     public String modifier(@RequestParam("id") Long id, Model model) {
+        LOGGER.info("Update de Client-Fournisseur");
         model.addAttribute("personne", service.lecture(id));
-        all(model);
         return "personne/ajout";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id) {
+        LOGGER.info("Suppression de Client-Fournisseur");
         service.suppression(id);
         return "redirect:liste";
 
@@ -49,6 +63,7 @@ public class PersonneController {
 
     @GetMapping("/liste")
     public String all(Model model) {
+        LOGGER.info("Lister Client-Fournisseurs");
         model.addAttribute("personnes", service.liste());
         return "personne/liste";
     }

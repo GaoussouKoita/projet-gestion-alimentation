@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,17 +21,20 @@ public class Approvission {
     private Long id;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Veuillez inserer une date svp !")
     private Date date;
     private String statutApprovission;
-    private int quantite;
     private double montantTotal;
     private double montantPaye;
     private double montantRestant;
 
     @ManyToMany
-    private List<Produit> produits;
+    private List<IO_Produits> io_produits = new ArrayList<>();
+
     @ManyToOne
     private Personne personne;
     @ManyToOne
     private User user;
+    @ManyToOne
+    private Magasin magasin;
 }

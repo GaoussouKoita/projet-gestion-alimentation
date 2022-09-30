@@ -20,4 +20,6 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
     public void updateByIdAndQuantiteEntree(Long id, int quantite);
 
     public Stock findByProduitAndMagasin(Produit p, Magasin m);
+
+    public Stock findByProduit(Produit produit);
 }

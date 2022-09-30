@@ -5,14 +5,21 @@ import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.TransfertStockService;
 import ml.pic.tech.app.alimentation.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/transfertStock")
 public class TransfertStockController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
 
     @Autowired
     private TransfertStockService service;
@@ -25,36 +32,41 @@ public class TransfertStockController {
 
     @GetMapping("/add")
     public String addForm(Model model) {
+        LOGGER.info("Formulaire Approvission");
         model.addAttribute("transfertStock", new TransfertStock());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("users", userService.liste());
+        model.addAttribute("userId", userService.findCurrentUser().getId());
         return "transfertStock/ajout";
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("transfertStock") TransfertStock transfertStock, Model model) {
-        try {
-            service.ajout(transfertStock);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+    public String add(@ModelAttribute("transfertStock") @Valid TransfertStock transfertStock, Errors errors, Model model) {
+
+        LOGGER.info("Ajout d'Approvission dans la bd");
+        if (errors.hasErrors()) {
+            model.addAttribute("produits", produitService.liste());
+            model.addAttribute("magasins", magasinService.liste());
+            model.addAttribute("userId", userService.findCurrentUser().getId());
+            return "transfertStock/ajout";
         }
-        all(model);
+        service.ajout(transfertStock);
         return "redirect:liste";
     }
 
     @GetMapping("/update")
     public String modifier(@RequestParam("id") Long id, Model model) {
+        LOGGER.info("Update d'Approvission");
         model.addAttribute("transfertStock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("users", userService.liste());
-        all(model);
+        model.addAttribute("userId", userService.findCurrentUser().getId());
         return "transfertStock/ajout";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id) {
+        LOGGER.info("Suppression d'Approvission");
         service.suppression(id);
         return "redirect:liste";
 
@@ -68,6 +80,7 @@ public class TransfertStockController {
 
     @GetMapping("/liste")
     public String all(Model model) {
+        LOGGER.info("Lister Approvission");
         model.addAttribute("transfertStocks", service.liste());
         return "transfertStock/liste";
     }

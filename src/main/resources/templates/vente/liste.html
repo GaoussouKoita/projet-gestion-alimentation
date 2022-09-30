@@ -5,42 +5,38 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Quantite</th>
-                <th>Montant</th>
-                <th>Remise</th>
-                <th>Nom et Prenom Utilisateur</th>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Remise</th>
+            <th>Nom et Prenom Utilisateur</th>
 
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+            <th class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <tr th:each="vente : ${ ventes }">
-                <td th:text="${ vente.date }"></td>
-                <td th:text="${ vente.quantite }"></td>
-                <td th:text="${ vente.montant }"></td>
-                <td th:text="${ vente.remise }"></td>
+        <tr th:each="vente : ${ ventes }">
+            <td th:text="${ vente.date }"></td>
+            <td th:text="${ vente.montant }"></td>
+            <td th:text="${ vente.remise }"></td>
 
-                <td th:text="${vente.user.prenom}+' '+${vente.user.nom}+' | '+ ${vente.user.telephone}"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/vente/delete(id=${vente.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/vente/update(id=${vente.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            <td th:text="${vente.user.prenom}+' '+${vente.user.nom}+' | '+ ${vente.user.telephone}"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/vente/delete(id=${vente.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/vente/update(id=${vente.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

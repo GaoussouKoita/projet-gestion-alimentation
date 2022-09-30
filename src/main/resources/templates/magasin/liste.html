@@ -5,37 +5,34 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Adresse</th>
-                <th>Telephone</th>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Telephone</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="magasin : ${ magasins }">
-                <td th:text="${ magasin.nom }"></td>
-                <td th:text="${ magasin.adresse }"></td>
-                <td th:text="${ magasin.telephone }"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/magasin/delete(id=${magasin.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/magasin/update(id=${magasin.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tr th:each="magasin : ${ magasins }">
+            <td th:text="${ magasin.nom }"></td>
+            <td th:text="${ magasin.adresse }"></td>
+            <td th:text="${ magasin.telephone }"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/magasin/delete(id=${magasin.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/magasin/update(id=${magasin.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

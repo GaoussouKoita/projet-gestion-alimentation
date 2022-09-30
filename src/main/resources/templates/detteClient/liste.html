@@ -5,38 +5,36 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Montant</th>
-                <th>Statut Dette</th>
-                <th>Nom Prenom Client-Fournisseur</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Statut</th>
+            <th>Client-Fournisseur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <tr th:each="detteClient : ${ detteClients }">
-                <td th:text="${ detteClient.date }"></td>
-                <td th:text="${ detteClient.montant }+' F CFA'"></td>
-                <td th:text="${ detteClient.statutDette }"></td>
-                <td th:text="${ detteClient.personne.nom }"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/detteClient/delete(id=${detteClient.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/detteClient/update(id=${detteClient.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tr th:each="detteClient : ${ detteClients }">
+            <td th:text="${ detteClient.date }"></td>
+            <td th:text="${ detteClient.montant }+' F CFA'"></td>
+            <td th:text="${ detteClient.statutDette }"></td>
+            <td th:text="${ detteClient.personne.nom }"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/detteClient/delete(id=${detteClient.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/detteClient/update(id=${detteClient.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

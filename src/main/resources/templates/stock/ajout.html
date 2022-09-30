@@ -20,21 +20,9 @@
                     <label class="control-label col-md-2">Quantite</label>
                     <div class="col-md-10">
                         <input class="form-control" th:field="*{quantite}" type="number"/>
-                        <span th:errors="*{quantite}"></span>
+                        <span class="text-danger" th:errors="*{quantite}"></span>
                     </div>
                 </div>
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel2">Magasin</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel2" th:field="*{magasin.id}">
-                            <option th:each="magasin:${magasins}" th:text="${magasin.nom}+' '+${magasin.adresse}"
-                                    th:value="${magasin.id}"></option>
-                        </select>
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="sel3">Produit</label>
@@ -46,6 +34,17 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel2">Magasin</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{magasin.id}">
+                            <option th:each="magasin:${magasins}" th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                    th:value="${magasin.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
 
                 <div class="text-center">
                     <input class="btn btn-primary" type="submit" value="Sauvegarder">

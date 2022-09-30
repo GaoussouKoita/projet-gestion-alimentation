@@ -5,38 +5,36 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="row ">
-    <div class="col-md-10 col-md-offset-1">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Libelle</th>
-                <th>Montant</th>
-                <th>Nom Utilisateur</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Libelle</th>
+            <th>Montant</th>
+            <th>Utilisateur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <tr th:each="depense : ${ depenses }">
-                <td th:text="${ depense.date }"></td>
-                <td th:text="${ depense.libelle }"></td>
-                <td th:text="${ depense.montant }+' F CFA'"></td>
-                <td th:text="${depense.user.prenom}+' '+${depense.user.nom}+' | '+ ${depense.user.telephone}"></td>
-                <td>
-                    <button class="btn btn-danger">
-                        <a onclick="return confirm('Etes-vous sur?')"
-                           th:href="@{/depense/delete(id=${depense.id})}">supprimer</a>
-                    </button>
-                    <button class="btn btn-info">
-                        <a th:href="@{/depense/update(id=${depense.id})}">Modifier</a>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <tr th:each="depense : ${ depenses }">
+            <td th:text="${ depense.date }"></td>
+            <td th:text="${ depense.libelle }"></td>
+            <td th:text="${ depense.montant }+' F CFA'"></td>
+            <td th:text="${depense.user.prenom}+' '+${depense.user.nom}+' | '+ ${depense.user.telephone}"></td>
+            <td>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/depense/delete(id=${depense.id})}">supprimer</a>
+                </button>
+                <button class="btn btn-info">
+                    <a th:href="@{/depense/update(id=${depense.id})}">Modifier</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

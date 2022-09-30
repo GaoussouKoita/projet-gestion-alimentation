@@ -6,22 +6,27 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vente {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne
+    User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Veuillez inserer une date svp !")
     private Date date;
-    private int quantite;
     private double montant;
     private double remise;
     @ManyToMany
-    private List<Produit> produits;
-    @ManyToOne
-    User user;
+    private List<IO_Produits> io_produits;
+
 }
