@@ -22,12 +22,12 @@
             <td th:text="${ magasin.adresse }"></td>
             <td th:text="${ magasin.telephone }"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/magasin/update(id=${magasin.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/magasin/delete(id=${magasin.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/magasin/update(id=${magasin.id})}">Modifier</a>
+                       th:href="@{/magasin/delete(id=${magasin.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

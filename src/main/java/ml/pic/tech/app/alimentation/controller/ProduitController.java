@@ -64,14 +64,21 @@ public class ProduitController {
     @GetMapping("/search")
     public String rechercher(@RequestParam("nom") String nom, Model model) {
 
+
         model.addAttribute("produits", service.rechParNom(nom));
+        model.addAttribute("totalElements", service.rechParNom(nom).getTotalElements());
+        model.addAttribute("pages", new int[ service.rechParNom(nom).getTotalPages()]);
+//        model.addAttribute("currentPage", page);
         return "produit/liste";
     }
 
     @GetMapping("/liste")
-    public String all(Model model) {
+    public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Produits");
-        model.addAttribute("produits", service.liste());
+        model.addAttribute("produits", service.liste(page).getContent());
+        model.addAttribute("totalElements", service.liste(page).getTotalElements());
+        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        model.addAttribute("currentPage", page);
         return "produit/liste";
     }
 }

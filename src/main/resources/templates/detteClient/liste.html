@@ -24,12 +24,12 @@
             <td th:text="${ detteClient.statutDette }"></td>
             <td th:text="${ detteClient.personne.nom }"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/detteClient/update(id=${detteClient.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/detteClient/delete(id=${detteClient.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/detteClient/update(id=${detteClient.id})}">Modifier</a>
+                       th:href="@{/detteClient/delete(id=${detteClient.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

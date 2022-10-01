@@ -33,12 +33,12 @@
             </td>
             <td th:text="${approvission.user.prenom}+' '+${approvission.user.nom}+' | '+ ${approvission.user.telephone}"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/approvission/update(id=${approvission.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/approvission/delete(id=${approvission.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/approvission/update(id=${approvission.id})}">Modifier</a>
+                       th:href="@{/approvission/delete(id=${approvission.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

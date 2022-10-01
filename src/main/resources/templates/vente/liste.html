@@ -26,13 +26,14 @@
 
             <td th:text="${vente.user.prenom}+' '+${vente.user.nom}+' | '+ ${vente.user.telephone}"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/vente/update(id=${vente.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/vente/delete(id=${vente.id})}">supprimer</a>
+                       th:href="@{/vente/delete(id=${vente.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/vente/update(id=${vente.id})}">Modifier</a>
-                </button>
+
             </td>
         </tr>
         </tbody>

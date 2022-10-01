@@ -24,12 +24,12 @@
             <td th:text="${ depense.montant }+' F CFA'"></td>
             <td th:text="${depense.user.prenom}+' '+${depense.user.nom}+' | '+ ${depense.user.telephone}"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/depense/update(id=${depense.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/depense/delete(id=${depense.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/depense/update(id=${depense.id})}">Modifier</a>
+                       th:href="@{/depense/delete(id=${depense.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

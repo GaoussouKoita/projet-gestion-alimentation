@@ -26,12 +26,12 @@
             <td th:text="${ personne.telephone }"></td>
             <td th:text="${ personne.typeCompte }"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/client-fournisseur/update(id=${personne.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/client-fournisseur/delete(id=${personne.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/client-fournisseur/update(id=${personne.id})}">Modifier</a>
+                       th:href="@{/client-fournisseur/delete(id=${personne.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

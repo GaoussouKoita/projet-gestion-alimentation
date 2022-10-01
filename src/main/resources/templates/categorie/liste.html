@@ -20,12 +20,12 @@
             <td th:text="${ cat.id }"></td>
             <td th:text="${ cat.nom }"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/categorie/update(id=${cat.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/categorie/delete(id=${cat.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/categorie/update(id=${cat.id})}">Modifier</a>
+                       th:href="@{/categorie/delete(id=${cat.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

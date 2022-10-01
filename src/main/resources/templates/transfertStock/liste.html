@@ -28,12 +28,12 @@
             <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
             <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
             <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/transfertStock/update(id=${transfertStock.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/transfertStock/delete(id=${transfertStock.id})}">supprimer</a>
-                </button>
-                <button class="btn btn-info">
-                    <a th:href="@{/transfertStock/update(id=${transfertStock.id})}">Modifier</a>
+                       th:href="@{/transfertStock/delete(id=${transfertStock.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

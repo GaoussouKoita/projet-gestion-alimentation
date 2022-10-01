@@ -27,15 +27,19 @@
             <td th:text="${ user.adresse }"></td>
             <td th:text="${ user.telephone }"></td>
             <td th:text="${ user.login }"></td>
-            <td th:each="r : ${user.roles}" th:text="${r.roleName}"></td>
+            <td>
+                <th:bloc th:each="r : ${user.roles}">
+                    <span th:text="${r.roleName}"></span>
+                </th:bloc>
+            </td>
 
             <td>
                 <button class="btn btn-info">
-                    <a th:href="@{/user/update(id=${user.id})}">Modifier</a>
+                    <a th:href="@{/user/update(id=${user.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
                 </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/user/delete(id=${user.id})}">supprimer</a>
+                       th:href="@{/user/delete(id=${user.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>
