@@ -5,6 +5,8 @@ import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.repository.ApprovissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +63,9 @@ public class ApprovissionService {
 
     public List<Approvission> liste() {
         return approvissionRepository.findAll();
+    }
+
+    public Page<Approvission> liste(int page) {
+        return approvissionRepository.findAll(PageRequest.of(page, 9));
     }
 }

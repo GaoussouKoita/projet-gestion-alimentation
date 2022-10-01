@@ -3,6 +3,8 @@ package ml.pic.tech.app.alimentation.service;
 import ml.pic.tech.app.alimentation.domaine.Vente;
 import ml.pic.tech.app.alimentation.repository.VenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +28,8 @@ public class VenteService {
 
     public List<Vente> liste() {
         return VenteRepository.findAll();
+    }
+    public Page<Vente> liste(int page) {
+        return VenteRepository.findAll(PageRequest.of(page, 9));
     }
 }

@@ -3,6 +3,8 @@ package ml.pic.tech.app.alimentation.service;
 import ml.pic.tech.app.alimentation.domaine.Depense;
 import ml.pic.tech.app.alimentation.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class DepenseService {
         depenseRepository.deleteById(id);
     }
 
-    public List<Depense> liste() {
-        return depenseRepository.findAll();
+    public Page<Depense> liste(int p) {
+        return depenseRepository.findAll(PageRequest.of(p, 9));
     }
 }

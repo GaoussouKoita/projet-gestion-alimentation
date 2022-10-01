@@ -44,6 +44,11 @@
         </tr>
         </tbody>
     </table>
+    <ul class="pagination" th:if="${totalElements} > 8 ">
+        <li th:classappend="${currentPage}==${status.index}?'active':''" th:each=" page, status:${pages}">
+            <a th:href="@{/approvission/liste(page=${status.index})}" th:text="${status.index+1}"></a>
+        </li>
+    </ul>
 </div>
 </body>
 </html>

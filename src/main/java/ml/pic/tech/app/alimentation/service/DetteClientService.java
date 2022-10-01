@@ -3,6 +3,8 @@ package ml.pic.tech.app.alimentation.service;
 import ml.pic.tech.app.alimentation.domaine.DetteClient;
 import ml.pic.tech.app.alimentation.repository.DetteClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +28,8 @@ public class DetteClientService {
 
     public List<DetteClient> liste() {
         return detteClientRepository.findAll();
+    }
+    public Page<DetteClient> liste(int p) {
+        return detteClientRepository.findAll(PageRequest.of(p, 9));
     }
 }

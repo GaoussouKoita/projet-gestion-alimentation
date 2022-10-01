@@ -14,8 +14,7 @@ $("#plus").on("click",function(){
 var $tableBody = $('#tbl').find("tbody"),
         $trLast = $tableBody.find("tr:last"),
         $trNew = $trLast.clone();
-
-    $trLast.after($trNew);
+        $trLast.after($trNew);
 });
 
 

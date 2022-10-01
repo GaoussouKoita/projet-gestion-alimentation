@@ -39,6 +39,6 @@ public class ProduitService {
 
 
     public Page<Produit> liste(int page) {
-        return produitRepository.findAll(PageRequest.of(page, 7));
+        return produitRepository.findAll(PageRequest.of(page, 8));
     }
 }

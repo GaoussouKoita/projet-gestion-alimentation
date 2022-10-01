@@ -62,9 +62,12 @@ public class PersonneController {
     }
 
     @GetMapping("/liste")
-    public String all(Model model) {
+    public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Client-Fournisseurs");
-        model.addAttribute("personnes", service.liste());
+        model.addAttribute("personnes", service.liste(page).getContent());
+        model.addAttribute("totalElements", service.liste(page).getTotalElements());
+        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        model.addAttribute("currentPage", page);
         return "personne/liste";
     }
 }

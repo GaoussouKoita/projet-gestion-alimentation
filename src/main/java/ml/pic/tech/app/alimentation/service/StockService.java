@@ -5,6 +5,9 @@ import ml.pic.tech.app.alimentation.domaine.Produit;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +47,9 @@ public class StockService {
 
     public List<Stock> liste() {
         return stockRepository.findAll();
+    }
+
+    public Page<Stock> liste(int page) {
+        return stockRepository.findAll(PageRequest.of(page, 9));
     }
 }

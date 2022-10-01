@@ -6,6 +6,8 @@ import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.domaine.TransfertStock;
 import ml.pic.tech.app.alimentation.repository.TransfertStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,5 +70,8 @@ public class TransfertStockService {
 
     public List<TransfertStock> liste() {
         return TransfertRepository.findAll();
+    }
+    public Page<TransfertStock> liste(int page) {
+        return TransfertRepository.findAll(PageRequest.of(page, 9));
     }
 }
