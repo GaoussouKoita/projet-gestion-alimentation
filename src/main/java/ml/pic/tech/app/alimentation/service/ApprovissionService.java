@@ -24,25 +24,21 @@ public class ApprovissionService {
 
     public void ajout(Approvission approvission) {
 
-        double total = approvission.getMontantTotal();
-
-        List<IO_Produits> produits = approvission.getIo_produits();
-        for (IO_Produits p : produits) {
-
-            total += p.getQuantite() * p.getPrix();
-            Stock stock = stockService.rechercheParProdAndMag(p.getProduit(), approvission.getMagasin());
+        double total =0;
+        List<IO_Produits> io_produits = approvission.getIo_produits();
+        for (IO_Produits io_p : io_produits) {
+            total += io_p.getQuantite() * io_p.getPrix();
+            Stock stock = stockService.rechercheParProdAndMag(io_p.getProduit(), approvission.getMagasin());
             if (stock == null) {
                 stock = new Stock();
-                stock.setQuantite(p.getQuantite());
+                stock.setQuantite(io_p.getQuantite());
                 stock.setMagasin(approvission.getMagasin());
-                stock.setProduit(p.getProduit());
+                stock.setProduit(io_p.getProduit());
                 stockService.ajout(stock);
-
             } else {
 
-                stockService.updateEntree(stock.getId(), p.getQuantite());
+                stockService.updateEntree(stock.getId(), io_p.getQuantite());
             }
-
         }
 
         approvission.setMontantTotal(total);

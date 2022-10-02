@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,17 +20,13 @@ public class Approvission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotNull(message = "Veuillez inserer une date svp !")
-    private Date date;
+    private LocalDateTime date = LocalDateTime.now();
     private String statutApprovission;
     private double montantTotal;
     private double montantPaye;
     private double montantRestant;
-
-    @ManyToMany
-    private List<IO_Produits> io_produits = new ArrayList<>();
 
     @ManyToOne
     private Personne personne;
@@ -37,4 +34,6 @@ public class Approvission {
     private User user;
     @ManyToOne
     private Magasin magasin;
+    @ManyToMany
+    private List<IO_Produits> io_produits = new ArrayList<>();
 }

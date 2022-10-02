@@ -16,20 +16,13 @@
                   th:object="${detteClient}">
                 <input class="form-control" th:field="*{id}" type="hidden"/>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Date</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{date}" type="date"/>
-                        <span class="text-danger" th:errors="*{date}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Montant</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{montant}" type="number"/>
-                        <span class="text-danger" th:errors="*{montant}"></span>
-                    </div>
-                </div>
+               <div class="form-group">
+                   <label class="control-label col-md-2">Montant</label>
+                   <div class="col-md-10">
+                       <input class="form-control" th:field="*{montant}" type="number"/>
+                       <span class="text-danger" th:errors="*{montant}"></span>
+                   </div>
+               </div>
 
 
                 <div class="form-group">

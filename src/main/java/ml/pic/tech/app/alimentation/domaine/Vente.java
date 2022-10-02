@@ -7,7 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,18 +16,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vente {
-    @ManyToOne
-    User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotNull(message = "Veuillez inserer une date svp !")
-    private Date date;
+    private LocalDateTime date = LocalDateTime.now();
     private double montant;
     private double remise;
+    private String typeVente;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Magasin magasin;
     @ManyToMany
-    private List<IO_Produits> io_produits;
+    private List<IO_Produits> io_produits = new ArrayList<>();
 
 }

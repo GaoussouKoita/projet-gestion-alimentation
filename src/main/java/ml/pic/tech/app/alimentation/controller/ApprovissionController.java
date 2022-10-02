@@ -55,7 +55,8 @@ public class ApprovissionController {
         } else {
             service.ajout(approvission);
         }
-        return "redirect:liste";
+        model.addAttribute("approvission", service.lecture(approvission.getId()));
+        return  "approvission/search";
     }
 
     @GetMapping("/update")

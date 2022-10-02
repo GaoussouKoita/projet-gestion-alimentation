@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Vente;
+import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.UserService;
 import ml.pic.tech.app.alimentation.service.VenteService;
@@ -26,6 +27,8 @@ public class VenteController {
     private UserService userService;
     @Autowired
     private ProduitService produitService;
+    @Autowired
+    private MagasinService magasinService;
 
     @GetMapping("/add")
     public String addForm(Model model) {
@@ -33,6 +36,7 @@ public class VenteController {
         model.addAttribute("vente", new Vente());
         model.addAttribute("userId", userService.findCurrentUser().getId());
         model.addAttribute("produits", produitService.liste());
+        model.addAttribute("magasins", magasinService.liste());
         return "vente/ajout";
     }
 
@@ -42,11 +46,13 @@ public class VenteController {
         if (errors.hasErrors()) {
             model.addAttribute("userId", userService.findCurrentUser().getId());
             model.addAttribute("produits", produitService.liste());
+
             return "vente/ajout";
         }
         service.ajout(vente);
+        model.addAttribute("vente", service.lecture(vente.getId()));
 
-        return "redirect:liste";
+        return "vente/search";
     }
 
     @GetMapping("/update")
@@ -55,6 +61,7 @@ public class VenteController {
         model.addAttribute("vente", service.lecture(id));
         model.addAttribute("userId", userService.findCurrentUser().getId());
         model.addAttribute("produits", produitService.liste());
+        model.addAttribute("magasins", magasinService.liste());
         return "vente/ajout";
     }
 
