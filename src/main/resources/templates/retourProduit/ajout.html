@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouvelle RetourProduit</title>
+</head>
+<body>
+<div th:include="header.html"></div>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de RetourProduit</h2></div>
+        <div class="panel-body">
+            <form class="form-horizontal " method="POST" th:action="@{/retour-produit/add}"
+                  th:object="${retourProduit}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel6">Type Retour</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel6" th:field="*{typeRetour}">
+                            <option th:text="CLIENT" th:value="CLIENT"></option>
+                            <option th:text="FOURNISSEUR" th:value="FOURNISSEUR"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Motif</label>
+                    <div class="col-md-10">
+                        <input class="form-control" required th:field="*{motif}" type="text"/>
+                        <span class="text-danger" th:errors="*{motif}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Quantite</label>
+                    <div class="col-md-10">
+                        <input class="form-control" th:field="*{quantite}" type="number"/>
+                        <span class="text-danger" th:errors="*{quantite}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Prix</label>
+                    <div class="col-md-10">
+                        <input class="form-control" th:field="*{prix}" type="number"/>
+                        <span class="text-danger" th:errors="*{prix}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel7">Magasin </label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel7" th:field="*{magasin.id}">
+                            <option th:each="mag:${magasins}"
+                                    th:text="${mag.nom}+' '+${mag.adresse}"
+                                    th:value="${mag.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel2">Vente</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{vente.id}">
+                            <option th:each="vente:${ventes}"
+                                    th:text="${vente.date}+' '+${vente.montant}"
+                                    th:value="${vente.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Produit</label>
+                    <div class="col-md-10">
+                        <select class="form-control" th:field="*{produit.id}">
+                            <option th:each="produit:${produits}"
+                                    th:text="${produit.categorie.nom}+' '+${produit.nom}"
+                                    th:value="${produit.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Fournisseur</label>
+                    <div class="col-md-10">
+                        <select class="form-control" th:field="*{personne.id}">
+                            <option th:each="person:${personnes}"
+                                    th:text="${person.prenom}+' '+${person.nom}+' | '+ ${person.telephone}"
+                                    th:value="${person.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
+
+                <div class="text-center">
+                    <button class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Sauvegarder
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/myScript.js}"></script>
+</html>

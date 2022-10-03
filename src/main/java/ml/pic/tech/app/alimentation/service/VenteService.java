@@ -45,7 +45,6 @@ public class VenteService {
             }
         }
         vente.setMontant(total- vente.getRemise());
-        System.err.println("Ser "+vente);
         VenteRepository.save(vente);
     }
 

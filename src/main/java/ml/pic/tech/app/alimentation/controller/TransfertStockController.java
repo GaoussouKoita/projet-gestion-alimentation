@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/transfertStock")
+@RequestMapping("/transfert-stock")
 public class TransfertStockController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);

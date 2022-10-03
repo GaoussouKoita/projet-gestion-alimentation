@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/detteClient")
+@RequestMapping("/dette-client")
 public class DetteClientController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
