@@ -2,11 +2,8 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Application Gestion Alimentation </title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <th:block th:include="header.html"></th:block>
 
-</head>
-<body>
-<div th:include="header.html"></div>
 <div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

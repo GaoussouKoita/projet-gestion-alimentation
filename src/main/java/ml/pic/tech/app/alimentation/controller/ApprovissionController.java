@@ -51,7 +51,7 @@ public class ApprovissionController {
             model.addAttribute("userId", userService.findCurrentUser().getId());
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("magasins", magasinService.liste());
-            return  "approvission/ajout";
+            return "approvission/ajout";
         } else {
             service.ajout(approvission);
         }
@@ -91,4 +91,6 @@ public class ApprovissionController {
         model.addAttribute("currentPage", page);
         return "approvission/liste";
     }
+
+
 }
