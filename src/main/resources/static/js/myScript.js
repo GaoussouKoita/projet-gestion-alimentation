@@ -18,3 +18,18 @@ var $tableBody = $('#tbl').find("tbody"),
 });
 
 
+$(document).ready(function () {
+
+        // jQuery button click event to add a row
+        $('#addBtn').on('click', function () {
+
+            // Adding a row inside the tbody.
+            $('#tbody').append(`"<tr><td><input class='form-control' name='quantite[]' type='number'/></td>"
+                                                       + "<td><input class='form-control' name='prix[]' type='number'/></td>"
+                                                       + "<td><input class='form-control' name='type[]'  type='text' /></td>"
+                                                        + "<td><input class='form-control' name='produit[]'  type='number' /></td> </tr>`);
+        });
+
+    });
+
+

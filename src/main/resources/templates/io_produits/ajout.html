@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="www.thymeleaf.org">
 <head>
     <title>Produit</title>
 </head>
@@ -24,28 +24,29 @@
                     <div class="modal-body">
                         <div class="panel panel-info">
                             <div class="panel-body">
-                                <table class="table table-striped" id="tbl">
-                                    <div class="text-right">
-                                        <button class="btn btn-primary" id="plus" type="submit">+
-                                        </button>
-                                    </div>
-                                    <thead>
-                                    <tr>
-                                        <th>Quantite</th>
-                                        <th>Prix</th>
-                                        <th>Type</th>
-                                        <th>Produit</th>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" id="plus" type="submit">+
+                                    </button>
+                                </div>
+                                <form th:action="@{/io_produits/add}" th:object="${io_produits}" method="post">
+                                    <table class="table table-striped" id="tbl">
+
+                                        <thead>
+                                        <tr>
+                                            <th>Quantite</th>
+                                            <th>Prix</th>
+                                            <th>Type</th>
+                                            <th>Produit</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tableProd">
                                     <tr id="line">
-                                        <td><input class='form-control' name='quantite' type='number'/></td>
-                                        <td><input class='form-control' name='prix' type='number'/></td>
-                                        <td><input class='form-control' name='type' type='text'/></td>
-                                        <td><input class='form-control' name='produit.id' type='number'/></td>
+                                        <td><input class="form-control" name="quantite" type="number"/></td>
+                                        <td><input class="form-control" name="prix" type="number"/></td>
+                                        <td><input class="form-control" name="type" type="text"/></td>
                                         <td>
                                             <div class="form-group text-left">
-                                                <select class="form-control " id="sel5" name="produit.id">
+                                                <select class="form-control " id="sel5" name="produit">
                                                     <option th:each="produit:${produits}"
                                                             th:text="${produit.categorie.nom}+' '+${produit.nom}"
                                                             th:value="${produit.id}"></option>
@@ -53,7 +54,9 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                </table>
+                                    </table>
+                                    <button>Envoyer</button>
+                                </form>
                             </div>
                         </div>
                     </div>

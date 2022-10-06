@@ -7,6 +7,7 @@ import ml.pic.tech.app.alimentation.repository.ApprovissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,10 +59,10 @@ public class ApprovissionService {
     }
 
     public List<Approvission> liste() {
-        return approvissionRepository.findAll();
+        return approvissionRepository.findAll(Sort.by("date").descending());
     }
 
     public Page<Approvission> liste(int page) {
-        return approvissionRepository.findAll(PageRequest.of(page, 9));
+        return approvissionRepository.findAll(PageRequest.of(page, 9, Sort.by("date").descending()));
     }
 }

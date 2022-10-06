@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<link rel="icon" th:href="@{/img/shopping.ico}" type="image/x-icon">
+<link rel="icon" sizes="32x32" th:src="@{/img/shopping.ico}" type="image/png">
 <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
 <script th:src="@{/js/jQuery.min.js}"></script>
 <script th:src="@{/js/popper.js}"></script>
@@ -9,6 +9,15 @@
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
+        <!--<div class="navbar-header">
+            <button class="navbar-toggle" data-target="#main_menu" data-toggle="collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse nabvar-collapse" id="main_menu">-->
         <ul class="nav navbar-nav">
             <li class="dropdown"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
@@ -102,8 +111,9 @@
             <li class="dropdown"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/transfert-stock/add'}">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/transfert-stock/add}">Transfert Stock<span
-                        class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/transfert-stock/add}">Transfert
+                    Stock<span
+                            class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                         th:with="urls=${'/transfert-stock/add'}"><a
@@ -132,8 +142,9 @@
             <li class="dropdown"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/dette-client/add'}">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/dette-client/add}">Dette Client<span
-                        class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/dette-client/add}">Dette
+                    Client<span
+                            class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                         th:with="urls=${'/dette-client/add'}"><a
@@ -162,7 +173,8 @@
             <li class="dropdown"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/retour-produit/add'}">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/client-fournisseur/add}">Retour Produit<span
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/client-fournisseur/add}">Retour
+                    Produit<span
                             class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"

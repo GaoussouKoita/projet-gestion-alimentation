@@ -5,6 +5,7 @@ import ml.pic.tech.app.alimentation.repository.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class CategorieService {
     }
 
     public List<Categorie> liste() {
-        return categorieRepository.findAll();
+        return categorieRepository.findAll(Sort.by("nom").ascending());
     }
     public Page<Categorie> liste(int p) {
-        return categorieRepository.findAll(PageRequest.of(p, 9));
+        return categorieRepository.findAll(PageRequest.of(p, 9, Sort.by("nom").ascending()));
     }
 }

@@ -8,6 +8,7 @@ import ml.pic.tech.app.alimentation.repository.TransfertStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,9 +70,11 @@ public class TransfertStockService {
     }
 
     public List<TransfertStock> liste() {
-        return TransfertRepository.findAll();
+        return TransfertRepository.findAll(Sort.by("date").descending());
     }
+
     public Page<TransfertStock> liste(int page) {
-        return TransfertRepository.findAll(PageRequest.of(page, 9));
+        return TransfertRepository.findAll(PageRequest.of(page, 9,
+                Sort.by("date").descending()));
     }
 }

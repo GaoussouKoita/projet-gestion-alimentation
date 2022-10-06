@@ -35,6 +35,7 @@ public class ProduitController {
     @PostMapping("/add")
     public String add(@ModelAttribute("produit") @Valid Produit produit, Errors errors, Model model) {
         LOGGER.info("Ajout de Produit dans la bd");
+        model.addAttribute("categories", categorieService.liste());
         if (errors.hasErrors()) {
             model.addAttribute("categories", categorieService.liste());
             return "produit/ajout";

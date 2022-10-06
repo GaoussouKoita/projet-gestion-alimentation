@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,11 +35,12 @@ public class ProduitService {
     }
 
     public List<Produit> liste() {
-        return produitRepository.findAll();
+        return produitRepository.findAll(Sort.by("nom").ascending());
     }
 
 
     public Page<Produit> liste(int page) {
-        return produitRepository.findAll(PageRequest.of(page, 8));
+        return produitRepository.findAll(PageRequest.of(page, 8,
+                Sort.by("nom").ascending()));
     }
 }

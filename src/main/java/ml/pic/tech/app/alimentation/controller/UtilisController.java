@@ -25,4 +25,11 @@ public class UtilisController {
         return "login";
     }
 
+    @GetMapping("/field")
+    public String fieldDynamic() {
+        LOGGER.info("Page d'authentification");
+        return "field";
+    }
+
+
 }

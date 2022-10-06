@@ -7,8 +7,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Nom</th>
             <th>Prenom</th>
+            <th>Nom</th>
             <th>Adresse</th>
             <th>Telephone</th>
             <th>Type Compte</th>
@@ -18,8 +18,8 @@
         <tbody>
 
         <tr th:each="personne : ${ personnes }">
-            <td th:text="${ personne.nom }"></td>
             <td th:text="${ personne.prenom }"></td>
+            <td th:text="${ personne.nom }"></td>
             <td th:text="${ personne.adresse }"></td>
             <td th:text="${ personne.telephone }"></td>
             <td th:text="${ personne.typeCompte }"></td>

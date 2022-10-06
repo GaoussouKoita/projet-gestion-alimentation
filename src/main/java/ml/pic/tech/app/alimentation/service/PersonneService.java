@@ -5,6 +5,7 @@ import ml.pic.tech.app.alimentation.repository.PersonneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +28,12 @@ public class PersonneService {
     }
 
     public List<Personne> liste() {
-        return personneRepository.findAll();
+        return personneRepository.findAll(Sort.by("prenom").ascending().
+                and(Sort.by("nom").ascending()));
     }
 
     public Page<Personne> liste(int page) {
-        return personneRepository.findAll(PageRequest.of(page, 9));
+        return personneRepository.findAll(PageRequest.of(page, 9,
+                Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
     }
 }

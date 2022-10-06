@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class IO_ProduitsController {
 
@@ -28,6 +31,6 @@ public class IO_ProduitsController {
     @PostMapping("/io_produits/add")
     public String add(@ModelAttribute("io_produits") IO_Produits io_produits, Model model) {
         service.ajout(io_produits);
-        return "redirect:approvission/add";
+        return "io_produits/ajout";
     }
 }

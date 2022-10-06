@@ -44,13 +44,14 @@ public class VenteController {
     public String add(@ModelAttribute("vente") @Valid Vente vente, Errors errors, Model model) {
         LOGGER.info("Ajout de Vente dans la bd");
         if (errors.hasErrors()) {
-            model.addAttribute("userId", userService.findCurrentUser().getId());
-            model.addAttribute("produits", produitService.liste());
+                model.addAttribute("userId", userService.findCurrentUser().getId());
+                model.addAttribute("produits", produitService.liste());
 
-            return "vente/ajout";
-        }
-        service.ajout(vente);
-        model.addAttribute("vente", service.lecture(vente.getId()));
+                return "vente/ajout";
+            }
+        System.err.println(vente);
+            service.ajout(vente);
+            model.addAttribute("vente", service.lecture(vente.getId()));
 
         return "vente/search";
     }
