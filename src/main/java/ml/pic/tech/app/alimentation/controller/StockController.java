@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Stock;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.StockService;
@@ -26,19 +27,22 @@ public class StockController {
     private MagasinService magasinService;
     @Autowired
     private ProduitService produitService;
-
+    @Autowired
+    private AccountService userService;
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Stock");
         model.addAttribute("stock", new Stock());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "stock/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("stock") @Valid Stock Stock, Errors errors, Model model) {
         LOGGER.info("Ajout de Stock dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("magasins", magasinService.liste());
@@ -54,6 +58,7 @@ public class StockController {
         model.addAttribute("stock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "stock/ajout";
     }
 
@@ -78,6 +83,7 @@ public class StockController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "stock/liste";
     }
 }

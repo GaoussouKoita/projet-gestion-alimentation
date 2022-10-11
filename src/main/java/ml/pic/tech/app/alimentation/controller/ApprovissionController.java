@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Approvission;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class ApprovissionController {
     @Autowired
     private PersonneService personneService;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
     @Autowired
     private ProduitService produitService;
     @Autowired
@@ -35,9 +36,11 @@ public class ApprovissionController {
         LOGGER.info("Formulaire Approvission");
         model.addAttribute("approvission", new Approvission());
         model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "approvission/ajout";
 
     }
@@ -46,11 +49,15 @@ public class ApprovissionController {
     public String add(@ModelAttribute("approvission") @Valid Approvission approvission, Errors errors, Model model) {
 
         LOGGER.info("Ajout d'Approvission dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
+
+
         if (errors.hasErrors()) {
             model.addAttribute("personnes", personneService.liste());
-            model.addAttribute("userId", userService.findCurrentUser().getId());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("magasins", magasinService.liste());
+
             return "approvission/ajout";
         } else {
             service.ajout(approvission);
@@ -62,9 +69,12 @@ public class ApprovissionController {
     @GetMapping("/update")
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour d'un Approvision");
-        model.addAttribute("approvission", service.lecture(id));
         model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("produits", produitService.liste());
+        model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "approvission/ajout";
     }
 
@@ -89,6 +99,8 @@ public class ApprovissionController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "approvission/liste";
     }
 

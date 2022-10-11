@@ -18,8 +18,8 @@
             </button>
         </div>
         <div class="collapse nabvar-collapse" id="main_menu">-->
-        <ul class="nav navbar-nav">
-            <li class="dropdown"
+        <ul class="nav navbar-nav"  >
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/categorie/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/categorie/add}">Categorie<span
@@ -34,7 +34,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/produit/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/produit/add}">Produit<span
@@ -49,22 +49,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
-                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                th:with="urls=${'/commande/add'}">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/commande/add}">Commande<span
-                        class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                        th:with="urls=${'/commande/add'}"><a
-                            th:href="@{/commande/add}">Nouvelle Commande</a></li>
-                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                        th:with="urls=${'/commande/liste'}"><a
-                            th:href="@{/commande/liste}">Liste Commande</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/vente/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/vente/add}">Vente<span
@@ -78,7 +63,8 @@
                             th:href="@{/vente/liste}">Liste Vente</a></li>
                 </ul>
             </li>
-            <li class="dropdown"
+
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/approvission/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/vente/add}">Approvission<span
@@ -93,7 +79,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/stock/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/stock/add}">Stock<span
@@ -108,7 +94,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/transfert-stock/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/transfert-stock/add}">Transfert
@@ -124,7 +110,22 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+<!--
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
+                th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                th:with="urls=${'/commande/add'}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/commande/add}">Commande<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/commande/add'}"><a
+                            th:href="@{/commande/add}">Nouvelle Commande</a></li>
+                    <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
+                        th:with="urls=${'/commande/liste'}"><a
+                            th:href="@{/commande/liste}">Liste Commande</a></li>
+                </ul>
+            </li>
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/depense/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/depense/add}">Depense<span
@@ -137,9 +138,9 @@
                         th:with="urls=${'/depense/liste'}"><a
                             th:href="@{/depense/liste}">Liste Depense</a></li>
                 </ul>
-            </li>
+            </li>-->
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/dette-client/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/dette-client/add}">Dette
@@ -155,7 +156,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/magasin/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/magasin/add}">Magasin<span
@@ -170,7 +171,7 @@
                 </ul>
             </li>
 
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/retour-produit/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/client-fournisseur/add}">Retour
@@ -185,7 +186,7 @@
                             th:href="@{/retour-produit/liste}">Liste Retour Produit</a></li>
                 </ul>
             </li>
-            <li class="dropdown"
+            <li class="dropdown" sec:authorize="hasAuthority('UTILISATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
                 th:with="urls=${'/client-fournisseur/add'}">
                 <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/client-fournisseur/add}">Client
@@ -220,11 +221,21 @@
         </ul>
 
         <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
-            <li>
-                <form method="post" th:action="@{/logout}" th:hiden="true">
-                    <button class="btn btn-link"><span class="glyphicon glyphicon-log-out"></span>
-                        <span class="text-danger">Deconnexion</span></button>
-                </form>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"></span> <span class="text-inline text-success" th:text="${user.prenom}+' '
+                            +${user.nom}"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li sec:authorize="hasAnyAuthority({'ADMINISTRATEUR','UTILISATEUR'})">
+                        <a th:href="@{/user/password}">Changer Password
+                        </a></li>
+                    <li>
+                        <form method="post" th:action="@{/logout}" th:hiden="true">
+                            <button class="btn btn-link"><span class="glyphicon glyphicon-log-out"></span>
+                                <span class="text-danger">Deconnexion</span></button>
+                        </form>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

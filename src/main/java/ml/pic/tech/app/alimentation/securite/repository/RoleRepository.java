@@ -1,6 +1,6 @@
-package ml.pic.tech.app.alimentation.repository;
+package ml.pic.tech.app.alimentation.securite.repository;
 
-import ml.pic.tech.app.alimentation.domaine.Role;
+import ml.pic.tech.app.alimentation.securite.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

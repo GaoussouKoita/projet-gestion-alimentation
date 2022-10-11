@@ -1,9 +1,10 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Vente;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
-import ml.pic.tech.app.alimentation.service.UserService;
 import ml.pic.tech.app.alimentation.service.VenteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/vente")
@@ -24,7 +26,7 @@ public class VenteController {
     @Autowired
     private VenteService service;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
     @Autowired
     private ProduitService produitService;
     @Autowired
@@ -34,21 +36,30 @@ public class VenteController {
     public String addForm(Model model) {
         LOGGER.info("Formulaire Vente");
         model.addAttribute("vente", new Vente());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
+//        model.addAttribute("io_prods", new ArrayList<IO_Produits>());
+        model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("magasins", magasinService.liste());
         return "vente/ajout";
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("vente") @Valid Vente vente, Errors errors, Model model) {
+    public String add(@ModelAttribute("vente") @Valid Vente vente,
+                      @ModelAttribute("io_prods") ArrayList<IO_Produits>io_produits,
+                      Errors errors, Model model) {
         LOGGER.info("Ajout de Vente dans la bd");
         if (errors.hasErrors()) {
-                model.addAttribute("userId", userService.findCurrentUser().getId());
-                model.addAttribute("produits", produitService.liste());
-
-                return "vente/ajout";
-            }
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
+            model.addAttribute("produits", produitService.liste());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
+            model.addAttribute("produits", produitService.liste());
+//            model.addAttribute("io_prods", new ArrayList<IO_Produits>());
+            model.addAttribute("magasins", magasinService.liste());
+            model.addAttribute("user", userService.currentUtilisateur());
+            return "vente/ajout";
+        }
+//        vente.setIo_produits(io_produits);
         System.err.println(vente);
             service.ajout(vente);
             model.addAttribute("vente", service.lecture(vente.getId()));
@@ -60,9 +71,10 @@ public class VenteController {
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Vente");
         model.addAttribute("vente", service.lecture(id));
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "vente/ajout";
     }
 
@@ -77,6 +89,7 @@ public class VenteController {
     @GetMapping("/search")
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("vente", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "vente/search";
     }
 
@@ -87,6 +100,7 @@ public class VenteController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "vente/liste";
     }
 }

@@ -1,9 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Commande;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.CommandeService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
-import ml.pic.tech.app.alimentation.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CommandeController {
     @Autowired
     private PersonneService personneService;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
 
 
     @GetMapping("/add")
@@ -33,7 +33,9 @@ public class CommandeController {
         LOGGER.info("Formulaire Commande");
         model.addAttribute("commande", new Commande());
         model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "commande/ajout";
     }
 
@@ -42,7 +44,9 @@ public class CommandeController {
         LOGGER.info("Ajout de Commande dans la base");
         if (errors.hasErrors()) {
             model.addAttribute("personnes", personneService.liste());
-            model.addAttribute("userId", userService.findCurrentUser().getId());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
+            model.addAttribute("user", userService.currentUtilisateur());
+
             return "commande/ajout";
         } else {
          service.ajout(commande);}
@@ -54,7 +58,9 @@ public class CommandeController {
         LOGGER.info("Mise a jour de Commande");
         model.addAttribute("commande", service.lecture(id));
         model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "commande/ajout";
     }
 
@@ -79,6 +85,8 @@ public class CommandeController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "commande/liste";
     }
 }

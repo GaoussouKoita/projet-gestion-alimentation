@@ -1,10 +1,10 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.TransfertStock;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.TransfertStockService;
-import ml.pic.tech.app.alimentation.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class TransfertStockController {
     @Autowired
     private MagasinService magasinService;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
 
     @GetMapping("/add")
     public String addForm(Model model) {
@@ -36,7 +36,8 @@ public class TransfertStockController {
         model.addAttribute("transfertStock", new TransfertStock());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "transfertStock/ajout";
     }
 
@@ -44,10 +45,11 @@ public class TransfertStockController {
     public String add(@ModelAttribute("transfertStock") @Valid TransfertStock transfertStock, Errors errors, Model model) {
 
         LOGGER.info("Ajout d'Approvission dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("magasins", magasinService.liste());
-            model.addAttribute("userId", userService.findCurrentUser().getId());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
             return "transfertStock/ajout";
         }
         service.ajout(transfertStock);
@@ -60,7 +62,8 @@ public class TransfertStockController {
         model.addAttribute("transfertStock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "transfertStock/ajout";
     }
 
@@ -85,6 +88,7 @@ public class TransfertStockController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "transfertStock/liste";
     }
 }

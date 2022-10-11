@@ -14,7 +14,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 //    public List<Commande> commandes();
 
 //    @Query(value = "Select c.id, c.date, c.statutCommande, p.id, p.nom, p.prenom, u.id, u.login " +
-//            "FROM Commande c, Personne p, User u where c.personne.id=p.id and c.user.id=u.id")
+//            "FROM Commande c, Personne p, Utilisateur u where c.personne.id=p.id and c.user.id=u.id")
 //
 //    @Query("SELCT * FROM Commande c")
 //    public Iterator<Commande> commandes();

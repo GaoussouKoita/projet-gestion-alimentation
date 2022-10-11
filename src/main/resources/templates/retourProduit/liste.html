@@ -38,11 +38,11 @@
             <td th:text="${retourProduit.user.prenom}+' '+${retourProduit.user.nom}+' | '+ ${retourProduit.user.telephone}"></td>
             <td>
                 <button class="btn btn-info">
-                    <a th:href="@{retour-produit/update(id=${retourProduit.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                    <a th:href="@{/retour-produit/update(id=${retourProduit.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
                 </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{retour-produit/delete(id=${retourProduit.id})}"><span class="glyphicon glyphicon-trash "></span></a>
+                       th:href="@{/retour-produit/delete(id=${retourProduit.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>

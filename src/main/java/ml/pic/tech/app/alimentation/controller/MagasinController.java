@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Magasin;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,17 +21,20 @@ public class MagasinController {
 
     @Autowired
     private MagasinService service;
-
+    @Autowired
+    private AccountService userService;
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Magasin");
         model.addAttribute("magasin", new Magasin());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("magasin") @Valid Magasin magasin, Errors errors, Model model) {
         LOGGER.info("Ajout de Magasin dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             return "magasin/ajout";
         } else {
@@ -43,6 +47,7 @@ public class MagasinController {
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Magasin");
         model.addAttribute("magasin", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/ajout";
     }
 
@@ -57,6 +62,7 @@ public class MagasinController {
     @GetMapping("/search")
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("magasin", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/search";
     }
 
@@ -67,6 +73,7 @@ public class MagasinController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/liste";
     }
 }

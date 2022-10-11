@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Personne;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,17 +21,21 @@ public class PersonneController {
 
     @Autowired
     private PersonneService service;
+    @Autowired
+    private AccountService userService;
 
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Client-Fournisseur");
         model.addAttribute("personne", new Personne());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "personne/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("personne") @Valid Personne personne, Errors errors, Model model) {
         LOGGER.info("Ajout de Client-Fournisseur dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             return "personne/ajout";
 
@@ -44,6 +49,7 @@ public class PersonneController {
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Client-Fournisseur");
         model.addAttribute("personne", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "personne/ajout";
     }
 
@@ -68,6 +74,7 @@ public class PersonneController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "personne/liste";
     }
 }

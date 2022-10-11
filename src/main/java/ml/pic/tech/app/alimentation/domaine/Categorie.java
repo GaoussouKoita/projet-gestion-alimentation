@@ -4,11 +4,12 @@ package ml.pic.tech.app.alimentation.domaine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Data
@@ -20,9 +21,4 @@ public class Categorie {
     private Long id;
     @Size(min = 2, message = "Veuillez inserer le nom de la categorie")
     private String nom;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "categorie")
-    private List<Produit> produits;
-
 }

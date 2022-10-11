@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.RetourProduit;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class RetourProduitController {
     @Autowired
     private PersonneService personneService;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
     @Autowired
     private ProduitService produitService;
     @Autowired
@@ -37,10 +38,11 @@ public class RetourProduitController {
         LOGGER.info("Formulaire retourProduit");
         model.addAttribute("retourProduit", new RetourProduit());
         model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("ventes", venteService.liste());
         model.addAttribute("magasins", magasinService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/ajout";
 
     }
@@ -50,10 +52,11 @@ public class RetourProduitController {
 
 
         LOGGER.info("Ajout de retoutProduit dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
 
         if (errors.hasErrors()) {
             model.addAttribute("personnes", personneService.liste());
-            model.addAttribute("userId", userService.findCurrentUser().getId());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("ventes", venteService.liste());
             model.addAttribute("magasins", magasinService.liste());
@@ -71,7 +74,8 @@ public class RetourProduitController {
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("ventes", venteService.liste());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/ajout";
     }
 
@@ -86,6 +90,7 @@ public class RetourProduitController {
     @GetMapping("/search")
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("retourProduit", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/search";
     }
 
@@ -96,6 +101,7 @@ public class RetourProduitController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/liste";
     }
 }

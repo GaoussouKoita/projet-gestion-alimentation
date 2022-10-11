@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.DetteClient;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.DetteClientService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
 import org.slf4j.Logger;
@@ -23,18 +24,21 @@ public class DetteClientController {
     private DetteClientService service;
     @Autowired
     private PersonneService personneService;
-
+    @Autowired
+    private AccountService userService;
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Dette");
         model.addAttribute("detteClient", new DetteClient());
         model.addAttribute("personnes", personneService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("detteClient") @Valid DetteClient detteClient, Errors errors, Model model) {
         LOGGER.info("Ajout de Dette dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("personnes", personneService.liste());
             return "detteClient/ajout";
@@ -48,6 +52,7 @@ public class DetteClientController {
         LOGGER.info("Update de Dette");
         model.addAttribute("detteClient", service.lecture(id));
         model.addAttribute("personnes", personneService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/ajout";
     }
 
@@ -62,6 +67,7 @@ public class DetteClientController {
     @GetMapping("/search")
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("detteClient", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/search";
     }
 
@@ -72,6 +78,7 @@ public class DetteClientController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/liste";
     }
 }

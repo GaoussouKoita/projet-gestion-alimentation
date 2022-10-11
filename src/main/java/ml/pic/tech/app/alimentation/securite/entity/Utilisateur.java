@@ -1,4 +1,4 @@
-package ml.pic.tech.app.alimentation.domaine;
+package ml.pic.tech.app.alimentation.securite.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
-public class User {
+public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +30,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
-    public User() {
+    public Utilisateur() {
 
         roles = new ArrayList<>();
     }

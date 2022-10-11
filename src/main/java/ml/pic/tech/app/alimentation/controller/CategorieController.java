@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Categorie;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,18 +21,25 @@ public class CategorieController {
 
     @Autowired
     private CategorieService service;
+    @Autowired
+    private AccountService userService;
 
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Categorie");
         model.addAttribute("categorie", new Categorie());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "categorie/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("categorie") @Valid  Categorie categorie, Errors errors, Model model) {
         LOGGER.info("Ajout de Categorie dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
+
         if (errors.hasErrors()) {
+
             return "categorie/ajout";
         } else {
         service.ajout(categorie);}
@@ -42,6 +50,7 @@ public class CategorieController {
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour de Categorie");
         model.addAttribute("categorie", service.lecture(id));
+        model.addAttribute("user", userService.currentUtilisateur());
         return "categorie/ajout";
     }
 
@@ -65,6 +74,8 @@ public class CategorieController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "categorie/liste";
     }
 }

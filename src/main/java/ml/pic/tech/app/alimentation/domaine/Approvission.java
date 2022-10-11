@@ -3,13 +3,13 @@ package ml.pic.tech.app.alimentation.domaine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,9 +31,10 @@ public class Approvission {
     @ManyToOne
     private Personne personne;
     @ManyToOne
-    private User user;
+    private Utilisateur user;
     @ManyToOne
     private Magasin magasin;
+
     @ManyToMany
     private List<IO_Produits> io_produits = new ArrayList<>();
 }

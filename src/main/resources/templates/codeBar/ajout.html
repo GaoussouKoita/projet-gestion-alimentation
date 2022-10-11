@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Code Barre</title>
+    <th:block th:include="header.html"></th:block>
+    </br>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title text-center">Creation de Code Barre</h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Texte a ecrire </label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="input" id="input" type="text"/>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" id="generer"><span class="glyphicon glyphicon-save"></span>Generer</button>
+                </div>
+
+                </form>
+                <div id="codeBar"></div>
+
+            </div>
+        </div>
+    </div>
+
+    </body>
+    <script>
+        $(document).ready(function(){
+            $('#generer').click(function(){
+                $('#codeBar').append('<svg id="barcode"></svg>');
+            var texte = $("#inpt").val();
+
+            JsBarcode("#barcode", "${text}", {
+                  format: "pharmacode",
+                  lineColor: "#0aa",
+                  width: 4,
+                  height: 40,
+                  displayValue: false
+                });
+
+            });
+        });
+    </script>
+</html>

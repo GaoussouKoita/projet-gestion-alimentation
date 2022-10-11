@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Produit;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import org.slf4j.Logger;
@@ -23,12 +24,14 @@ public class ProduitController {
     private ProduitService service;
     @Autowired
     private CategorieService categorieService;
-
+    @Autowired
+    private AccountService userService;
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Produit");
         model.addAttribute("produit", new Produit());
         model.addAttribute("categories", categorieService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "produit/ajout";
     }
 
@@ -36,6 +39,7 @@ public class ProduitController {
     public String add(@ModelAttribute("produit") @Valid Produit produit, Errors errors, Model model) {
         LOGGER.info("Ajout de Produit dans la bd");
         model.addAttribute("categories", categorieService.liste());
+        model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("categories", categorieService.liste());
             return "produit/ajout";
@@ -49,6 +53,7 @@ public class ProduitController {
     @GetMapping("/update")
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Produit");
+        model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("produit", service.lecture(id));
         model.addAttribute("categories", categorieService.liste());
         return "produit/ajout";
@@ -64,6 +69,7 @@ public class ProduitController {
 
     @GetMapping("/search")
     public String rechercher(@RequestParam("nom") String nom, Model model) {
+        model.addAttribute("user", userService.currentUtilisateur());
 
 
         model.addAttribute("produits", service.rechParNom(nom));
@@ -80,6 +86,7 @@ public class ProduitController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "produit/liste";
     }
 }

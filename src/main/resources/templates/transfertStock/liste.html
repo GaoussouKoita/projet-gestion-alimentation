@@ -27,7 +27,7 @@
             <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
             <td>
                 <button class="btn btn-info">
-                    <a th:href="@{/transfertStock/update(id=${transfertStock.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                    <a th:href="@{/transfert-stock/update(id=${transfertStock.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
                 </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"

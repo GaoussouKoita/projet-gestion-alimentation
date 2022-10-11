@@ -1,4 +1,4 @@
-package ml.pic.tech.app.alimentation.domaine;
+package ml.pic.tech.app.alimentation.securite.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

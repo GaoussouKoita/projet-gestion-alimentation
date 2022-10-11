@@ -1,8 +1,8 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Depense;
+import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.DepenseService;
-import ml.pic.tech.app.alimentation.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,25 @@ public class DepenseController {
     @Autowired
     private DepenseService service;
     @Autowired
-    private UserService userService;
+    private AccountService userService;
 
     @GetMapping("/add")
     public String addForm(Model model) {
         LOGGER.info("Formulaire Depense");
         model.addAttribute("depense", new Depense());
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
+
         return "depense/ajout";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute("depense") @Valid Depense depense, Errors errors, Model model) {
         LOGGER.info("Ajout de Depense dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
+
         if (errors.hasErrors()) {
-            model.addAttribute("userId", userService.findCurrentUser().getId());
+            model.addAttribute("userId", userService.currentUtilisateur().getId());
             return "depense/ajout";
         } else {
         service.ajout(depense);}
@@ -47,7 +51,8 @@ public class DepenseController {
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Depense");
         model.addAttribute("depense", service.lecture(id));
-        model.addAttribute("userId", userService.findCurrentUser().getId());
+        model.addAttribute("userId", userService.currentUtilisateur().getId());
+        model.addAttribute("user", userService.currentUtilisateur());
         return "depense/ajout";
     }
 
@@ -72,6 +77,7 @@ public class DepenseController {
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
         return "depense/liste";
     }
 }

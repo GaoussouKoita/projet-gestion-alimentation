@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.domaine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Vente {
     private double remise;
     private String typeVente;
     @ManyToOne
-    private User user;
+    private Utilisateur user;
     @ManyToOne
     private Magasin magasin;
     @ManyToMany

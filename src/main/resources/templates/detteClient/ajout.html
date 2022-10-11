@@ -10,7 +10,7 @@
             <h2 class="panel-title text-center">Ajout et Update de Dette Client</h2>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" method="POST" th:action="@{/detteClient/add}"
+            <form class="form-horizontal" method="POST" th:action="@{/dette-client/add}"
                   th:object="${detteClient}">
                 <input class="form-control" th:field="*{id}" type="hidden"/>
 
@@ -44,8 +44,9 @@
                     </div>
                 </div>
 
-                <div class="text-center">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder</button>
+                <div class="panel-footer text-center">
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
+                    </button>
                 </div>
             </form>
         </div>

@@ -23,11 +23,11 @@
             <td th:text="${ detteClient.personne.nom }"></td>
             <td>
                 <button class="btn btn-info">
-                    <a th:href="@{/detteClient/update(id=${detteClient.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                    <a th:href="@{/dette-client/update(id=${detteClient.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
                 </button>
                 <button class="btn btn-danger">
                     <a onclick="return confirm('Etes-vous sur?')"
-                       th:href="@{/detteClient/delete(id=${detteClient.id})}"><span class="glyphicon glyphicon-trash "></span></a>
+                       th:href="@{/dette-client/delete(id=${detteClient.id})}"><span class="glyphicon glyphicon-trash "></span></a>
                 </button>
             </td>
         </tr>
@@ -35,7 +35,7 @@
     </table>
     <ul class="pagination" th:if="${totalElements} > 8 ">
         <li th:classappend="${currentPage}==${status.index}?'active':''" th:each=" page, status:${pages}">
-            <a th:href="@{/detteClient/liste(page=${status.index})}" th:text="${status.index+1}"></a>
+            <a th:href="@{/dette-client/liste(page=${status.index})}" th:text="${status.index+1}"></a>
         </li>
     </ul>
 </div>

@@ -40,6 +40,7 @@
                     </div>
                 </div>
 
+
                 <div class="form-group">
                     <label class="control-label col-md-2">Produit</label>
                     <div class="col-md-10">
@@ -51,7 +52,8 @@
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <button class="close btn btn-info btn-lg" data-dismiss="modal" type="button">
+                                        <button class="close btn btn-info btn-lg" data-dismiss="modal"
+                                                type="button">
                                             &times;
                                         </button>
                                         <h4 class="modal-title ">Ajout de Produit</h4>
@@ -106,42 +108,16 @@
                     </div>
                 </div>
 
-                <!-- JS INPUT
-                <div class="form-group">
-                    <label class="control-label col-md-2">Produits</label>
-                    <div class="col-md-10">
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <button class="btn btn-md btn-primary" id="addBtn" type="button">New</button>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Quantite</th>
-                                        <th>Prix</th>
-                                        <th>Type</th>
-                                        <th>Produit</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tbody" th:field="*{io_produits}"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-
                 <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
 
-                <div class="text-center">
-                    <button class="btn btn-primary"><span
-                            class="glyphicon glyphicon-save"></span> Sauvegarder
+                <div class="panel-footer text-center">
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
     </body>
-    <script th:src="@{/js/jQuery.js}"></script>
     <script th:src="@{/js/myScript.js}"></script>
 </html>
