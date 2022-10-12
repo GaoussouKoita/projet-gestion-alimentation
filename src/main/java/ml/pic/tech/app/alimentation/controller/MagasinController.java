@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.controller;
 import ml.pic.tech.app.alimentation.domaine.Magasin;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/magasin")
+@RequestMapping(Endpoint.MAGASIN_ENDPOINT)
 public class MagasinController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -23,7 +24,7 @@ public class MagasinController {
     private MagasinService service;
     @Autowired
     private AccountService userService;
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Magasin");
         model.addAttribute("magasin", new Magasin());
@@ -31,7 +32,7 @@ public class MagasinController {
         return "magasin/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("magasin") @Valid Magasin magasin, Errors errors, Model model) {
         LOGGER.info("Ajout de Magasin dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
@@ -43,7 +44,7 @@ public class MagasinController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Magasin");
         model.addAttribute("magasin", service.lecture(id));
@@ -51,7 +52,7 @@ public class MagasinController {
         return "magasin/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Magasin");
         service.suppression(id);
@@ -59,14 +60,14 @@ public class MagasinController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("magasin", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Magasins");
         model.addAttribute("magasins", service.liste(page).getContent());

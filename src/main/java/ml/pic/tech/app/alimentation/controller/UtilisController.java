@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.controller;
 
 
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class UtilisController {
     @Autowired
     private AccountService userService;
 
-    @GetMapping("/")
+    @GetMapping(Endpoint.ACCEUIL_ENDPOINT)
     public String home(Model model) {
         LOGGER.info("Page d'acceuil");
         model.addAttribute("user", userService.currentUtilisateur());
@@ -26,17 +27,12 @@ public class UtilisController {
 
 
 
-    @GetMapping("/login")
+    @GetMapping(Endpoint.LOGIN_ENDPOINT)
     public String login() {
         LOGGER.info("Page d'Authentification");
         return "login";
     }
 
-    @GetMapping("/field")
-    public String fieldDynamic() {
-        LOGGER.info("Page d'authentification");
-        return "field";
-    }
 
 
 }

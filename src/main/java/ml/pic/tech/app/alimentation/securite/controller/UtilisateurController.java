@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.securite.controller;
 import ml.pic.tech.app.alimentation.securite.entity.ChangePassword;
 import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping(Endpoint.UTILISATEUR_ENDPOINT)
 public class UtilisateurController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -23,23 +24,23 @@ public class UtilisateurController {
     private AccountService accountService;
 
 
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire user");
         model.addAttribute("userNew", new Utilisateur());
         model.addAttribute("roles", accountService.roleList());
         model.addAttribute("user", accountService.currentUtilisateur());
-        return "user/ajout";
+        return "utilisateur/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("userNew") @Valid Utilisateur utilisateur, Errors errors, Model model) {
         LOGGER.info("Ajout user dans la bd");
         model.addAttribute("user", accountService.currentUtilisateur());
         if (errors.hasErrors()) {
 
             model.addAttribute("roles", accountService.roleList());
-            return "user/ajout";
+            return "utilisateur/ajout";
 
         } else {
             accountService.addUtilisateur(utilisateur);
@@ -48,17 +49,17 @@ public class UtilisateurController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update user");
         model.addAttribute("user", accountService.currentUtilisateur());
         model.addAttribute("userNew", accountService.lecture(id));
         model.addAttribute("userRoles", accountService.lecture(id).getRoles());
         model.addAttribute("roles", accountService.roleList());
-        return "user/ajout";
+        return "utilisateur/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.warn("Suppression user");
         accountService.suppression(id);
@@ -66,13 +67,13 @@ public class UtilisateurController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("userNew", accountService.lecture(id));
-        return "user/search";
+        return "utilisateur/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister users");
         model.addAttribute("users", accountService.utilisateurListPage(page).getContent());
@@ -80,18 +81,18 @@ public class UtilisateurController {
         model.addAttribute("pages", new int[accountService.utilisateurListPage(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("user", accountService.currentUtilisateur());
-        return "user/liste";
+        return "utilisateur/liste";
     }
 
 
-    @GetMapping("/password")
+    @GetMapping(Endpoint.PASSWORD_ENDPOINT)
     public String changePasswordForm(Model model) {
         model.addAttribute("changePassword", new ChangePassword());
         model.addAttribute("user", accountService.currentUtilisateur());
-        return "user/password";
+        return "utilisateur/password";
     }
 
-    @PostMapping("/password")
+    @PostMapping(Endpoint.PASSWORD_ENDPOINT)
     public String PasswordForm(@ModelAttribute("changePassword") @Valid ChangePassword changePassword, Errors errors, Model model) {
         model.addAttribute("user", accountService.currentUtilisateur());
 
@@ -117,9 +118,9 @@ public class UtilisateurController {
         }
 
         if (errors.hasErrors()) {
-            return "user/password";
+            return "utilisateur/password";
         }
-        return "user/password";    }
+        return "utilisateur/password";    }
 
 
 }

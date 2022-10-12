@@ -4,6 +4,7 @@ import ml.pic.tech.app.alimentation.domaine.DetteClient;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.DetteClientService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/dette-client")
+@RequestMapping(Endpoint.DETTE_CLIENT_ENDPOINT)
 public class DetteClientController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -26,7 +27,7 @@ public class DetteClientController {
     private PersonneService personneService;
     @Autowired
     private AccountService userService;
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Dette");
         model.addAttribute("detteClient", new DetteClient());
@@ -35,7 +36,7 @@ public class DetteClientController {
         return "detteClient/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("detteClient") @Valid DetteClient detteClient, Errors errors, Model model) {
         LOGGER.info("Ajout de Dette dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
@@ -47,7 +48,7 @@ public class DetteClientController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Dette");
         model.addAttribute("detteClient", service.lecture(id));
@@ -56,7 +57,7 @@ public class DetteClientController {
         return "detteClient/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Dette");
         service.suppression(id);
@@ -64,14 +65,14 @@ public class DetteClientController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("detteClient", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Dettes");
         model.addAttribute("detteClients", service.liste(page).getContent());

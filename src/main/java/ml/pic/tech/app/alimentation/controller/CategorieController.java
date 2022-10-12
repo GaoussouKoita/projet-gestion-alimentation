@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.controller;
 import ml.pic.tech.app.alimentation.domaine.Categorie;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/categorie")
+@RequestMapping(Endpoint.CATEGORIE_ENDPOINT)
 public class CategorieController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -24,7 +25,7 @@ public class CategorieController {
     @Autowired
     private AccountService userService;
 
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Categorie");
         model.addAttribute("categorie", new Categorie());
@@ -33,7 +34,7 @@ public class CategorieController {
         return "categorie/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("categorie") @Valid  Categorie categorie, Errors errors, Model model) {
         LOGGER.info("Ajout de Categorie dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
@@ -42,11 +43,11 @@ public class CategorieController {
 
             return "categorie/ajout";
         } else {
-        service.ajout(categorie);}
+            service.ajout(categorie);}
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour de Categorie");
         model.addAttribute("categorie", service.lecture(id));
@@ -54,20 +55,20 @@ public class CategorieController {
         return "categorie/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Categorie");
         service.suppression(id);
         return "redirect:liste";
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("categorie", service.lecture(id));
         return "categorie/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0")int page) {
         LOGGER.info("Lister Categories");
         model.addAttribute("categories", service.liste(page).getContent());

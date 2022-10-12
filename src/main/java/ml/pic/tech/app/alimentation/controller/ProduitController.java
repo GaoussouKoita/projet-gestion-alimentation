@@ -4,6 +4,7 @@ import ml.pic.tech.app.alimentation.domaine.Produit;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/produit")
+@RequestMapping(Endpoint.PRODUIT_ENDPOINT)
 public class ProduitController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -26,7 +27,8 @@ public class ProduitController {
     private CategorieService categorieService;
     @Autowired
     private AccountService userService;
-    @GetMapping("/add")
+
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Produit");
         model.addAttribute("produit", new Produit());
@@ -35,7 +37,7 @@ public class ProduitController {
         return "produit/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("produit") @Valid Produit produit, Errors errors, Model model) {
         LOGGER.info("Ajout de Produit dans la bd");
         model.addAttribute("categories", categorieService.liste());
@@ -50,7 +52,7 @@ public class ProduitController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Produit");
         model.addAttribute("user", userService.currentUtilisateur());
@@ -59,7 +61,7 @@ public class ProduitController {
         return "produit/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Produit");
         service.suppression(id);
@@ -67,7 +69,7 @@ public class ProduitController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("nom") String nom, Model model) {
         model.addAttribute("user", userService.currentUtilisateur());
 
@@ -79,7 +81,7 @@ public class ProduitController {
         return "produit/liste";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Produits");
         model.addAttribute("produits", service.liste(page).getContent());

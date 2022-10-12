@@ -205,19 +205,18 @@
             <li class="dropdown"
                 sec:authorize="hasAuthority('ADMINISTRATEUR')"
                 th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                th:with="urls=${'/user/add'}">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/user/add}">User<span
+                th:with="urls=${'/utilisateur/add'}">
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/utilisateur/add}">Utilisateur<span
                         class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                        th:with="urls=${'/user/add'}"><a
-                            th:href="@{/user/add}">Nouvelle User</a></li>
+                        th:with="urls=${'/utilisateur/add'}"><a
+                            th:href="@{/utilisateur/add}">Nouvel Utilisateur</a></li>
                     <li th:class="${#arrays.contains(urls, #httpServletRequest.getRequestURI()) ? 'active' : ''}"
-                        th:with="urls=${'/user/liste'}"><a
-                            th:href="@{/user/liste}">Liste User</a></li>
+                        th:with="urls=${'/utilisateur/liste'}"><a
+                            th:href="@{/utilisateur/liste}">Liste Utilisateur</a></li>
                 </ul>
             </li>
-
         </ul>
 
         <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
@@ -227,7 +226,7 @@
                             +${user.nom}"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li sec:authorize="hasAnyAuthority({'ADMINISTRATEUR','UTILISATEUR'})">
-                        <a th:href="@{/user/password}">Changer Password
+                        <a th:href="@{/utilisateur/password}">Changer Password
                         </a></li>
                     <li>
                         <form method="post" th:action="@{/logout}" th:hiden="true">

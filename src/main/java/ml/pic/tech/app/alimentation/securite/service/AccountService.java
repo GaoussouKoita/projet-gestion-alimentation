@@ -37,30 +37,13 @@ public class AccountService {
         return utilisateurRepository.findByLogin(login);
     }
 
-    public List<Role> roleList() {
-        return roleRepository.findAll();
-    }
-
-    public boolean passwordEncodeVerifie(String oldPassword, String password) {
-        return passwordEncoder.matches(oldPassword, password);
-    }
-
-
-    public Utilisateur lecture(Long id) {
-
-        return utilisateurRepository.findById(id).get();
-    }
-
     public void suppression(Long id) {
 
         utilisateurRepository.deleteById(id);
     }
+    public Utilisateur lecture(Long id) {
 
-    public Utilisateur currentUtilisateur() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String login = authentication.getName();
-        Utilisateur utilisateur = utilisateurRepository.findByLogin(login);
-        return utilisateur;
+       return utilisateurRepository.findById(id).get();
     }
 
     public List<Utilisateur> utilisateurList() {
@@ -74,9 +57,25 @@ public class AccountService {
                 Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
     }
 
+    public List<Role> roleList() {
+        return roleRepository.findAll();
+    }
+
+
+    public Utilisateur currentUtilisateur() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        Utilisateur utilisateur = utilisateurRepository.findByLogin(login);
+        return utilisateur;
+    }
+
     public void updatePassword(String email, String newPassword) {
         String newPasswordEncode = passwordEncoder.encode(newPassword);
 
         utilisateurRepository.updateUtilisateurByLogin(email, newPasswordEncode);
+    }
+
+    public boolean passwordEncodeVerifie(String oldPassword, String password) {
+        return passwordEncoder.matches(oldPassword, password);
     }
 }

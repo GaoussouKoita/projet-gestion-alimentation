@@ -5,6 +5,7 @@ import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.TransfertStockService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/transfert-stock")
+@RequestMapping(Endpoint.TRANSFERT_STOCK_ENDPOINT)
 public class TransfertStockController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -30,7 +31,7 @@ public class TransfertStockController {
     @Autowired
     private AccountService userService;
 
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Approvission");
         model.addAttribute("transfertStock", new TransfertStock());
@@ -41,7 +42,7 @@ public class TransfertStockController {
         return "transfertStock/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("transfertStock") @Valid TransfertStock transfertStock, Errors errors, Model model) {
 
         LOGGER.info("Ajout d'Approvission dans la bd");
@@ -56,7 +57,7 @@ public class TransfertStockController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update d'Approvission");
         model.addAttribute("transfertStock", service.lecture(id));
@@ -67,7 +68,7 @@ public class TransfertStockController {
         return "transfertStock/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'Approvission");
         service.suppression(id);
@@ -75,13 +76,13 @@ public class TransfertStockController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("transfertStock", service.lecture(id));
         return "transfertStock/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Approvission");
         model.addAttribute("transfertStocks", service.liste(page).getContent());

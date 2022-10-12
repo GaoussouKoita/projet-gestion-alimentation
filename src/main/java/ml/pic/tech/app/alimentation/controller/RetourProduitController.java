@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.controller;
 import ml.pic.tech.app.alimentation.domaine.RetourProduit;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.*;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/retour-produit")
+@RequestMapping(Endpoint.RETOUR_PRODUIT_ENDPOINT)
 public class RetourProduitController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -33,7 +34,7 @@ public class RetourProduitController {
     private VenteService venteService;
 
 
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire retourProduit");
         model.addAttribute("retourProduit", new RetourProduit());
@@ -47,7 +48,7 @@ public class RetourProduitController {
 
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("retourProduit") @Valid RetourProduit retourProduit, Errors errors, Model model) {
 
 
@@ -67,7 +68,7 @@ public class RetourProduitController {
         return "redirect:liste";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour de Retour Produit");
         model.addAttribute("retourProduit", service.lecture(id));
@@ -79,7 +80,7 @@ public class RetourProduitController {
         return "retourProduit/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'une Retour Produit");
         service.suppression(id);
@@ -87,14 +88,14 @@ public class RetourProduitController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("retourProduit", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister retourProduits");
         model.addAttribute("retourProduits", service.liste(page).getContent());

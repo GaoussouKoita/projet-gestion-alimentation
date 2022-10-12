@@ -23,5 +23,5 @@ public class Magasin {
     private String nom;
     @Size(min = 2, message = "Veuillez inserer l'adresse du magasin svp !")
     private String adresse;
-    private String telephone;
+    private Long telephone;
 }

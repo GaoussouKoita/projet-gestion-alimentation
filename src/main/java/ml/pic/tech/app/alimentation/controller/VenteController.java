@@ -6,6 +6,7 @@ import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.VenteService;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("/vente")
+@RequestMapping(Endpoint.VENTE_ENDPOINT)
 public class VenteController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Logger.class);
@@ -32,7 +33,7 @@ public class VenteController {
     @Autowired
     private MagasinService magasinService;
 
-    @GetMapping("/add")
+    @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Vente");
         model.addAttribute("vente", new Vente());
@@ -44,7 +45,7 @@ public class VenteController {
         return "vente/ajout";
     }
 
-    @PostMapping("/add")
+    @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("vente") @Valid Vente vente,
                       @ModelAttribute("io_prods") ArrayList<IO_Produits>io_produits,
                       Errors errors, Model model) {
@@ -67,7 +68,7 @@ public class VenteController {
         return "vente/search";
     }
 
-    @GetMapping("/update")
+    @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Vente");
         model.addAttribute("vente", service.lecture(id));
@@ -78,7 +79,7 @@ public class VenteController {
         return "vente/ajout";
     }
 
-    @GetMapping("/delete")
+    @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Vente");
         service.suppression(id);
@@ -86,14 +87,14 @@ public class VenteController {
 
     }
 
-    @GetMapping("/search")
+    @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("vente", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "vente/search";
     }
 
-    @GetMapping("/liste")
+    @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Ventes");
         model.addAttribute("ventes", service.liste(page).getContent());

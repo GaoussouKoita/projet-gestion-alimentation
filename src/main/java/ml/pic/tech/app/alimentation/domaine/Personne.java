@@ -23,7 +23,7 @@ public class Personne {
     @Size(min = 2, message = "Veuillez entre le prenom svp!")
     private String prenom;
     private String adresse;
-    private String telephone;
+    private Long telephone;
     private String typeCompte;
 
 //    @ToString.Exclude
