@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Commande;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.CommandeService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
@@ -27,6 +28,8 @@ public class CommandeController {
     private PersonneService personneService;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)

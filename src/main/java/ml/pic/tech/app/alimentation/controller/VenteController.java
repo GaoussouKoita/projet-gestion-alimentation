@@ -1,8 +1,10 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Vente;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.VenteService;
@@ -32,10 +34,14 @@ public class VenteController {
     private ProduitService produitService;
     @Autowired
     private MagasinService magasinService;
+    @Autowired
+    private AuditService auditService;
+
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Vente");
+        auditService.ajoutAudit(new Audit("Formulaire Vente", "Nouvelle Vente"));
         model.addAttribute("vente", new Vente());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
@@ -47,9 +53,10 @@ public class VenteController {
 
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("vente") @Valid Vente vente,
-                      @ModelAttribute("io_prods") ArrayList<IO_Produits>io_produits,
                       Errors errors, Model model) {
         LOGGER.info("Ajout de Vente dans la bd");
+        model.addAttribute("user", userService.currentUtilisateur());
+        auditService.ajoutAudit(new Audit("Ajout/Update Vente", vente.toString()));
         if (errors.hasErrors()) {
             model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
@@ -57,7 +64,6 @@ public class VenteController {
             model.addAttribute("produits", produitService.liste());
 //            model.addAttribute("io_prods", new ArrayList<IO_Produits>());
             model.addAttribute("magasins", magasinService.liste());
-            model.addAttribute("user", userService.currentUtilisateur());
             return "vente/ajout";
         }
 //        vente.setIo_produits(io_produits);
@@ -71,6 +77,7 @@ public class VenteController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Vente");
+        auditService.ajoutAudit(new Audit("Formulaire Update Vente", service.lecture(id).toString()));
         model.addAttribute("vente", service.lecture(id));
         model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
@@ -82,6 +89,7 @@ public class VenteController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Vente");
+        auditService.ajoutAudit(new Audit("Suppression Vente", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
 
@@ -97,6 +105,7 @@ public class VenteController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Ventes");
+        auditService.ajoutAudit(new Audit("Liste Vente", "Ventes"));
         model.addAttribute("ventes", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

@@ -32,4 +32,5 @@ public interface Endpoint {
     String ACCEUIL_ENDPOINT = "/";
     String LOGIN_ENDPOINT = "/login";
 
+    String AUDIT_ENDPOINT = "/audit";
 }

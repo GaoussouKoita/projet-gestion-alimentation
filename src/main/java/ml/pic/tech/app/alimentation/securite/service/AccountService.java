@@ -57,6 +57,9 @@ public class AccountService {
                 Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
     }
 
+    public void addRole(Role role){
+        roleRepository.save(role);
+    }
     public List<Role> roleList() {
         return roleRepository.findAll();
     }

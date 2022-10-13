@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Produit;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
@@ -27,10 +29,13 @@ public class ProduitController {
     private CategorieService categorieService;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Produit");
+        auditService.ajoutAudit(new Audit("Formulaire Produit", "Nouveau Produit"));
         model.addAttribute("produit", new Produit());
         model.addAttribute("categories", categorieService.liste());
         model.addAttribute("user", userService.currentUtilisateur());
@@ -40,6 +45,7 @@ public class ProduitController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("produit") @Valid Produit produit, Errors errors, Model model) {
         LOGGER.info("Ajout de Produit dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update", produit.toString()));
         model.addAttribute("categories", categorieService.liste());
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
@@ -55,6 +61,7 @@ public class ProduitController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Produit");
+        auditService.ajoutAudit(new Audit("Formulaire Update Produit", service.lecture(id).toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("produit", service.lecture(id));
         model.addAttribute("categories", categorieService.liste());
@@ -64,6 +71,7 @@ public class ProduitController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Produit");
+        auditService.ajoutAudit(new Audit("Suppression Produit", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
 
@@ -71,9 +79,9 @@ public class ProduitController {
 
     @GetMapping(Endpoint.SEARCH_ENDPOINT)
     public String rechercher(@RequestParam("nom") String nom, Model model) {
+        LOGGER.info("Recherche de produit par nom");
+        auditService.ajoutAudit(new Audit("Recherche Produit par nom", nom));
         model.addAttribute("user", userService.currentUtilisateur());
-
-
         model.addAttribute("produits", service.rechParNom(nom));
         model.addAttribute("totalElements", service.rechParNom(nom).getTotalElements());
         model.addAttribute("pages", new int[ service.rechParNom(nom).getTotalPages()]);
@@ -84,6 +92,7 @@ public class ProduitController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Produits");
+        auditService.ajoutAudit(new Audit("Liste Produit", "Produits"));
         model.addAttribute("produits", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

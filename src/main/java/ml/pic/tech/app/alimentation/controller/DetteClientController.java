@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.DetteClient;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.DetteClientService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
@@ -27,9 +29,14 @@ public class DetteClientController {
     private PersonneService personneService;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
+
+
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Dette");
+        auditService.ajoutAudit(new Audit("Formulaire Dette Client", "Nouvelle Dette Client"));
         model.addAttribute("detteClient", new DetteClient());
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("user", userService.currentUtilisateur());
@@ -39,6 +46,7 @@ public class DetteClientController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("detteClient") @Valid DetteClient detteClient, Errors errors, Model model) {
         LOGGER.info("Ajout de Dette dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Dette Client", detteClient.toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("personnes", personneService.liste());
@@ -51,6 +59,7 @@ public class DetteClientController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Dette");
+        auditService.ajoutAudit(new Audit("Formulaire Update Dette Client", service.lecture(id).toString()));
         model.addAttribute("detteClient", service.lecture(id));
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("user", userService.currentUtilisateur());
@@ -60,6 +69,7 @@ public class DetteClientController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Dette");
+        auditService.ajoutAudit(new Audit("Suppression Dette Client", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
 
@@ -75,6 +85,7 @@ public class DetteClientController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Dettes");
+        auditService.ajoutAudit(new Audit("Liste Dette Client", "Dettes Clienst"));
         model.addAttribute("detteClients", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

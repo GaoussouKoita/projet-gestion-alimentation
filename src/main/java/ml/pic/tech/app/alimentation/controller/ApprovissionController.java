@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Approvission;
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.*;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
@@ -30,11 +31,15 @@ public class ApprovissionController {
     private ProduitService produitService;
     @Autowired
     private MagasinService magasinService;
+    @Autowired
+    private AuditService auditService;
 
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Approvission");
+        auditService.ajoutAudit(new Audit("Formulaire", "Nouvelle Approvission"));
+
         model.addAttribute("approvission", new Approvission());
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
@@ -51,6 +56,7 @@ public class ApprovissionController {
 
         LOGGER.info("Ajout d'Approvission dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
+        auditService.ajoutAudit(new Audit("Ajout/Update Approvision", approvission.toString()));
 
 
         if (errors.hasErrors()) {
@@ -69,19 +75,23 @@ public class ApprovissionController {
 
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Mise a jour d'un Approvision");
+        /*LOGGER.info("Mise a jour d'un Approvision");
+        auditService.ajoutAudit(new Audit("Formulaire Update", ));
+
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
         model.addAttribute("user", userService.currentUtilisateur());
-
+*/
         return "approvission/ajout";
     }
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'une Approvission");
+        auditService.ajoutAudit(new Audit("Suppression Approvision", service.lecture(id).toString()));
+
         service.suppression(id);
         return "redirect:liste";
 
@@ -96,6 +106,8 @@ public class ApprovissionController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Approvissions");
+        auditService.ajoutAudit(new Audit("Liste"," Approvision"));
+
         model.addAttribute("approvissions", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

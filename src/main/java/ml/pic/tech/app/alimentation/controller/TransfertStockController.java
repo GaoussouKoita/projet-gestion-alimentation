@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.TransfertStock;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.TransfertStockService;
@@ -30,10 +32,13 @@ public class TransfertStockController {
     private MagasinService magasinService;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Approvission");
+        auditService.ajoutAudit(new Audit("Formulaire Transfert Stock","Nouveau Transfert Stock"));
         model.addAttribute("transfertStock", new TransfertStock());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
@@ -46,6 +51,7 @@ public class TransfertStockController {
     public String add(@ModelAttribute("transfertStock") @Valid TransfertStock transfertStock, Errors errors, Model model) {
 
         LOGGER.info("Ajout d'Approvission dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Transfert Stock", transfertStock.toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("produits", produitService.liste());
@@ -60,6 +66,7 @@ public class TransfertStockController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update d'Approvission");
+        auditService.ajoutAudit(new Audit("Formulaire Update Transfert Stock", service.lecture(id).toString()));
         model.addAttribute("transfertStock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
@@ -71,6 +78,8 @@ public class TransfertStockController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'Approvission");
+        auditService.ajoutAudit(new Audit("Suppression Transfert Stock", service.lecture(id).toString()));
+
         service.suppression(id);
         return "redirect:liste";
 
@@ -85,6 +94,7 @@ public class TransfertStockController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Approvission");
+        auditService.ajoutAudit(new Audit("Liste Transfert Stock", "Transferts Stocks"));
         model.addAttribute("transfertStocks", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

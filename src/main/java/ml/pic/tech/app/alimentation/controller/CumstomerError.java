@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -27,6 +28,9 @@ public class CumstomerError implements ErrorController {
 
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
+
 
     @GetMapping(Endpoint.ERROR_ENDPOINT)
     public String notFound(HttpServletRequest request, Model model) {

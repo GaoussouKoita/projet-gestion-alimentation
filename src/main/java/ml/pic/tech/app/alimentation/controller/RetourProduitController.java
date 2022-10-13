@@ -1,5 +1,6 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.RetourProduit;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.*;
@@ -32,11 +33,14 @@ public class RetourProduitController {
     private MagasinService magasinService;
     @Autowired
     private VenteService venteService;
+    @Autowired
+    private AuditService auditService;
 
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire retourProduit");
+        auditService.ajoutAudit(new Audit("Formulaire Retour Produit", "Nouveau Retour Produit"));
         model.addAttribute("retourProduit", new RetourProduit());
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
@@ -53,6 +57,8 @@ public class RetourProduitController {
 
 
         LOGGER.info("Ajout de retoutProduit dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Retour Produit", retourProduit.toString()));
+
         model.addAttribute("user", userService.currentUtilisateur());
 
         if (errors.hasErrors()) {
@@ -71,6 +77,8 @@ public class RetourProduitController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour de Retour Produit");
+        auditService.ajoutAudit(new Audit("Formulaire Update Retour Produit", service.lecture(id).toString()));
+
         model.addAttribute("retourProduit", service.lecture(id));
         model.addAttribute("personnes", personneService.liste());
         model.addAttribute("produits", produitService.liste());
@@ -83,6 +91,8 @@ public class RetourProduitController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'une Retour Produit");
+        auditService.ajoutAudit(new Audit("Suppression Retour Produit", service.lecture(id).toString()));
+
         service.suppression(id);
         return "redirect:liste";
 
@@ -98,6 +108,8 @@ public class RetourProduitController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister retourProduits");
+        auditService.ajoutAudit(new Audit("Liste Retour Produit", "Retour Produits"));
+
         model.addAttribute("retourProduits", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[service.liste(page).getTotalPages()]);

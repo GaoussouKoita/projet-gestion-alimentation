@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Magasin;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
@@ -23,10 +25,13 @@ public class MagasinController {
     @Autowired
     private MagasinService service;
     @Autowired
-    private AccountService userService;
+    private AccountService userService; @Autowired
+    private AuditService auditService;
+
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Magasin");
+        auditService.ajoutAudit(new Audit("Formulaire Magasin", "Nouveau Magasin"));
         model.addAttribute("magasin", new Magasin());
         model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/ajout";
@@ -35,6 +40,7 @@ public class MagasinController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("magasin") @Valid Magasin magasin, Errors errors, Model model) {
         LOGGER.info("Ajout de Magasin dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Magasin", magasin.toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             return "magasin/ajout";
@@ -47,6 +53,7 @@ public class MagasinController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Magasin");
+        auditService.ajoutAudit(new Audit("Formulaire Update", service.lecture(id).toString()));
         model.addAttribute("magasin", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "magasin/ajout";
@@ -55,6 +62,7 @@ public class MagasinController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Magasin");
+        auditService.ajoutAudit(new Audit("Suppression Magasin", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
 
@@ -70,6 +78,7 @@ public class MagasinController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Magasins");
+        auditService.ajoutAudit(new Audit("Liste Magasin", "Magasins"));
         model.addAttribute("magasins", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,7 +41,7 @@ public class SecuriteConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.
+         http.
                 authorizeRequests().antMatchers("/login", "/error", "/user/password", "/css/**", "/js/**", "/fonts/**").permitAll().
                 and().authorizeRequests().antMatchers("/user/**").hasAuthority("ADMINISTRATEUR").
                 and().authorizeRequests().antMatchers("/user/password").hasAnyAuthority("UTILISATEUR" ,"ADMINISTRATEUR").
@@ -47,9 +49,10 @@ public class SecuriteConfig {
                 and().logout().permitAll().
                 and().formLogin().loginPage("/login").permitAll().
                 and().authorizeRequests().anyRequest().authenticated().
+                 and().sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
 //                and().authorizeRequests().anyRequest().permitAll().
 //                and().csrf().disable().build();
-        and().build();
+        return http.build();
 
 
     }
@@ -60,6 +63,7 @@ public class SecuriteConfig {
         authProvider.setUserDetailsService(new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
                 Utilisateur utilisateur = service.findByLogin(username);
                 List<Role> roles = utilisateur.getRoles();
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -73,4 +77,8 @@ public class SecuriteConfig {
         return authProvider;
     }
 
+    @Bean
+    public SessionRegistry sessionRegistry(){
+        return new SessionRegistryImpl();
+    }
 }

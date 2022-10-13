@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Utilisateurs</title>
+    <th:block th:include="header.html"></th:block>
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Message</th>
+                <th>Reference</th>
+                <th>Utilisateur</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr th:each="audit : ${ audits }">
+                <td th:text="${ audit.date }"></td>
+                <td th:text="${ audit.action }"></td>
+                <td th:text="${ audit.object }"></td>
+
+                <td th:text="${audit.utilisateur.prenom}+' '+${audit.utilisateur.nom}">
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+       <ul class="pagination" th:if="${totalElements} > 7 ">
+            <li th:classappend="${currentPage}==${status.index}?'active':''" th:each=" page, status:${pages}">
+                <a th:href="@{/utilisateur/audit(id=${id}, page=${status.index})}" th:text="${status.index+1}"></a>
+            </li>
+        </ul>
+    </div>
+    </body>
+</html>

@@ -35,6 +35,6 @@ public class Approvission {
     @ManyToOne
     private Magasin magasin;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<IO_Produits> io_produits = new ArrayList<>();
 }

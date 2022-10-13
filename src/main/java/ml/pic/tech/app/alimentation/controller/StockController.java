@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.MagasinService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.service.StockService;
@@ -30,10 +32,13 @@ public class StockController {
     private ProduitService produitService;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Stock");
+        auditService.ajoutAudit(new Audit("Formulaire Stock", "Nouveau Stock"));
         model.addAttribute("stock", new Stock());
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
@@ -42,21 +47,23 @@ public class StockController {
     }
 
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
-    public String add(@ModelAttribute("stock") @Valid Stock Stock, Errors errors, Model model) {
+    public String add(@ModelAttribute("stock") @Valid Stock stock, Errors errors, Model model) {
         LOGGER.info("Ajout de Stock dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Stock", stock.toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             model.addAttribute("produits", produitService.liste());
             model.addAttribute("magasins", magasinService.liste());
             return "stock/ajout";
         }
-        service.ajout(Stock);
+        service.ajout(stock);
         return "redirect:liste";
     }
 
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Stock");
+        auditService.ajoutAudit(new Audit("Formulaire Update Stock", service.lecture(id).toString()));
         model.addAttribute("stock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
@@ -67,6 +74,7 @@ public class StockController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Stock");
+        auditService.ajoutAudit(new Audit("Suppression Stock", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
 
@@ -81,6 +89,7 @@ public class StockController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Stock");
+        auditService.ajoutAudit(new Audit("Liste Stock", "Stocks"));
         model.addAttribute("stocks", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

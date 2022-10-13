@@ -1,7 +1,9 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Personne;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.PersonneService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
@@ -24,10 +26,13 @@ public class PersonneController {
     private PersonneService service;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Client-Fournisseur");
+        auditService.ajoutAudit(new Audit("Formulaire Client Fournisseur", "Nouveau Client Fournisseur"));
         model.addAttribute("personne", new Personne());
         model.addAttribute("user", userService.currentUtilisateur());
         return "personne/ajout";
@@ -36,6 +41,7 @@ public class PersonneController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("personne") @Valid Personne personne, Errors errors, Model model) {
         LOGGER.info("Ajout de Client-Fournisseur dans la bd");
+        auditService.ajoutAudit(new Audit("Ajout/Update Client Fournisseur",personne.toString() ));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
             return "personne/ajout";
@@ -49,6 +55,7 @@ public class PersonneController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Client-Fournisseur");
+        auditService.ajoutAudit(new Audit("Formulaire Update Client Fournisseur", service.lecture(id).toString()));
         model.addAttribute("personne", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "personne/ajout";
@@ -57,6 +64,8 @@ public class PersonneController {
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Client-Fournisseur");
+        auditService.ajoutAudit(new Audit("Suppression Client Fournisseur", service.lecture(id).toString()));
+
         service.suppression(id);
         return "redirect:liste";
 
@@ -71,6 +80,8 @@ public class PersonneController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Client-Fournisseurs");
+        auditService.ajoutAudit(new Audit("Liste Client Fournisseur", "Clients Fournisseur"));
+
         model.addAttribute("personnes", service.liste(page).getContent());
         model.addAttribute("totalElements", service.liste(page).getTotalElements());
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);

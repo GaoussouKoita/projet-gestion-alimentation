@@ -1,7 +1,10 @@
 package ml.pic.tech.app.alimentation.controller;
 
+import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Categorie;
+import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
@@ -24,13 +27,15 @@ public class CategorieController {
     private CategorieService service;
     @Autowired
     private AccountService userService;
+    @Autowired
+    private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
         LOGGER.info("Formulaire Categorie");
         model.addAttribute("categorie", new Categorie());
         model.addAttribute("user", userService.currentUtilisateur());
-
+        auditService.ajoutAudit(new Audit("Formulaire", "Nouvelle Categorie"));
         return "categorie/ajout";
     }
 
@@ -38,6 +43,7 @@ public class CategorieController {
     public String add(@ModelAttribute("categorie") @Valid  Categorie categorie, Errors errors, Model model) {
         LOGGER.info("Ajout de Categorie dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
+        auditService.ajoutAudit(new Audit("Ajout/Upade de Categorie", categorie.toString()));
 
         if (errors.hasErrors()) {
 
@@ -50,14 +56,18 @@ public class CategorieController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Mise a jour de Categorie");
-        model.addAttribute("categorie", service.lecture(id));
+        Categorie categorie=service.lecture(id);
+        model.addAttribute("categorie",categorie );
         model.addAttribute("user", userService.currentUtilisateur());
+        auditService.ajoutAudit(new Audit("Modification de Categorie", categorie.toString()));
+
         return "categorie/ajout";
     }
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Categorie");
+        auditService.ajoutAudit(new Audit("Suppression de Categorie", service.lecture(id).toString()));
         service.suppression(id);
         return "redirect:liste";
     }
@@ -76,6 +86,7 @@ public class CategorieController {
         model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
+        auditService.ajoutAudit(new Audit("Liste de Categorie", "Liste de Categorie"));
 
         return "categorie/liste";
     }

@@ -34,6 +34,10 @@ public class AlimentationApplication {
             List<Role> roles = new ArrayList<>();
             roles.add(role1);
             roles.add(role2);
+
+            for (Role r:roles){
+                accontService.addRole(r);
+            }
             accontService.addUtilisateur(new Utilisateur(1L, "KOITA", "Gaoussou", "Baguineda",
                     76684788L, "admin", "1234", roles));
 
