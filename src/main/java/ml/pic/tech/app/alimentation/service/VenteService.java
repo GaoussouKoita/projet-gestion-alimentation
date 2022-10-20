@@ -4,6 +4,7 @@ import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.domaine.Vente;
 import ml.pic.tech.app.alimentation.repository.VenteRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,7 +62,7 @@ public class VenteService {
         return VenteRepository.findAll(Sort.by("date").descending());
     }
     public Page<Vente> liste(int page) {
-        return VenteRepository.findAll(PageRequest.of(page, 9,
+        return VenteRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("date").descending()));
     }
 }

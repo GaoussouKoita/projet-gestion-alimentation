@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Produits</title>
+    <th:block th:include="header.html"></th:block>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul>
+            <form class="navbar-form navbar-right" method="GET" th:action="@{/produit/search}">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Entre le nom du produit" th:name="nom" type="text">
+                </div>
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+        </ul>
+    </div>
+</nav>
+</div>
+
+
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Categorie</th>
+            <th>Nom</th>
+            <th>Type Engros</th>
+            <th>Nombre Engros</th>
+            <th>Prix</th>
+            <th>Prix Engros</th>
+            <th>Code Barre 1</th>
+            <th>Code Barre 2</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="prod : ${ produits }">
+            <td th:text="${ prod.image }"></td>
+            <td th:text="${ prod.categorie.nom }"></td>
+            <td th:text="${ prod.nom }"></td>
+            <td th:text="${ prod.typeEngros }"></td>
+            <td th:text="${ prod.nombreEngros }"></td>
+            <td th:text="${ prod.prix }+' F CFA'"></td>
+            <td th:text="${ prod.prixEngros }+' F CFA'"></td>
+            <td th:text="${ prod.codeBarre1 }"></td>
+            <td th:text="${ prod.codeBarre2 }"></td>
+            <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/produit/update(id=${prod.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/produit/delete(id=${prod.id})}"><span class="glyphicon glyphicon-trash "></span></a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <ul class="pagination" th:if="${totalElements} > 8 ">
+        <li th:classappend="${currentPage}==${status.index}?'active':''" th:each=" page, status:${pages}">
+            <a th:href="@{/produit/liste(page=${status.index})}" th:text="${status.index+1}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

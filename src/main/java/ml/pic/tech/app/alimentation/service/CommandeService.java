@@ -2,13 +2,12 @@ package ml.pic.tech.app.alimentation.service;
 
 import ml.pic.tech.app.alimentation.domaine.Commande;
 import ml.pic.tech.app.alimentation.repository.CommandeRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CommandeService {
@@ -28,6 +27,6 @@ public class CommandeService {
     }
 
     public Page<Commande> liste(int p) {
-        return commandeRepository.findAll(PageRequest.of(p, 9, Sort.by("date").descending()));
+        return commandeRepository.findAll(PageRequest.of(p, Constante.NBRE_PAR_PAGE, Sort.by("date").descending()));
     }
 }

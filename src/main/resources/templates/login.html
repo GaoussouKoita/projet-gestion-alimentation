@@ -1,50 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" xmlns:th="www.thymeleaf.org">
+<html xmlns:th="www.thymeleaf.org">
 <head>
-    <title>Authentification </title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Authentification Utilisateur</title>
+    <style th:replace="fragment/style"></style>
 </head>
-<body>
-
-<div class="col-lg-6 offset-lg-3 mt-5">
-    <div class="card">
-        <div class="card-header card-info">
-            <h2 class="card-title text-center ">Authentification Utilisateur</h2>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center h1"><b>Authentification </b></a>
         </div>
-
-        <form class="form-horizontal" method="POST"
-                  th:action="@{/login}">
-                <fieldset>
-                    <legend class="text-danger text-center" th:if="${param.error}">Votre Login et/ou Password est incorrect!
-                    </legend>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="control-label">Login</label>
-                            <div>
-                                <input autofocus class="form-control" id="username" name="username"
-                                       placeholder="Entre votre login"
-                                       required type="text"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Password</label>
-                            <div>
-                                <input class="form-control" id="password" name="password"
-                                       placeholder="Entre votre mot de passe"
-                                       required type="password"/>
-                            </div>
+        <div class="card-body">
+            <p class="login-box-msg text-primary">Saisissez vos identifiants</p>
+            <p class="text-danger text-center" th:if="${param.error}">
+                Email et/ou Password Incorrect.s!
+            </p>
+            <form method="post" th:action="@{/login}">
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-                    <div class="card-footer">
-                    <div class="text-center">
-                        <input class="btn btn-success" type="submit" value="Se connecter">
-                    </div></div>
-                </fieldset>
+                    <input class="form-control" name="username"
+                          autofocus placeholder="Veuillez entre votre email" type="email">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                    <input class="form-control" name="password"
+                           placeholder="Veuillez entre votre password" type="password">
+                </div>
+                <div class="icheck-primary">
+                    <input id="remember" type="checkbox" name="remember-me">
+                    <label for="remember">
+                        Se Souvenir
+                    </label>
+                </div>
+
+                <!-- /.col -->
+                <div class="col-lg-6 offset-3 mt-4 mb-3 ">
+                    <button class="btn btn-outline-success" type="submit">Se Connecter</button>
+                </div>
+                <!-- /.col -->
+
             </form>
+            <!-- /.card-body -->
         </div>
+        <!-- /.card -->
     </div>
 </div>
-
 
 </body>
 </html>

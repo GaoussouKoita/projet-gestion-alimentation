@@ -2,7 +2,7 @@ package ml.pic.tech.app.alimentation.utils;
 
 public interface Endpoint {
     //Endpoint sur les controllers
-    String APPROVISSION_ENDPOINT = "/approvission";
+    String APPROVISSION_ENDPOINT = "/approvision";
     String CATEGORIE_ENDPOINT = "/categorie";
     String COMMANDE_ENDPOINT = "/commande";
     String DEPENSE_ENDPOINT = "/depense";
@@ -23,7 +23,7 @@ public interface Endpoint {
     String AJOUT_ENDPOINT = "/add";
     String UPDATE_ENDPOINT = "/update";
     String DELETE_ENDPOINT = "/delete";
-    String SEARCH_ENDPOINT = "/search";
+    String DETAILS_ENDPOINT = "/details";
     String LISTE_ENDPOINT = "/liste";
 
     //Endpoint sur les fonctionnalites utiles
@@ -33,4 +33,5 @@ public interface Endpoint {
     String LOGIN_ENDPOINT = "/login";
 
     String AUDIT_ENDPOINT = "/audit";
+    String EXPORT_PDF_ENDPOINT = "/export";
 }

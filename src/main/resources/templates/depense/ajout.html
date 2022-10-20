@@ -2,44 +2,71 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Nouvelle Depense</title>
-    <th:block th:include="header.html"></th:block>
-</br>
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">Ajout et Update de Depense</h2>
-        </div>
-        <div class="panel-body">
-            <form class="form-horizontal" method="POST" th:action="@{/depense/add}"
-                  th:object="${depense}">
-                <input class="form-control" th:field="*{id}" type="hidden"/>
+    <th:block th:replace="fragment/style.html"></th:block>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Libelle</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{libelle}" type="text"/>
-                        <span class="text-danger" th:errors="*{libelle}"></span>
+</head>
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
+
+    <div class="content-wrapper">
+
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
+
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouvelle Depense</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form class="form-horizontal" method="POST" th:action="@{/depense/add}"
+                                  th:object="${depense}">
+                                <div class="card-body">
+                                    <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Libelle</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" th:field="*{libelle}" type="text"/>
+                                            <span class="text-danger" th:errors="*{libelle}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Montant</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" th:field="*{montant}" type="number"/>
+                                            <span class="text-danger" th:errors="*{montant}"></span>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>
+                                    <button class="btn btn-outline-danger" type="button"><i
+                                            class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                    </button>
+                                </div>
+                                <!-- /.card-footer -->
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Montant</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{montant}" type="number"/>
-                        <span class="text-danger" th:errors="*{montant}"></span>
-                    </div>
-                </div>
-                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
 
+            </div>
+            <!-- /.card -->
+        </section>
 
-
-                <div class="panel-footer text-center">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
-                    </button>
-                </div>
-            </form>
-        </div>
     </div>
-</div>
 
+    <div th:replace="fragment/footer"></div>
+
+</div>
 </body>
+<script th:replace="fragment/script"></script>
 </html>
+
+

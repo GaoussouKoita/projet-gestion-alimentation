@@ -1,65 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org">
 <head>
-    <title>Nouveau Client-Fournisseur</title>
-    <th:block th:include="header.html"></th:block>
-</br>
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">Ajout et Update de Client-Fournisseur</h2>
-        </div>
-        <div class="panel-body">
-            <form class="form-horizontal" method="POST" th:action="@{/client-fournisseur/add}"
-                  th:object="${personne}">
-                <input class="form-control" th:field="*{id}" type="hidden"/>
+    <title>Nouveau Client Fournisseur</title>
+    <th:block th:replace="fragment/style.html"></th:block>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Nom</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{nom}" type="text"/>
-                        <span class="text-danger" th:errors="*{nom}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Prenom</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{prenom}" type="text"/>
-                        <span class="text-danger" th:errors="*{prenom}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Adresse</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{adresse}" type="text"/>
-                        <span class="text-danger" th:errors="*{adresse}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Telephone</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{telephone}" type="tel"/>
-                        <span class="text-danger" th:errors="*{telephone}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel1">Type</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel1" th:field="*{typeCompte}">
-                            <option th:text="FOURNISSEUR" th:value="FOURNISSEUR"></option>
-                            <option th:text="CLIENT" th:value="CLIENT"></option>
-                        </select>
-                    </div>
-                </div>
+</head>
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
 
-                <div class="panel-footer text-center">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
-                    </button>
+    <div class="content-wrapper">
+
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
+
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouveau Client Fournisseur</h3>
+                            </div>
+                        </div>
+
+                        <form class="form-horizontal" method="POST" th:action="@{/client-fournisseur/add}"
+                              th:object="${personne}">
+                            <div class="card-body">
+                                <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Nom</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" th:field="*{nom}" type="text"/>
+                                        <span class="text-danger" th:errors="*{nom}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Prenom</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" th:field="*{prenom}" type="text"/>
+                                        <span class="text-danger" th:errors="*{prenom}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Adresse</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" th:field="*{adresse}" type="text"/>
+                                        <span class="text-danger" th:errors="*{adresse}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Telephone</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" th:field="*{telephone}" type="tel"/>
+                                        <span class="text-danger" th:errors="*{telephone}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2" for="sel1">Type</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control  select2bs4" id="sel1" th:field="*{typeCompte}">
+                                            <option th:text="FOURNISSEUR" th:value="FOURNISSEUR"></option>
+                                            <option th:text="CLIENT" th:value="CLIENT"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-center">
+                                <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>
+                                <button class="btn btn-outline-danger" type="button"><i
+                                        class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            <!-- /.card -->
+        </section>
+
     </div>
-</div>
 
+    <div th:replace="fragment/footer"></div>
+
+</div>
 </body>
+<script th:replace="fragment/script"></script>
 </html>

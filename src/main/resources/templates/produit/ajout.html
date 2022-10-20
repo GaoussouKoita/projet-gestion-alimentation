@@ -2,109 +2,146 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Nouveau Produit</title>
-    <th:block th:include="header.html"></th:block>
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">
-                Ajout et Update de Produit</h2>
-        </div>
-        <div class="panel-body">
-            <form class="form-horizontal" enctype="multipart/form-data" method="POST"
-                  th:action="@{/produit/add}" th:object="${produit}">
+    <th:block th:replace="fragment/style.html"></th:block>
 
-                <input class="form-control" th:field="*{id}" type="hidden"/>
+</head>
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel2">Categorie</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel2" th:field="*{categorie.id}">
-                            <option th:each="cat:${categories}" th:text="${cat.nom}"
-                                    th:value="${cat.id}">
-                            </option>
-                        </select>
+    <div class="content-wrapper">
+
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
+
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouveau Produit</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form class="form-horizontal" method="post"
+                                  th:action="@{/produit/add}" th:object="${produit}">
+                                <div class="card-body">
+
+                                    <input th:field="*{id}" type="hidden">
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-2">Catetorie</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control select2bs4" style="width: 100%;"
+                                                    th:field="*{categorie.id}">
+                                                <option th:each="cat:${categories}" th:text="${cat.nom}"
+                                                        th:value="${cat.id}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Nom</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le nom" th:field="*{nom}"
+                                                   type="text">
+                                            <span class="text-danger" th:errors="*{nom}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2" for="sel1">Type Engros</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" id="sel1" th:field="*{typeEngros}">
+                                                <option th:text="Bidon" th:value="Bidon"></option>
+                                                <option th:text="Boite" th:value="Boite"></option>
+                                                <option th:text="Caisse" th:value="Caisse"></option>
+                                                <option th:text="Carton" th:value="Carton"></option>
+                                                <option th:text="Paquet" th:value="Paquet"></option>
+                                                <option th:text="Sac" th:value="Sac"></option>
+                                                <option th:text="Sachet" th:value="Sachet"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Nombre Engros</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le nombre par vente engros"
+                                                   th:field="*{nombreEngros}"
+                                                   type="number">
+                                            <span class="text-danger" th:errors="*{nombreEngros}"></span>
+                                        </div>
+                                    </div><div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Prix Engros</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le prix par vente engros"
+                                                   th:field="*{prixEngros}"
+                                                   type="number">
+                                            <span class="text-danger" th:errors="*{prixEngros}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Prix </label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le prix "
+                                                   th:field="*{prix}"
+                                                   type="number">
+                                            <span class="text-danger" th:errors="*{prix}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Image </label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control"
+                                                   th:field="*{image}"
+                                                   type="text">
+                                            <span class="text-danger" th:errors="*{image}"></span>
+                                        </div>
+                                    </div><div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Code Barre 1 </label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le code barre 1 "
+                                                   th:field="*{codeBarre1}"
+                                                   type="number">
+                                            <span class="text-danger" th:errors="*{codeBarre1}"></span>
+                                        </div>
+                                    </div><div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Code Barre 2 </label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Entre le code barre 2 "
+                                                   th:field="*{codeBarre2}"
+                                                   type="number">
+                                            <span class="text-danger" th:errors="*{codeBarre2}"></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!--Boutons-->
+                                <!-- /.card-body -->
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>
+                                    <button class="btn btn-outline-danger" type="button"><i
+                                            class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                    </button>
+                                </div>
+                                <!-- /.card-footer -->
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Nom</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{nom}" type="text"/>
-                        <span class="text-danger" th:errors="*{nom}"></span>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel1">Type Engros</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel1" th:field="*{typeEngros}">
-                            <option th:text="Bidon" th:value="Bidon"></option>
-                            <option th:text="Boite" th:value="Boite"></option>
-                            <option th:text="Caisse" th:value="Caisse"></option>
-                            <option th:text="Carton" th:value="Carton"></option>
-                            <option th:text="Paquet" th:value="Paquet"></option>
-                            <option th:text="Sac" th:value="Sac"></option>
-                            <option th:text="Sachet" th:value="Sachet"></option>
-                        </select>
-                    </div>
-                </div>
+            </div>
+            <!-- /.card -->
+        </section>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Nombre Engros</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{nombreEngros}" type="number"/>
-                        <span class="text-danger" th:errors="*{nombreEngros}"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Prix Engros</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{prixEngros}" type="number"/>
-                        <span class="text-danger" th:errors="*{prixEngros}"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Prix</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{prix}" type="number"/>
-                        <span class="text-danger" th:errors="*{prix}"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Image</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{image}" type="text"/>
-                        <span class="text-danger" th:errors="*{image}"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Code Barre 1</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{codeBarre1}" type="number"/>
-                        <span class="text-danger" th:errors="*{codeBarre1}"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Code Barre 2</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{codeBarre2}" type="number"/>
-                        <span class="text-danger" th:errors="*{codeBarre2}"></span>
-                    </div>
-                </div>
-
-                <div class="panel-footer text-center">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
-                    </button>
-                </div>
-            </form>
-        </div>
     </div>
-</div>
-</div>
 
+    <div th:replace="fragment/footer"></div>
+
+</div>
 </body>
+<script th:replace="fragment/script"></script>
 </html>

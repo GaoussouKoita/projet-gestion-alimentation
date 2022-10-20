@@ -76,7 +76,7 @@ public class CommandeController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("commande", service.lecture(id));
         return "commande/search";

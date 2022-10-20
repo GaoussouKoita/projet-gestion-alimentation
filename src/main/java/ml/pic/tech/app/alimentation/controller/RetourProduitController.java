@@ -8,6 +8,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -98,7 +99,7 @@ public class RetourProduitController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("retourProduit", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
@@ -110,9 +111,12 @@ public class RetourProduitController {
         LOGGER.info("Lister retourProduits");
         auditService.ajoutAudit(new Audit("Liste Retour Produit", "Retour Produits"));
 
-        model.addAttribute("retourProduits", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[service.liste(page).getTotalPages()]);
+        Page<RetourProduit> retourProduitPage = service.liste(page);
+        model.addAttribute("retourProduits", retourProduitPage.getContent());
+
+        model.addAttribute("totalElement", retourProduitPage.getTotalElements());
+        model.addAttribute("totalPage", new int[retourProduitPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", retourProduitPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/liste";

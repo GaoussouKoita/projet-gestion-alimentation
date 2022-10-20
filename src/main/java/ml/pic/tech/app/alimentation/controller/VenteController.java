@@ -1,7 +1,6 @@
 package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Audit;
-import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Vente;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.AuditService;
@@ -12,13 +11,13 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping(Endpoint.VENTE_ENDPOINT)
@@ -56,11 +55,12 @@ public class VenteController {
                       Errors errors, Model model) {
         LOGGER.info("Ajout de Vente dans la bd");
         model.addAttribute("user", userService.currentUtilisateur());
+
         auditService.ajoutAudit(new Audit("Ajout/Update Vente", vente.toString()));
+
         if (errors.hasErrors()) {
             model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
-            model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
 //            model.addAttribute("io_prods", new ArrayList<IO_Produits>());
             model.addAttribute("magasins", magasinService.liste());
@@ -95,7 +95,7 @@ public class VenteController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("vente", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
@@ -106,9 +106,12 @@ public class VenteController {
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Ventes");
         auditService.ajoutAudit(new Audit("Liste Vente", "Ventes"));
-        model.addAttribute("ventes", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        Page<Vente> ventePage = service.liste(page);
+        model.addAttribute("ventes", ventePage.getContent());
+
+        model.addAttribute("totalElement", ventePage.getTotalElements());
+        model.addAttribute("totalPage", new int[ventePage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", ventePage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "vente/liste";

@@ -11,6 +11,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -80,7 +81,7 @@ public class StockController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("stock", service.lecture(id));
         return "stock/search";
@@ -90,9 +91,12 @@ public class StockController {
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Stock");
         auditService.ajoutAudit(new Audit("Liste Stock", "Stocks"));
-        model.addAttribute("stocks", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        Page<Stock> stockPage = service.liste(page);
+        model.addAttribute("stocks", stockPage.getContent());
+
+        model.addAttribute("totalElement", stockPage.getTotalElements());
+        model.addAttribute("totalPage", new int[stockPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", stockPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "stock/liste";

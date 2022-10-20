@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+    <th:block th:include="header.html"></th:block>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>N°</th>
+            <th>Nom</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cat : ${ categories }">
+            <td th:text="${ cat.id }"></td>
+            <td th:text="${ cat.nom }"></td>
+            <td>
+                <button class="btn btn-info">
+                    <a th:href="@{/categorie/update(id=${cat.id})}"><span class="glyphicon glyphicon-pencil "></span></a>
+                </button>
+                <button class="btn btn-danger">
+                    <a onclick="return confirm('Etes-vous sur?')"
+                       th:href="@{/categorie/delete(id=${cat.id})}"><span class="glyphicon glyphicon-trash "></span></a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pagination" th:if="${totalElements} > 8 ">
+        <li th:classappend="${currentPage}==${status.index}?'active':''" th:each=" page, status:${pages}">
+            <a th:href="@{/categorie/liste(page=${status.index})}" th:text="${status.index+1}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

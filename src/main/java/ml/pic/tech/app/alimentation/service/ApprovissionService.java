@@ -4,6 +4,7 @@ import ml.pic.tech.app.alimentation.domaine.Approvission;
 import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.repository.ApprovissionRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +64,6 @@ public class ApprovissionService {
     }
 
     public Page<Approvission> liste(int page) {
-        return approvissionRepository.findAll(PageRequest.of(page, 9, Sort.by("date").descending()));
+        return approvissionRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending()));
     }
 }

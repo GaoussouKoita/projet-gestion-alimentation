@@ -2,7 +2,6 @@ package ml.pic.tech.app.alimentation.controller;
 
 import ml.pic.tech.app.alimentation.domaine.Audit;
 import ml.pic.tech.app.alimentation.domaine.Categorie;
-import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
@@ -10,6 +9,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -72,7 +72,7 @@ public class CategorieController {
         return "redirect:liste";
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("categorie", service.lecture(id));
         return "categorie/search";
@@ -81,9 +81,13 @@ public class CategorieController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0")int page) {
         LOGGER.info("Lister Categories");
-        model.addAttribute("categories", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+
+        Page<Categorie> categoriePage = service.liste(page);
+        model.addAttribute("categories", categoriePage.getContent());
+
+        model.addAttribute("totalElement", categoriePage.getTotalElements());
+        model.addAttribute("totalPage", new int[categoriePage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", categoriePage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         auditService.ajoutAudit(new Audit("Liste de Categorie", "Liste de Categorie"));

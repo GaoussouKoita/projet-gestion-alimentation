@@ -27,10 +27,12 @@ public class Vente {
     private double montant;
     private double remise;
     private String typeVente;
+
     @ManyToOne
     private Utilisateur user;
     @ManyToOne
     private Magasin magasin;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<IO_Produits> io_produits = new ArrayList<>();
 

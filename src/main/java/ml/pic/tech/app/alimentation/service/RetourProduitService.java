@@ -5,6 +5,7 @@ import ml.pic.tech.app.alimentation.domaine.Produit;
 import ml.pic.tech.app.alimentation.domaine.RetourProduit;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.repository.RetourProduitRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,6 +55,6 @@ public class RetourProduitService {
     }
 
     public Page<RetourProduit> liste(int p) {
-        return retourProduitRepository.findAll(PageRequest.of(p, 9, Sort.by("date").descending()));
+        return retourProduitRepository.findAll(PageRequest.of(p, Constante.NBRE_PAR_PAGE, Sort.by("date").descending()));
     }
 }

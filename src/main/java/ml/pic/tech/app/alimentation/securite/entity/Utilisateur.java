@@ -22,12 +22,14 @@ public class Utilisateur {
     @NotNull(message = "Le numero de telephone doit etre sans espace")
     private Long telephone;
     @Size(min = 3, message = "Le login doit contenir au moins 3 caracteres")
-    private String login;
+    private String email;
 
     @Size(min = 8, message = "Le password doit contenir au moins 8 caracteres")
     private String password;
+    @Transient
+    private String confirmation;
 
-    @ManyToMany(cascade =  CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
     public Utilisateur() {

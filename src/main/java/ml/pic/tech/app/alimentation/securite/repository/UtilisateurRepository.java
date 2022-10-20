@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
-    public Utilisateur findByLogin(String login);
+    public Utilisateur findByEmail(String email);
 
     @Modifying
-    @Query("UPDATE Utilisateur u SET u.password=?2 WHERE u.login=?1")
-    void updateUtilisateurByLogin(String login, String newPassword);
+    @Query("UPDATE Utilisateur u SET u.password=?2 WHERE u.email=?1")
+    void updateUtilisateurByLogin(String email, String newPassword);
 }

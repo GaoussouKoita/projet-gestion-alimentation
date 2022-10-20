@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouveau Transfert Stock</title>
+    <th:block th:include="header.html"></th:block>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de Transfert Stock</h2></div>
+        <div class="panel-body">
+
+            <form class="form-horizontal" method="POST" th:action="@{/transfert-stock/add}"
+                  th:object="${transfertStock}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Quantite</label>
+                    <div class="col-md-10">
+                        <input class="form-control" th:field="*{quantite}" type="number"/>
+                        <span class="text-danger" th:errors="*{quantite}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel4">Produit</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel4" th:field="*{produit.id}">
+                            <option th:each="produit:${produits}"
+                                    th:text="${produit.categorie.nom}+' '+${produit.nom}"
+                                    th:value="${produit.id}"></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel2">Magasin Depart</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel2" th:field="*{magasinDepart.id}">
+                            <option th:each="magasin:${magasins}" th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                    th:value="${magasin.id}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="sel1">Magasin Destination</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel1" th:field="*{magasinDestination.id}">
+                            <option th:each="magasin:${magasins}" th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                    th:value="${magasin.id}"></option>
+                        </select>
+                    </div>
+                </div>
+                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
+
+                <!--<div class="form-group">
+                    <label class="control-label col-md-2" for="sel3">Utilisateur</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="sel3" th:field="*{user.id}">
+                            <option th:each="user:${users}" th:text="${user.nom}+' '+${user.prenom}"
+                                    th:value="${user.id}"></option>
+                        </select>
+                    </div>
+                </div>-->
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -97,7 +98,7 @@ public class ApprovissionController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("approvission", service.lecture(id));
         return "approvission/search";
@@ -106,11 +107,13 @@ public class ApprovissionController {
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Approvissions");
-        auditService.ajoutAudit(new Audit("Liste"," Approvision"));
 
-        model.addAttribute("approvissions", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        Page<Approvission> approvissionPage = service.liste(page);
+        model.addAttribute("approvissions", approvissionPage.getContent());
+
+        model.addAttribute("totalElement", approvissionPage.getTotalElements());
+        model.addAttribute("totalPage", new int[approvissionPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", approvissionPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
 

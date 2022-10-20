@@ -9,6 +9,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -32,14 +33,14 @@ public class UtilisateurController {
     public String addForm(Model model) {
         LOGGER.info("Formulaire user");
         auditService.ajoutAudit(new Audit("Demande Formulaire", "Nouvel Utilisateur"));
-        model.addAttribute("userNew", new Utilisateur());
+        model.addAttribute("utilisateur", new Utilisateur());
         model.addAttribute("roles", accountService.roleList());
         model.addAttribute("user", accountService.currentUtilisateur());
         return "utilisateur/ajout";
     }
 
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
-    public String add(@ModelAttribute("userNew") @Valid Utilisateur utilisateur, Errors errors, Model model) {
+    public String add(@ModelAttribute("utilisateur") @Valid Utilisateur utilisateur, Errors errors, Model model) {
         LOGGER.info("Ajout user dans la bd");
         auditService.ajoutAudit(new Audit("Ajout/Update Utilisateur", utilisateur.toString()));
 
@@ -50,19 +51,20 @@ public class UtilisateurController {
             return "utilisateur/ajout";
 
         } else {
-            accountService.addUtilisateur(utilisateur);
+            Utilisateur utilisateur1 = accountService.addUtilisateur(utilisateur);
+            model.addAttribute("", utilisateur1);
+            return "redirect:search";
         }
 
-        return "redirect:liste";
+
     }
 
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update user");
         auditService.ajoutAudit(new Audit("Formulaire de modification Utilisateur", accountService.lecture(id).toString()));
-
         model.addAttribute("user", accountService.currentUtilisateur());
-        model.addAttribute("userNew", accountService.lecture(id));
+        model.addAttribute("utilisateur", accountService.lecture(id));
         model.addAttribute("userRoles", accountService.lecture(id).getRoles());
         model.addAttribute("roles", accountService.roleList());
         return "utilisateur/ajout";
@@ -78,20 +80,23 @@ public class UtilisateurController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("userNew", accountService.lecture(id));
-        return "utilisateur/search";
+        model.addAttribute("user", accountService.currentUtilisateur());
+        model.addAttribute("utilisateur", accountService.lecture(id));
+        return "utilisateur/details";
     }
 
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister users");
         auditService.ajoutAudit(new Audit("Liste Utilisateur", "Utilisateurs"));
+        Page<Utilisateur> utilisateurPage = accountService.utilisateurListPage(page);
 
-        model.addAttribute("users", accountService.utilisateurListPage(page).getContent());
-        model.addAttribute("totalElements", accountService.utilisateurListPage(page).getTotalElements());
-        model.addAttribute("pages", new int[accountService.utilisateurListPage(page).getTotalPages()]);
+        model.addAttribute("utilisateurs", utilisateurPage.getContent());
+        model.addAttribute("totalElement", utilisateurPage.getTotalElements());
+        model.addAttribute("totalPage", new int[utilisateurPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", utilisateurPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", accountService.currentUtilisateur());
         return "utilisateur/liste";
@@ -119,7 +124,7 @@ public class UtilisateurController {
         model.addAttribute("user", accountService.currentUtilisateur());
 
         Utilisateur user = accountService.currentUtilisateur();
-        String email = user.getLogin();
+        String email = user.getEmail();
         String oldPassword = changePassword.getOldPassword();
         String newPassword = changePassword.getNewPassword();
         String confirmation = changePassword.getConfirmation();
@@ -157,7 +162,6 @@ public class UtilisateurController {
         model.addAttribute("pages", new int[auditService.auditList(id, page).getTotalPages()]);
         model.addAttribute("currentPage", page);
         model.addAttribute("id", id);
-
         model.addAttribute("user", accountService.currentUtilisateur());
 
         return "utilisateur/audit";

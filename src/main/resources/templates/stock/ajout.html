@@ -2,56 +2,79 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Nouveau Stock</title>
-    <th:block th:include="header.html"></th:block>
-</br>
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">Ajout et Update de Stock</h2></div>
-        <div class="panel-body">
+    <th:block th:replace="fragment/style.html"></th:block>
 
-            <form class="form-horizontal" method="POST" th:action="@{/stock/add}"
-                  th:object="${stock}">
-                <input class="form-control" th:field="*{id}" type="hidden"/>
+</head>
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Quantite</label>
-                    <div class="col-md-10">
-                        <input class="form-control" th:field="*{quantite}" type="number"/>
-                        <span class="text-danger" th:errors="*{quantite}"></span>
+    <div class="content-wrapper">
+
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
+
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouveau Stock</h3>
+                            </div>
+                            <form class="form-horizontal" method="POST" th:action="@{/stock/add}"
+                                  th:object="${stock}">
+                                <div class="card-body">
+                                    <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Quantite</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" th:field="*{quantite}" type="number"/>
+                                            <span class="text-danger" th:errors="*{quantite}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2" for="sel3">Produit</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control  select2bs4" id="sel3" th:field="*{produit.id}">
+                                                <option th:each="produit:${produits}"
+                                                        th:text="${produit.categorie.nom}+' '+${produit.nom}"
+                                                        th:value="${produit.id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2" for="sel2">Magasin</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" id="sel2" th:field="*{magasin.id}">
+                                                <option th:each="magasin:${magasins}"
+                                                        th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                                        th:value="${magasin.id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>
+                                    <button class="btn btn-outline-danger" type="button"><i
+                                            class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel3">Produit</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel3" th:field="*{produit.id}">
-                            <option th:each="produit:${produits}"
-                                    th:text="${produit.categorie.nom}+' '+${produit.nom}"
-                                    th:value="${produit.id}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="sel2">Magasin</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="sel2" th:field="*{magasin.id}">
-                            <option th:each="magasin:${magasins}" th:text="${magasin.nom}+' '+${magasin.adresse}"
-                                    th:value="${magasin.id}"></option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="panel-footer text-center">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </section>
     </div>
-</div>
 
+    <div th:replace="fragment/footer"></div>
+
+</div>
 </body>
+<script th:replace="fragment/script"></script>
 </html>

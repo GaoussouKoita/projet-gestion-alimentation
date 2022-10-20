@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.service;
 
 import ml.pic.tech.app.alimentation.domaine.Categorie;
 import ml.pic.tech.app.alimentation.repository.CategorieRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,6 @@ public class CategorieService {
         return categorieRepository.findAll(Sort.by("nom").ascending());
     }
     public Page<Categorie> liste(int p) {
-        return categorieRepository.findAll(PageRequest.of(p, 9, Sort.by("nom").ascending()));
+        return categorieRepository.findAll(PageRequest.of(p, Constante.NBRE_PAR_PAGE, Sort.by("nom").ascending()));
     }
 }

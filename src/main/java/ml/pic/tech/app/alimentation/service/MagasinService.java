@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.service;
 
 import ml.pic.tech.app.alimentation.domaine.Magasin;
 import ml.pic.tech.app.alimentation.repository.MagasinRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,6 @@ public class MagasinService {
         return magasinRepository.findAll(Sort.by("nom").ascending());
     }
     public Page<Magasin> liste(int p) {
-        return magasinRepository.findAll(PageRequest.of(p, 9, Sort.by("nom").ascending()));
+        return magasinRepository.findAll(PageRequest.of(p, Constante.NBRE_PAR_PAGE, Sort.by("nom").ascending()));
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Vente</title>
+    <th:block th:include="header.html"></th:block>
+<div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <tr>
+                <td th:text="'Date : '+${vente.date}"></td>
+                <td th:text="'Montant : '+${vente.montant}+' F CFA'"></td>
+                <td th:text="'Remise : '+${vente.remise}+' F CFA'"></td>
+
+            </tr>
+        </div>
+        <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Designation</th>
+                        <th>Quantite</th>
+                        <th>Prix</th>
+                        <th>Montant</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="io_p : ${ vente.io_produits }">
+                        <td th:text="${ io_p.quantite }"></td>
+                        <td th:text="${ io_p.produit.prix }"></td>
+                        <td th:text="${${ io_p.produit.prix }*${ io_p.produit.prix }}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

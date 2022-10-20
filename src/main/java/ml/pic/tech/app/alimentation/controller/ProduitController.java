@@ -10,6 +10,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -77,7 +78,7 @@ public class ProduitController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("nom") String nom, Model model) {
         LOGGER.info("Recherche de produit par nom");
         auditService.ajoutAudit(new Audit("Recherche Produit par nom", nom));
@@ -93,9 +94,13 @@ public class ProduitController {
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Produits");
         auditService.ajoutAudit(new Audit("Liste Produit", "Produits"));
-        model.addAttribute("produits", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+
+        Page<Produit> produitPage = service.liste(page);
+        model.addAttribute("produits", produitPage.getContent());
+
+        model.addAttribute("totalElement", produitPage.getTotalElements());
+        model.addAttribute("totalPage", new int[produitPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", produitPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "produit/liste";

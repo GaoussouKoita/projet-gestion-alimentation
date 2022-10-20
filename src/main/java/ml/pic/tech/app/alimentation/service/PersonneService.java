@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.service;
 
 import ml.pic.tech.app.alimentation.domaine.Personne;
 import ml.pic.tech.app.alimentation.repository.PersonneRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +34,7 @@ public class PersonneService {
     }
 
     public Page<Personne> liste(int page) {
-        return personneRepository.findAll(PageRequest.of(page, 9,
+        return personneRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
     }
 }

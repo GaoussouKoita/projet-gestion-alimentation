@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouvelle Depense</title>
+    <th:block th:include="header.html"></th:block>
+</br>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Ajout et Update de Depense</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="POST" th:action="@{/depense/add}"
+                  th:object="${depense}">
+                <input class="form-control" th:field="*{id}" type="hidden"/>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Libelle</label>
+                    <div class="col-md-10">
+                        <input class="form-control" th:field="*{libelle}" type="text"/>
+                        <span class="text-danger" th:errors="*{libelle}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Montant</label>
+                    <div class="col-md-10">
+                        <input class="form-control" th:field="*{montant}" type="number"/>
+                        <span class="text-danger" th:errors="*{montant}"></span>
+                    </div>
+                </div>
+                <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
+
+
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Sauvegarder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

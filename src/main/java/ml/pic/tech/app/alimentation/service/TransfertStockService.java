@@ -5,6 +5,7 @@ import ml.pic.tech.app.alimentation.domaine.Produit;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.domaine.TransfertStock;
 import ml.pic.tech.app.alimentation.repository.TransfertStockRepository;
+import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,7 +75,7 @@ public class TransfertStockService {
     }
 
     public Page<TransfertStock> liste(int page) {
-        return TransfertRepository.findAll(PageRequest.of(page, 9,
+        return TransfertRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("date").descending()));
     }
 }

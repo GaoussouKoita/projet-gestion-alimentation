@@ -9,6 +9,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -71,7 +72,7 @@ public class PersonneController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("personne", service.lecture(id));
         return "personne/search";
@@ -82,9 +83,12 @@ public class PersonneController {
         LOGGER.info("Lister Client-Fournisseurs");
         auditService.ajoutAudit(new Audit("Liste Client Fournisseur", "Clients Fournisseur"));
 
-        model.addAttribute("personnes", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+        Page<Personne> personnePage = service.liste(page);
+        model.addAttribute("personnes", personnePage.getContent());
+
+        model.addAttribute("totalElement", personnePage.getTotalElements());
+        model.addAttribute("totalPage", new int[personnePage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", personnePage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "personne/liste";

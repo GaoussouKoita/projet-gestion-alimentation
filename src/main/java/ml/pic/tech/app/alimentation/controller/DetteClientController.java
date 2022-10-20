@@ -10,6 +10,7 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -75,7 +76,7 @@ public class DetteClientController {
 
     }
 
-    @GetMapping(Endpoint.SEARCH_ENDPOINT)
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("detteClient", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
@@ -86,9 +87,13 @@ public class DetteClientController {
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister Dettes");
         auditService.ajoutAudit(new Audit("Liste Dette Client", "Dettes Clienst"));
-        model.addAttribute("detteClients", service.liste(page).getContent());
-        model.addAttribute("totalElements", service.liste(page).getTotalElements());
-        model.addAttribute("pages", new int[ service.liste(page).getTotalPages()]);
+
+        Page<DetteClient> detteClientPage = service.liste(page);
+        model.addAttribute("detteClients", detteClientPage.getContent());
+
+        model.addAttribute("totalElement", detteClientPage.getTotalElements());
+        model.addAttribute("totalPage", new int[detteClientPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", detteClientPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
         return "detteClient/liste";

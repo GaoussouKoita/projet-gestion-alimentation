@@ -1,0 +1,208 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a class="d-block" href="#"><i class="fas fa-cart-plus"></i> Systeme de Gestion Boutique</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-header" sec:authorize="hasAuthority('ADMINISTRATEUR')">Gestion Utilisateur</li>
+
+                <li class="nav-item" sec:authorize="hasAuthority('ADMINISTRATEUR')">
+
+                    <a class="nav-link" th:href="@{/}">
+                        <p><i class="nav-icon fas fa-user"></i> Utilisateur
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/utilisateur/add}">
+                                <i class="fas fa-user-plus mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/utilisateur/liste}">
+                                <i class="fas fa-users mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header">Gestion Produit</li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Categorie
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/categorie/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/categorie/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Produit
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/produit/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/produit/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header">Gestion Stock</li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle "></i>
+                        <p>Magasin
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/magasin/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/magasin/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon fas fa-store"></i>
+                        <p>Stock
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/stock/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/stock/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Transfert Stock
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/transfert-stock/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/transfert-stock/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-header">Gestion Entree/Sorties</li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Vente
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/vente/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/vente/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Approvision
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/approvision/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/approvision/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

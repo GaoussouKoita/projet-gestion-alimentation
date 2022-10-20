@@ -1,145 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="www.thymeleaf.org">
 <head>
-    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <script src="/js/jQuery.min.js"></script>
-    <script src="/js/popper.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <title>Nouvelle Approvission</title>
+    <title>Nouvelle Approvision</title>
+    <th:block th:replace="fragment/style.html"></th:block>
+
 </head>
-</br>
-<div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h2 class="panel-title text-center">Ajout et Update de Approvission</h2></div>
+<body class="hold-transition sidebar-mini ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
 
-        <!--<form class="form-horizontal">-->
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label col-md-2">Statut</label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="statutApprovission" name="statutApprovission" type="text"/>
-                    </div>
-                </div>
+    <div class="content-wrapper">
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Montant Payé</label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="montantPaye" name="montantPaye" type="number"/>
-                        <span></span>
-                    </div>
-                </div>
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
 
-                <div class="form-group">
-                    <label class="control-label col-md-2">Magasin</label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="magasin.id" name="magasin" type="number"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Fournisseur</label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="personne.id" name="personne" type="number"/>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Produits</label>
-                    <div class="col-md-10">
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <button class="btn btn-md btn-primary" id="addBtn" type="button">New</button>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Quantite</th>
-                                        <th>Prix</th>
-                                        <th>Type</th>
-                                        <th>Produit</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tbody" name="io_produits"></tbody>
-                                </table>
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouvelle Approvision</h3>
                             </div>
+                            <form class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Statut</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="statutApprovission"
+                                                   name="statutApprovission" type="text"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Montant Payé</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="montantPaye" name="montantPaye"
+                                                   type="number"/>
+                                            <span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Magasin</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="magasin.id" name="magasin" type="number"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Fournisseur</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="personne.id" name="personne" type="number"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Produits</label>
+                                        <div class="col-md-10">
+                                            <div class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <button class="btn btn-md btn-info" id="addBtn" type="button">
+                                                        New
+                                                    </button>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Quantite</th>
+                                                            <th>Prix</th>
+                                                            <th>Type</th>
+                                                            <th>Produit</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbody" name="io_produits"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input class="form-control" name="user.id" type="hidden" value="1"/>
+
+                                </div>
+
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-info" id="save" onclick="saving()">
+                                        <i class="fas fa-save"></i> Enregistre
+                                    </button>
+                                    <button class="btn btn-outline-danger" type="button"><i
+                                            class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
-                <input class="form-control" name="user.id" type="hidden" value="1"/>
-
             </div>
-
-            <div class="panel-footer text-center">
-                <button class="btn btn-primary" id="save" onclick="send()">
-                    <span class="glyphicon glyphicon-save"></span> Sauvegarder
-                </button>
-            </div>
-
-       <!-- </form>-->
+        </section>
     </div>
+
+    <div th:replace="fragment/footer"></div>
+
 </div>
-
 </body>
-<script>
-    $(document).ready(function () {
-               // jQuery button click event to add a row
-        $('#addBtn').on('click', function () {
-
-            // Adding a row inside the tbody.
-            $('#tbody').append(`<tr>
-                <td><input class="form-control" name="quantite[]"
-                    type="number"/></td>
-                <td><input class="form-control" name="prix[]"
-                                type="number"/></td>
-                <td><input class="form-control" name="type[]"
-                                type="text"/></td>
-                <td><input class="form-control" name="produit.id[]"
-                                type="text"/></td>
-            </tr>`);
-        });
-
-    });
-
-
-</script>
-
-<script>
-$(document).ready(function () {
-               // jQuery button click event to add a row
-        $('#save').on('click', function () {
-            console.log('Bonjour le monde !');
-        });
-
-    });
-
-function ajoutApprovission() {
-
-          var link =  "http://localhost:8080/appro/add";
-          console.log(link) ;
-
-             $.ajax({
-              url: link,
-              type: 'POST',
-              contentType: 'application/json',
-              data:{"id":100,"date":"2100-10-07T23:59:59","statutApprovission":"NON_REGLER","montantTotal":1293.0,"montantPaye":10000.0,"montantRestant":-8707.0,"personne":{"id":1,"nom":"HAIDARA","prenom":"Abdoulaye","adresse":"Bamako","telephone":"77777777","typeCompte":"FOURNISSEUR"},"user":{"id":1,"nom":"KOITA","prenom":"Gaoussou","adresse":"Baguineda","telephone":76684788,"login":"admin","password":"$2a$10$hhO2n9WMXpxug8vqtdFx2Oy0pEGPUaq6RzlaEsNRGu34k0I.BP0VG","roles":[{"id":2,"roleName":"UTILISATEUR"},{"id":1,"roleName":"ADMINISTRATEUR"}]},"magasin":{"id":1,"nom":"Auchan","adresse":"Ouest Foire","telephone":"766554413"},"io_produits":[{"id":1,"quantite":11,"prix":11.0,"type":"11,14,14","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":2,"quantite":11,"prix":11.0,"type":"11","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":3,"quantite":14,"prix":14.0,"type":"14,65","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":4,"quantite":1,"prix":1.0,"type":"1,2","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":5,"quantite":14,"prix":14.0,"type":"14","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":6,"quantite":10,"prix":10.0,"type":"10,5,8","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":7,"quantite":1,"prix":1.0,"type":"1,7","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":8,"quantite":1,"prix":1.0,"type":"1,7","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":9,"quantite":10,"prix":44.0,"type":"68","produit":{"id":4,"nom":"2","prix":2.0,"typeEngros":"Bidon","nombreEngros":2,"image":"Ag==","prixEngros":2.0,"codeBarre1":2,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":10,"quantite":4,"prix":4.0,"type":"04","produit":{"id":4,"nom":"2","prix":2.0,"typeEngros":"Bidon","nombreEngros":2,"image":"Ag==","prixEngros":2.0,"codeBarre1":2,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":11,"quantite":10,"prix":10.0,"type":"10","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}}]},
-              success: function (response) { console.log(response);},
-              error: function (response) {alert("Error");}
-                 });
-          }
-
-function send(){
-    var link =  "http://localhost:8080/appro/add";
-    var data = {"id":100,"date":"2100-10-07T23:59:59","statutApprovission":"NON_REGLER","montantTotal":1293.0,"montantPaye":10000.0,"montantRestant":-8707.0,"personne":{"id":1,"nom":"HAIDARA","prenom":"Abdoulaye","adresse":"Bamako","telephone":"77777777","typeCompte":"FOURNISSEUR"},"user":{"id":1,"nom":"KOITA","prenom":"Gaoussou","adresse":"Baguineda","telephone":76684788,"login":"admin","password":"$2a$10$hhO2n9WMXpxug8vqtdFx2Oy0pEGPUaq6RzlaEsNRGu34k0I.BP0VG","roles":[{"id":2,"roleName":"UTILISATEUR"},{"id":1,"roleName":"ADMINISTRATEUR"}]},"magasin":{"id":1,"nom":"Auchan","adresse":"Ouest Foire","telephone":"766554413"},"io_produits":[{"id":1,"quantite":11,"prix":11.0,"type":"11,14,14","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":2,"quantite":11,"prix":11.0,"type":"11","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":3,"quantite":14,"prix":14.0,"type":"14,65","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":4,"quantite":1,"prix":1.0,"type":"1,2","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":5,"quantite":14,"prix":14.0,"type":"14","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":6,"quantite":10,"prix":10.0,"type":"10,5,8","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":7,"quantite":1,"prix":1.0,"type":"1,7","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":8,"quantite":1,"prix":1.0,"type":"1,7","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":9,"quantite":10,"prix":44.0,"type":"68","produit":{"id":4,"nom":"2","prix":2.0,"typeEngros":"Bidon","nombreEngros":2,"image":"Ag==","prixEngros":2.0,"codeBarre1":2,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":10,"quantite":4,"prix":4.0,"type":"04","produit":{"id":4,"nom":"2","prix":2.0,"typeEngros":"Bidon","nombreEngros":2,"image":"Ag==","prixEngros":2.0,"codeBarre1":2,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}},{"id":11,"quantite":10,"prix":10.0,"type":"10","produit":{"id":1,"nom":"Lait Candia","prix":600.0,"typeEngros":"Bidon","nombreEngros":6,"image":"","prixEngros":500.0,"codeBarre1":1234567,"codeBarre2":548484,"categorie":{"id":1,"nom":"Lait"}}}]};
-
-          var request = new XMLHttpRequest();
-          request.open("POST", link, false);
-          request.send(data);
-          console.log(request.status);
-
-
-}
-
-</script>
+<script th:replace="fragment/script"></script>
 </html>
