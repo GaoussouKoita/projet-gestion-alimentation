@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,5 +67,12 @@ public class VenteService {
     public Page<Vente> liste(int page) {
         return VenteRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("date").descending()));
+    }
+    public Page<Vente> listeParDate(LocalDate date, int page) {
+        return VenteRepository.findByDate(date, PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending().
+                and(Sort.by("heure").ascending())));
+    }
+    public List<Vente> listeParDate(LocalDate date) {
+        return VenteRepository.findByDate(date);
     }
 }

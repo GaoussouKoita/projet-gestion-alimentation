@@ -9,16 +9,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
     public void ajout(Stock stock) {
-        stockRepository.save(stock);
+
+        Stock stockEncours = rechercheParProdAndMag(stock.getProduit(), stock.getMagasin());
+
+        if (stockEncours!=null) {
+            stockEncours.setQuantite(stockEncours
+            .getQuantite()+stock.getQuantite());
+
+            stockRepository.save(stockEncours);
+           // updateEntree(stockEncours.getId(), stock.getQuantite());
+        } else {
+            stockRepository.save(stock);
+        }
+
     }
 
     public Stock lecture(Long id) {
@@ -51,5 +65,8 @@ public class StockService {
 
     public Page<Stock> liste(int page) {
         return stockRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE));
+    }
+    public Page<Stock> listeProdNom(String nom,int page) {
+        return stockRepository.findByProduitNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE));
     }
 }

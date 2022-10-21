@@ -1,25 +1,17 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
+    <a class="brand-link elevation-4" href="#">
+        <i class="fas fa-cart-plus"></i> <span>  Gestion Boutique</span></a>
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info">
-                <a class="d-block" href="#"><i class="fas fa-cart-plus"></i> Systeme de Gestion Boutique</a>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">
-                <!-- Add icons to the links using the .nav-icon class
+        <nav class="mt-3 mb-5">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">  <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-header" sec:authorize="hasAuthority('ADMINISTRATEUR')">Gestion Utilisateur</li>
+                <li class="nav-header">Gestion Utilisateur</li>
 
-                <li class="nav-item" sec:authorize="hasAuthority('ADMINISTRATEUR')">
-
+                <li class="nav-item"  sec:authorize="hasAuthority('ADMINISTRATEUR')">
                     <a class="nav-link" th:href="@{/}">
-                        <p><i class="nav-icon fas fa-user"></i> Utilisateur
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Utilisateur
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -38,6 +30,30 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item"  sec:authorize="hasAuthority('UTILISATEUR')">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>Client Fournisseur
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/client-fournisseur/add}">
+                                <i class="fas fa-user-plus mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/client-fournisseur/liste}">
+                                <i class="fas fa-users mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-header">Gestion Produit</li>
 
                 <li class="nav-item">
@@ -193,6 +209,74 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/approvision/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Retour Produit
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/retour-produit/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/retour-produit/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-header">Gestion Depense/Dette</li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Depense
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/depense/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/depense/liste}">
+                                <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>Dette
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dette-client/add}">
+                                <i class="fas fa-plus-circle mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/dette-client/liste}">
                                 <i class="fas fa-list mx-4"></i>
                                 <p>Liste</p>
                             </a>

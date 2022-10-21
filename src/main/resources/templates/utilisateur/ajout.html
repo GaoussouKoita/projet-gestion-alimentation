@@ -6,7 +6,7 @@
     <title>Ajour Utilisateur</title>
 
 </head>
-<body class="hold-transition sidebar-mini ">
+<body class="hold-transition sidebar-mini  layout-fixed layout-navbar-fixed ">
 <div class="wrapper">
     <div th:replace="fragment/navbar-horizontal"></div>
     <div th:replace="fragment/navbar-vertical"></div>
@@ -31,7 +31,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Nom</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre le nom" th:field="*{nom}"
+                                            <input class="form-control " placeholder="Entre le nom" th:field="*{nom}"
                                                    type="text">
                                             <span class="text-danger" th:errors="*{nom}"></span>
 
@@ -40,7 +40,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Premom</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre le prenom"
+                                            <input class="form-control " placeholder="Entre le prenom"
                                                    th:field="*{prenom}" type="text">
                                             <span class="text-danger" th:errors="*{prenom}"></span>
 
@@ -49,7 +49,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Email</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre l'email" th:field="*{email}"
+                                            <input class="form-control " placeholder="Entre l'email" th:field="*{email}"
                                                    type="email">
                                             <span class="text-danger" th:errors="*{email}"></span>
 
@@ -58,7 +58,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Adresse</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre l'adresse"
+                                            <input class="form-control " placeholder="Entre l'adresse"
                                                    th:field="*{adresse}"
                                                    type="text">
                                         </div>
@@ -66,7 +66,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Telephone</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre le numero de telephone"
+                                            <input class="form-control " placeholder="Entre le numero de telephone"
                                                    th:field="*{telephone}"
                                                    type="number">
                                             <span class="text-danger" th:errors="*{telephone}"></span>
@@ -76,7 +76,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Password</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre le password"
+                                            <input class="form-control " placeholder="Entre le password"
                                                    th:field="*{password}" type="password">
                                             <span class="text-danger" th:errors="*{password}"></span>
                                         </div>
@@ -84,7 +84,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Confirmation</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" placeholder="Entre a nouveau le password"
+                                            <input class="form-control " placeholder="Entre a nouveau le password"
                                                    th:field="*{confirmation}" type="password">
                                             <span class="text-danger" th:errors="*{confirmation}"></span>
 

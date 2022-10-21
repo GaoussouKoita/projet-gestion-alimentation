@@ -38,7 +38,7 @@ public class TransfertStockController {
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
     public String addForm(Model model) {
-        LOGGER.info("Formulaire Approvission");
+        LOGGER.info("Formulaire Approvision");
         auditService.ajoutAudit(new Audit("Formulaire Transfert Stock","Nouveau Transfert Stock"));
         model.addAttribute("transfertStock", new TransfertStock());
         model.addAttribute("produits", produitService.liste());
@@ -51,7 +51,7 @@ public class TransfertStockController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("transfertStock") @Valid TransfertStock transfertStock, Errors errors, Model model) {
 
-        LOGGER.info("Ajout d'Approvission dans la bd");
+        LOGGER.info("Ajout d'Approvision dans la bd");
         auditService.ajoutAudit(new Audit("Ajout/Update Transfert Stock", transfertStock.toString()));
         model.addAttribute("user", userService.currentUtilisateur());
         if (errors.hasErrors()) {
@@ -66,7 +66,7 @@ public class TransfertStockController {
 
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Update d'Approvission");
+        LOGGER.info("Update d'Approvision");
         auditService.ajoutAudit(new Audit("Formulaire Update Transfert Stock", service.lecture(id).toString()));
         model.addAttribute("transfertStock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
@@ -78,7 +78,7 @@ public class TransfertStockController {
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
-        LOGGER.info("Suppression d'Approvission");
+        LOGGER.info("Suppression d'Approvision");
         auditService.ajoutAudit(new Audit("Suppression Transfert Stock", service.lecture(id).toString()));
 
         service.suppression(id);
@@ -86,15 +86,30 @@ public class TransfertStockController {
 
     }
 
-    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("transfertStock", service.lecture(id));
         return "transfertStock/search";
     }
 
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    public String rechNom(Model model, @RequestParam String nom, @RequestParam(defaultValue = "0") int page) {
+        LOGGER.info("Lister Approvision");
+        auditService.ajoutAudit(new Audit("Liste Transfert Stock par Nom", nom));
+
+        Page<TransfertStock> transfertStockPage = service.listeParNom(nom, page);
+        model.addAttribute("transfertStocks", transfertStockPage.getContent());
+
+        model.addAttribute("totalElement", transfertStockPage.getTotalElements());
+        model.addAttribute("totalPage", new int[transfertStockPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", transfertStockPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+        return "transfertStock/liste";
+    }
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
-        LOGGER.info("Lister Approvission");
+        LOGGER.info("Lister Approvision");
         auditService.ajoutAudit(new Audit("Liste Transfert Stock", "Transferts Stocks"));
         Page<TransfertStock> transfertStockPage = service.liste(page);
         model.addAttribute("transfertStocks", transfertStockPage.getContent());

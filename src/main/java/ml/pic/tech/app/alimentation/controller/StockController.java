@@ -64,7 +64,8 @@ public class StockController {
     @GetMapping(Endpoint.UPDATE_ENDPOINT)
     public String modifier(@RequestParam("id") Long id, Model model) {
         LOGGER.info("Update de Stock");
-        auditService.ajoutAudit(new Audit("Formulaire Update Stock", service.lecture(id).toString()));
+        auditService.ajoutAudit(new Audit("Formulaire Update Stock",
+                service.lecture(id).toString()));
         model.addAttribute("stock", service.lecture(id));
         model.addAttribute("produits", produitService.liste());
         model.addAttribute("magasins", magasinService.liste());
@@ -82,9 +83,17 @@ public class StockController {
     }
 
     @GetMapping(Endpoint.DETAILS_ENDPOINT)
-    public String rechercher(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("stock", service.lecture(id));
-        return "stock/search";
+    public String rechercher(@RequestParam(defaultValue = "0") int page, @RequestParam String nom,  Model model) {
+
+        Page<Stock> stockPage = service.listeProdNom(nom, page);
+        model.addAttribute("stocks", stockPage.getContent());
+
+        model.addAttribute("totalElement", stockPage.getTotalElements());
+        model.addAttribute("totalPage", new int[stockPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", stockPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+        return "stock/liste";
     }
 
     @GetMapping(Endpoint.LISTE_ENDPOINT)

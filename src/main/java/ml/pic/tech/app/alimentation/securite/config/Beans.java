@@ -22,6 +22,7 @@ public class Beans {
         return new BCryptPasswordEncoder();
     }
 
+    /*
     @Bean
     public CommandLineRunner commandLineRunner(AccountService accontService) {
         return args -> {
@@ -41,10 +42,11 @@ public class Beans {
                 accontService.addUtilisateur(new Utilisateur(2L, "BRIBAUD", "Yannick", "Dakar",
                         773332211L, "user@g", "1234", "1234",roles));
             for (int i = 3; i < 10; i++) {
-                accontService.addUtilisateur(new Utilisateur((long) (i), "BRIBAUD", "Yannick", "Dakar",
+                accontService.addUtilisateur(new Utilisateur((long) (i), String.valueOf(i), String.valueOf(i),String.valueOf(i),
                         773332211L, "user@g"+i, "1234", "1234",roles));
 
             }
         };
     }
+    */
 }

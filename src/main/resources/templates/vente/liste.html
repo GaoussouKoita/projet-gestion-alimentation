@@ -4,7 +4,7 @@
     <style th:replace="fragment/style"></style>
     <title>Liste Ventes</title>
 </head>
-<body class="hold-transition sidebar-mini ">
+<body class="hold-transition sidebar-mini  layout-fixed layout-navbar-fixed ">
 <div class="wrapper">
     <div th:replace="fragment/navbar-horizontal"></div>
     <div th:replace="fragment/navbar-vertical"></div>
@@ -20,49 +20,55 @@
                                 <h3 class="card-title">Liste Ventes</h3>
                                 <a th:href="@{/vente/add}" class="btn-sm btn-info mx-4 "><i class="fas fa-plus"></i></a>
                                 <div class="card-tools">
-                                    <div class="input-group input-group-sm">
-                                        <input class="form-control float-right" name="table_search"
-                                               placeholder="Search"
-                                               type="text">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-default" type="submit">
-                                                <i class="fas fa-search"></i>
+                                    <form class="navbar-form navbar-right" method="GET"
+                                          th:action="@{/vente/details}">
+                                        <div class="input-group input-group-sm">
+                                            <input class="form-control float-right" name="date"
+                                                   placeholder="Entre le nom"
+                                                   type="date">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+
+                                            <button class="btn btn-tool" data-card-widget="collapse" title="Collapse"
+                                                    type="button">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button class="btn btn-tool" data-card-widget="remove" title="Remove"
+                                                    type="button">
+                                                <i class="fas fa-times"></i>
                                             </button>
                                         </div>
-
-                                        <button class="btn btn-tool" data-card-widget="collapse" title="Collapse"
-                                                type="button">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button class="btn btn-tool" data-card-widget="remove" title="Remove"
-                                                type="button">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="card-body table-responsive p-0">
-                                <table class="table table-hover text-nowrap table-striped">
+                                <table class="table table-sm table-hover text-nowrap table-striped">
         <thead>
         <tr>
             <th>Date</th>
+            <th>Heure</th>
             <th>Montant</th>
             <th>Remise</th>
-            <th>Nom et Prenom Utilisateur</th>
-            <th class="text-center">Action</th>
+            <th>Utilisateur</th>
+            <th sec:authorize="hasAuthority('ADMINISTRATEUR')">Action</th>
         </tr>
         </thead>
         <tbody>
 
         <tr th:each="vente : ${ ventes }">
-            <td th:text="${ vente.date }"></td>
+            <td th:text="${#temporals.format(vente.date, 'dd MMM yyyy') }"></td>
+            <td th:text="${ vente.Heure }"></td>
             <td th:text="${ vente.montant }"></td>
             <td th:text="${ vente.remise }"></td>
 
             <td th:text="${vente.user.prenom}+' '+${vente.user.nom}+' | '+ ${vente.user.telephone}"></td>
-            <td><a class="text-info"
+            <td sec:authorize="hasAuthority('ADMINISTRATEUR')">
+                <!--<a class="text-info"
                    th:href="@{/vente/update(id=${vente.id})}"><i
-                    class="fas fa-edit"></i></a>
+                    class="fas fa-edit"></i></a>-->
                 <a class="btn swalDefaultError"
                    th:href="@{/vente/delete(id=${vente.id})}">
                     <i class="fas fa-trash-alt text-danger"></i> </a>

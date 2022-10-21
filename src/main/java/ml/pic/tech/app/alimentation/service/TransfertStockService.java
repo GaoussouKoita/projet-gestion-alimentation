@@ -75,7 +75,12 @@ public class TransfertStockService {
     }
 
     public Page<TransfertStock> liste(int page) {
-        return TransfertRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
-                Sort.by("date").descending()));
+        return TransfertRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending().
+                and(Sort.by("heure").ascending())));
+    }
+
+    public Page<TransfertStock> listeParNom(String nom, int page) {
+        return TransfertRepository.findByProduitNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending().
+                and(Sort.by("heure").ascending())));
     }
 }

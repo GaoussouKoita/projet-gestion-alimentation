@@ -76,7 +76,7 @@ public class DetteClientController {
 
     }
 
-    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("detteClient", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());

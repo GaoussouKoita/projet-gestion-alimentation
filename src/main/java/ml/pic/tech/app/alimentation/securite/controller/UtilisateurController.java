@@ -52,8 +52,8 @@ public class UtilisateurController {
 
         } else {
             Utilisateur utilisateur1 = accountService.addUtilisateur(utilisateur);
-            model.addAttribute("", utilisateur1);
-            return "redirect:search";
+            model.addAttribute("utilisateur", utilisateur1);
+            return "utilisateur/info";
         }
 
 
@@ -80,11 +80,24 @@ public class UtilisateurController {
 
     }
 
-    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", accountService.currentUtilisateur());
         model.addAttribute("utilisateur", accountService.lecture(id));
-        return "utilisateur/details";
+        return "utilisateur/info";
+    }
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    public String rechercherParNom(@RequestParam(defaultValue = "0") int page, @RequestParam String nom, Model model) {
+
+        Page<Utilisateur> utilisateurPage = accountService.utilisateurNomPage(nom, page);
+
+        model.addAttribute("utilisateurs", utilisateurPage.getContent());
+        model.addAttribute("totalElement", utilisateurPage.getTotalElements());
+        model.addAttribute("totalPage", new int[utilisateurPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", utilisateurPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("user", accountService.currentUtilisateur());
+        return "utilisateur/liste";
     }
 
     @GetMapping(Endpoint.LISTE_ENDPOINT)
@@ -157,9 +170,12 @@ public class UtilisateurController {
                 accountService.lecture(id).getPrenom()+" "+
                         accountService.lecture(id).getNom()));
 
-        model.addAttribute("audits", auditService.auditList(id, page));
-        model.addAttribute("totalElements", auditService.auditList(id, page).getTotalElements());
-        model.addAttribute("pages", new int[auditService.auditList(id, page).getTotalPages()]);
+        Page<Audit> auditPage = auditService.auditList(id, page);
+
+        model.addAttribute("audits", auditPage.getContent());
+        model.addAttribute("totalElement", auditPage.getTotalElements());
+        model.addAttribute("totalPage", new int[auditPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", auditPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("id", id);
         model.addAttribute("user", accountService.currentUtilisateur());

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Nouvelle Approvision</title>
+    <th:block th:replace="fragment/style.html"></th:block>
+
+</head>
+<body class="hold-transition sidebar-mini  layout-fixed layout-navbar-fixed ">
+<div class="wrapper">
+    <div th:replace="fragment/header"></div>
+
+    <div class="content-wrapper">
+
+        <!--Formulaire-->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 my-4">
+
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Nouvelle Approvision</h3>
+                            </div>
+                            <form class="form-horizontal"  method="POST" th:action="@{/approvision/add}"
+                                  th:object="${approvision}">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Statut</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" th:field="*{statutApprovision}" type="number"/>
+                                            <span class="text-danger" th:errors="*{statutApprovision}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Montant Payé</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" th:field="*{montantPaye}" type="number"/>
+                                            <span class="text-danger" th:errors="*{montantPaye}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Magasin</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" th:field="*{magasin.id}">
+                                                <option th:each="magasin:${magasins}"
+                                                        th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                                        th:value="${magasin.id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Client Fournisseur</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" th:field="*{personne.id}">
+                                                <option th:each="personne:${personnes}"
+                                                        th:text="${personne.prenom}+' '+${personne.nom}"
+                                                        th:value="${personne.id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Produits</label>
+                                        <div class="col-md-10">
+                                            <div class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <button class="btn btn-md btn-info" id="addBtn" type="button">
+                                                        New
+                                                    </button>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Quantite</th>
+                                                            <th>Prix</th>
+                                                            <th>Type</th>
+                                                            <th>Produit</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbody" name="io_produits"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input name="user.id" th:value="${userId}" type="hidden"/>
+
+                                </div>
+
+                                <div class="card-footer text-center">
+                                    <button class="btn btn-info" id="save" onclick="saving()">
+                                        <i class="fas fa-save"></i> Enregistre
+                                    </button>
+                                    <button class="btn btn-outline-danger" type="button"><i
+                                            class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="fragment/footer"></div>
+
+</div>
+</body>
+<script th:replace="fragment/script"></script>
+</html>

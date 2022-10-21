@@ -1,11 +1,10 @@
 package ml.pic.tech.app.alimentation.controller.api;
 
-import ml.pic.tech.app.alimentation.domaine.Approvission;
+import ml.pic.tech.app.alimentation.domaine.Approvision;
 import ml.pic.tech.app.alimentation.domaine.IO_Produits;
-import ml.pic.tech.app.alimentation.service.ApprovissionService;
+import ml.pic.tech.app.alimentation.service.ApprovisionService;
 import ml.pic.tech.app.alimentation.service.IO_ProduitsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,19 +16,19 @@ import java.util.List;
 public class ApprovisionRest {
 
     @Autowired
-    private ApprovissionService service;
+    private ApprovisionService service;
     @Autowired
     private IO_ProduitsService io_produitsService;
 
 
     @PostMapping(value = "/appro/add")
-    public void addAppro(@RequestBody Approvission approvission) {
-        service.ajout(approvission);
+    public void addAppro(@RequestBody Approvision approvision) {
+        service.ajout(approvision);
     }
 
 
     @GetMapping(value = "/appro/liste", produces = "application/json" )
-    public List<Approvission> list() {
+    public List<Approvision> list() {
         return service.liste();
     }
 

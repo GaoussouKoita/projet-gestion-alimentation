@@ -66,6 +66,11 @@ public class AccountService implements UserDetailsService {
         return utilisateurRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
     }
+    public Page<Utilisateur> utilisateurNomPage(String nom, int page) {
+
+        return utilisateurRepository.findByNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE,
+                Sort.by("prenom").ascending().and(Sort.by("nom").ascending())));
+    }
 
     public void addRole(Role role){
         roleRepository.save(role);

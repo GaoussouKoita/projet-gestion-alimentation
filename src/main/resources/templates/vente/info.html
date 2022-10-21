@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <style th:replace="fragment/style"></style>
+
+    <title>Details Vente</title>
+
+</head>
+<body class="hold-transition sidebar-mini  layout-fixed layout-navbar-fixed ">
+<div class="wrapper">
+    <div th:replace="fragment/navbar-horizontal"></div>
+    <div th:replace="fragment/navbar-vertical"></div>
+
+    <div class="content-wrapper">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 offset-3 my-2">
+
+                        <div class="card card-info">
+
+                            <div class="card-header">
+                                <h3 class="card-title">Details Vente</h3>
+                            </div>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-sm table-hover text-nowrap table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Designation</th>
+                                        <th>Quantite</th>
+                                        <th>Prix</th>
+                                        <th>Montant</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="io_p : ${ vente.io_produits }">
+                                        <td th:text="${ io_p.quantite }"></td>
+                                        <td th:text="${ io_p.produit.prix }"></td>
+                                        <td th:text="${${ io_p.produit.prix }*${ io_p.produit.prix }}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button class="btn btn-outline-danger" type="button"><i
+                                        class="fas fa-cancel"></i> <a th:href="@{/vente/add}">Retour</a>
+                                </button>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+        </section>
+
+
+</div>
+
+<div th:replace="fragment/footer"></div>
+</div>
+</div>
+</div>
+</body>
+<script th:replace="fragment/script"></script>
+</html>

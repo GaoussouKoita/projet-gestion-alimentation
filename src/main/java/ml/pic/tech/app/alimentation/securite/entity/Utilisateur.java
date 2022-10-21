@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

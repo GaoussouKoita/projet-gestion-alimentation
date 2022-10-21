@@ -2,7 +2,7 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <style th:replace="fragment/style"></style>
-    <title>Liste Produits</title>
+    <title>audit Utilisateurs</title>
 </head>
 <body class="hold-transition sidebar-mini  layout-fixed layout-navbar-fixed ">
 <div class="wrapper">
@@ -17,13 +17,14 @@
                     <div class="col-12 my-2">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Liste Produits</h3>
-                                <a th:href="@{/produit/add}" class="btn-sm btn-info mx-4 "><i class="fas fa-plus"></i></a>
+                                <h3 class="card-title">audit des Utilisateurs</h3>
+                                <a class="btn-sm btn-info mx-4 " th:href="@{/utilisateur/add}"><i
+                                        class="fas fa-plus"></i></a>
                                 <div class="card-tools">
                                     <form class="navbar-form navbar-right" method="GET"
-                                          th:action="@{/produit/details}">
+                                          th:action="@{/utilisateur/details}">
                                         <div class="input-group input-group-sm">
-                                            <input class="form-control float-right" name="nom"
+                                            <input class="form-control-sm float-right" name="nom"
                                                    placeholder="Entre le nom"
                                                    type="text">
                                             <div class="input-group-append">
@@ -48,69 +49,58 @@
                                 <table class="table table-sm table-hover text-nowrap table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Categorie</th>
-                                        <th>Nom</th>
-                                        <th>Type Engros</th>
-                                        <th>Nombre Engros</th>
-                                        <th>Prix</th>
-                                        <th>Prix Engros</th>
-                                        <th>Code Barre 1</th>
-                                        <th>Code Barre 2</th>
-                                        <th>Action</th>
+                                        <th>Date</th>
+                                        <th>Heure</th>
+                                        <th>Message</th>
+                                        <th>Reference</th>
+                                        <th>Utilisateur</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    <tr th:each="prod : ${ produits }">
-                                        <td th:text="${ prod.image }"></td>
-                                        <td th:text="${ prod.categorie.nom }"></td>
-                                        <td th:text="${ prod.nom }"></td>
-                                        <td th:text="${ prod.typeEngros }"></td>
-                                        <td th:text="${ prod.nombreEngros }"></td>
-                                        <td th:text="${ prod.prix }+' F CFA'"></td>
-                                        <td th:text="${ prod.prixEngros }+' F CFA'"></td>
-                                        <td th:text="${ prod.codeBarre1 }"></td>
-                                        <td th:text="${ prod.codeBarre2 }"></td>
-                                        <td>
-                                            <a class="text-info"
-                                               th:href="@{/produit/update(id=${prod.id})}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            <a class="btn swalDefaultError"
-                                               th:href="@{/produit/delete(id=${prod.id})}">
-                                                <i class="fas fa-trash-alt text-danger"></i> </a>
+
+                                    <tr th:each="audit : ${ audits }">
+                                        <td th:text="${ audit.date }"></td>
+                                        <td th:text="${ audit.heure }"></td>
+                                        <td th:text="${ audit.action }"></td>
+                                        <td th:text="${ audit.object }"></td>
+
+                                        <td th:text="${audit.utilisateur.prenom}+' '+${audit.utilisateur.nom}">
                                         </td>
+
                                     </tr>
                                     </tbody>
-
                                 </table>
                             </div>
                             <!--
                                 Pagination:
-                                    On affiche une liste inline si le nombre de page <=3
+                                    On affiche une audit inline si le nombre de page <=3
 
                             -->
                             <div class="card-tools">
                                 <ul class="pagination pagination-sm float-left ml-5">
-                                    <span th:text="'Vous avez '+${totalElement}+' Produit.s'"></span>
+                                    <span th:text="'Vous avez '+${totalElement}+' Actions'"></span>
                                 </ul>
-                                <ul class="pagination pagination-sm float-right" th:if="${totalElement}>6">
+                                <ul class="pagination pagination-sm float-right" th:if="${totalElement}>8">
 
                                     <th:block th:if="${nbTotalPage}<=3">
                                         <li class="page-item" th:classappend="${currentPage}==0?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/produit/liste(page=${currentPage-1})}">&laquo;</a></li>
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${currentPage-1})}">&laquo;</a>
+                                        </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${status.index}?'active':''"
                                             th:each="page, status : ${totalPage}">
-                                            <a class="page-link" th:href="@{/produit/liste(page=${status.index})}"
+                                            <a class="page-link"
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${status.index})}"
                                                th:text="${status.index+1}"></a>
                                         </li>
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/produit/liste(page=${currentPage+1})}">&raquo;</a></li>
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${currentPage+1})}">&raquo;</a>
+                                        </li>
 
                                     </th:block>
 
@@ -118,16 +108,17 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-nbTotalPage}?'disabled':''">
                                             <a class="page-link"
-                                               th:href="@{/produit/liste(page=${currentPage-1})}">&laquo;</a></li>
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${currentPage-1})}">&laquo;</a>
+                                        </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-nbTotalPage}?'active':''">
-                                            <a class="page-link" th:href="@{/produit/liste(page=0)}"
+                                            <a class="page-link" th:href="@{/utilisateur/audit(id=${id},page=0)}"
                                                th:text="1"></a>
                                         </li>
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-nbTotalPage+1}?'active':''">
-                                            <a class="page-link" th:href="@{/produit/liste(page=1)}"
+                                            <a class="page-link" th:href="@{/utilisateur/audit(id=${id},page=1)}"
                                                th:text="2"></a>
                                         </li>
                                         <li class="page-item" th:if="${nbTotalPage}>5">
@@ -138,19 +129,22 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-2}?'active':''"
                                             th:if="${nbTotalPage}>4">
-                                            <a class="page-link" th:href="@{/produit/liste(page=${nbTotalPage-2})}"
+                                            <a class="page-link"
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${nbTotalPage-2})}"
                                                th:text="${nbTotalPage-2}"></a>
                                         </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'active':''">
-                                            <a class="page-link" th:href="@{/produit/liste(page=${nbTotalPage-1})}"
+                                            <a class="page-link"
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${nbTotalPage-1})}"
                                                th:text="${nbTotalPage-1}"></a>
                                         </li>
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/produit/liste(page=${nbTotalPage+1})}">&raquo;</a></li>
+                                               th:href="@{/utilisateur/audit(id=${id}, page=${nbTotalPage+1})}">&raquo;</a>
+                                        </li>
 
                                     </th:block>
                                 </ul>
@@ -169,5 +163,4 @@
 </div>
 </body>
 <script th:replace="fragment/script"></script>
-</html>
 </html>

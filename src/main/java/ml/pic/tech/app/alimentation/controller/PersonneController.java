@@ -72,7 +72,7 @@ public class PersonneController {
 
     }
 
-    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("personne", service.lecture(id));
         return "personne/search";

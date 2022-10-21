@@ -10,7 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -20,11 +22,10 @@ public class Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @NotNull(message = "Veuillez inserer une date svp !")
-    private LocalDateTime date = LocalDateTime.now();
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date = LocalDate.now();
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime heure = LocalTime.now();
     private String action;
     @Column(length = Integer.MAX_VALUE)
     private String object;

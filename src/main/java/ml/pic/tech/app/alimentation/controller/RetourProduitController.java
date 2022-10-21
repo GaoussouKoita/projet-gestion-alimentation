@@ -56,7 +56,6 @@ public class RetourProduitController {
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
     public String add(@ModelAttribute("retourProduit") @Valid RetourProduit retourProduit, Errors errors, Model model) {
 
-
         LOGGER.info("Ajout de retoutProduit dans la bd");
         auditService.ajoutAudit(new Audit("Ajout/Update Retour Produit", retourProduit.toString()));
 
@@ -99,13 +98,28 @@ public class RetourProduitController {
 
     }
 
-    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
         model.addAttribute("retourProduit", service.lecture(id));
         model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/search";
     }
 
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    public String allNomP(Model model, @RequestParam String nom, @RequestParam(defaultValue = "0") int page) {
+        LOGGER.info("Lister retourProduits");
+        auditService.ajoutAudit(new Audit("Liste Retour Produit", "Retour Produits"));
+
+        Page<RetourProduit> retourProduitPage = service.listeParNom(nom,page);
+        model.addAttribute("retourProduits", retourProduitPage.getContent());
+
+        model.addAttribute("totalElement", retourProduitPage.getTotalElements());
+        model.addAttribute("totalPage", new int[retourProduitPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", retourProduitPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("user", userService.currentUtilisateur());
+        return "retourProduit/liste";
+    }
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister retourProduits");

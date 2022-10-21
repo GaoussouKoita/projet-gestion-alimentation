@@ -28,7 +28,6 @@ public class RetourProduitService {
         Produit produit = retourProduit.getProduit();
         Magasin magasin = retourProduit.getMagasin();
         Stock stock = stockService.rechercheParProdAndMag(produit, magasin);
-        System.err.println("Stock : " + stock);
         if (stock == null) {
             stock = new Stock();
             stock.setQuantite(retourProduit.getQuantite());
@@ -56,5 +55,10 @@ public class RetourProduitService {
 
     public Page<RetourProduit> liste(int p) {
         return retourProduitRepository.findAll(PageRequest.of(p, Constante.NBRE_PAR_PAGE, Sort.by("date").descending()));
+    }
+
+    public Page<RetourProduit> listeParNom(String nom, int page) {
+        return retourProduitRepository.findByProduitNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending().
+                and(Sort.by("heure").ascending())));
     }
 }

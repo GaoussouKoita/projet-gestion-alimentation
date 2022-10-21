@@ -24,6 +24,7 @@ public class AuditService {
     }
 
     public Page<Audit> auditList(Long id, int page){
-        return repository.findByUtilisateurId(id, PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending()));
+        return repository.findByUtilisateurId(id, PageRequest.of(page, Constante.NBRE_PAR_PAGE, Sort.by("date").descending().
+                and(Sort.by("heure").ascending())));
     }
 }

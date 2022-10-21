@@ -11,30 +11,33 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransfertStock {
+public class Approvision {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date = LocalDate.now();
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime heure = LocalTime.now();
+    private String statutApprovision;
+    private double montantTotal;
+    private double montantPaye;
+    private double montantRestant;
 
-    @NotNull(message = "Veuillez inserer la quantite du produit svp !")
-    private int quantite;
     @ManyToOne
-    private Produit produit;
-    @ManyToOne
-    private Magasin magasinDepart;
-    @ManyToOne
-    private Magasin magasinDestination;
+    private Personne personne;
     @ManyToOne
     private Utilisateur user;
+    @ManyToOne
+    private Magasin magasin;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<IO_Produits> io_produits = new ArrayList<>();
 }

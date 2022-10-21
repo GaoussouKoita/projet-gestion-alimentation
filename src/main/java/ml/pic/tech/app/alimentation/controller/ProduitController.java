@@ -79,14 +79,17 @@ public class ProduitController {
     }
 
     @GetMapping(Endpoint.DETAILS_ENDPOINT)
-    public String rechercher(@RequestParam("nom") String nom, Model model) {
+    public String rechercher(@RequestParam("nom") String nom, @RequestParam(defaultValue = "0") int page, Model model) {
         LOGGER.info("Recherche de produit par nom");
         auditService.ajoutAudit(new Audit("Recherche Produit par nom", nom));
+        Page<Produit> produitPage = service.rechParNom(nom);
+        model.addAttribute("produits", produitPage.getContent());
+
+        model.addAttribute("totalElement", produitPage.getTotalElements());
+        model.addAttribute("totalPage", new int[produitPage.getTotalPages()]);
+        model.addAttribute("nbTotalPage", produitPage.getTotalPages());
+        model.addAttribute("currentPage", page);
         model.addAttribute("user", userService.currentUtilisateur());
-        model.addAttribute("produits", service.rechParNom(nom));
-        model.addAttribute("totalElements", service.rechParNom(nom).getTotalElements());
-        model.addAttribute("pages", new int[ service.rechParNom(nom).getTotalPages()]);
-//        model.addAttribute("currentPage", page);
         return "produit/liste";
     }
 
