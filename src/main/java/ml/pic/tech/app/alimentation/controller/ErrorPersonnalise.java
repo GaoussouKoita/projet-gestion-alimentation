@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-public class CumstomerError implements ErrorController {
+public class ErrorPersonnalise implements ErrorController {
 
     @Autowired
     private AccountService userService;
@@ -35,22 +35,25 @@ public class CumstomerError implements ErrorController {
     @GetMapping(Endpoint.ERROR_ENDPOINT)
     public String notFound(HttpServletRequest request, Model model) {
 
-        String errorPage = "erreur";
+        String errorPage = "erreur/";
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        model.addAttribute("user", userService.currentUtilisateur());
+        model.addAttribute("status", status);
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
 
-                errorPage = "erreur/404";
+                errorPage += "404";
 
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                errorPage = "erreur/500";
+                errorPage += "500";
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                errorPage = "erreur/403";
+                errorPage += "403";
+            } else {
+                errorPage += "erreur";
             }
         }
-        model.addAttribute("user", userService.currentUtilisateur());
         return errorPage;
     }
 

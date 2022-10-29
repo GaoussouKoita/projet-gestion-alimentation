@@ -39,16 +39,17 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">Motif</label>
+                                        <label class="control-label col-lg-2">Motif<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" required th:field="*{motif}" type="text"/>
                                             <span class="text-danger" th:errors="*{motif}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">Quantite</label>
+                                        <label class="control-label col-lg-2">Quantite<span class="text-danger">*</span></label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" th:field="*{quantite}" type="number"/>
+                                            <input class="form-control" required th:field="*{quantite}" type="number"/>
                                             <span class="text-danger" th:errors="*{quantite}"></span>
                                         </div>
                                     </div>
@@ -76,7 +77,8 @@
                                         <div class="col-lg-10">
                                             <select class="form-control select2bs4" id="sel2" th:field="*{vente.id}">
                                                 <option th:each="vente:${ventes}"
-                                                        th:text="${vente.date}+' '+${vente.montant}"
+                                                        th:text="${#temporals.format(date, 'E dd MMM yyyy')}+' '+${#temporals.format(heure, 'HH:mm:ss')}+' '+${vente.montant}"
+                                                        th:with="date=${vente.date}, heure=${vente.heure} "
                                                         th:value="${vente.id}"></option>
                                             </select>
                                         </div>

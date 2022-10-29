@@ -33,6 +33,5 @@ public interface Endpoint {
     String LOGIN_ENDPOINT = "/login";
 
     String AUDIT_ENDPOINT = "/audit";
-    String EXPORT_PDF_ENDPOINT = "/export";
     String DETAILS_ENDPOINT ="/details" ;
 }

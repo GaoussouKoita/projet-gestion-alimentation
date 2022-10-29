@@ -26,9 +26,6 @@ public class Personne {
     private Long telephone;
     private String typeCompte;
 
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "personne")
-//    private List<DetteClient> detteClients;
 
 
 }

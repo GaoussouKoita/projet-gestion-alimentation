@@ -138,7 +138,8 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/client-fournisseur/liste(page=${nbTotalPage+1})}">&raquo;</a></li>
+                                               th:href="@{/client-fournisseur/liste(page=${currentPage+1})}">&raquo;</a>
+                                        </li>
 
                                     </th:block>
                                 </ul>

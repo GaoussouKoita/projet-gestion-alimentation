@@ -8,11 +8,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-info">
         <div class="card-header text-center h1"><b>Authentification </b></a>
         </div>
         <div class="card-body">
-            <p class="login-box-msg text-primary">Saisissez vos identifiants</p>
+            <p class="login-box-msg text-info">Saisissez vos identifiants</p>
             <p class="text-danger text-center" th:if="${param.error}">
                 Email et/ou Password Incorrect.s!
             </p>
@@ -35,7 +35,7 @@
                     <input class="form-control" name="password"
                            placeholder="Veuillez entre votre password" type="password">
                 </div>
-                <div class="icheck-primary">
+                <div class="icheck-info">
                     <input id="remember" type="checkbox" name="remember-me">
                     <label for="remember">
                         Se Souvenir
@@ -43,7 +43,7 @@
                 </div>
 
                 <!-- /.col -->
-                <div class="col-lg-6 offset-3 mt-4 mb-3 ">
+                <div class="col-lg-6 offset-3 my-4 ">
                     <button class="btn btn-outline-success" type="submit">Se Connecter</button>
                 </div>
                 <!-- /.col -->

@@ -19,19 +19,16 @@ public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
-    public void ajout(Stock stock) {
+    public Stock ajout(Stock stock) {
 
         Stock stockEncours = rechercheParProdAndMag(stock.getProduit(), stock.getMagasin());
 
-        if (stockEncours!=null) {
+        if (stockEncours != null) {
             stockEncours.setQuantite(stockEncours
-            .getQuantite()+stock.getQuantite());
-
-            stockRepository.save(stockEncours);
-           // updateEntree(stockEncours.getId(), stock.getQuantite());
-        } else {
-            stockRepository.save(stock);
+                    .getQuantite() + stock.getQuantite());
+            return stockRepository.save(stockEncours);
         }
+        return stockRepository.save(stock);
 
     }
 

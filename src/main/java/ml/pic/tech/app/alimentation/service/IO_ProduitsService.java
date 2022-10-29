@@ -27,4 +27,8 @@ public class IO_ProduitsService {
     public List<IO_Produits> liste() {
         return io_prodsRepository.findAll();
     }
+
+    public List<IO_Produits> ajoutListe(List<IO_Produits> io_produits) {
+        return io_prodsRepository.saveAll(io_produits);
+    }
 }

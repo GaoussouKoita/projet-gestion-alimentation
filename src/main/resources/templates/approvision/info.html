@@ -16,12 +16,25 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 offset-3 my-2">
+                    <div class="col-lg-8 offset-2 my-2">
 
                         <div class="card card-info">
 
                             <div class="card-header">
-                                <h3 class="card-title">Details Approvision</h3>
+                                <div class="card-title">
+                                    <i th:text="${#temporals.format(date, 'E dd MMM yyyy')}"
+                                       th:with="date=${approvision.date}"></i>
+                                    <i th:text="${#temporals.format(heure, 'HH:mm:ss')}"
+                                       th:with="heure=${approvision.heure}"></i>
+
+                                    <i th:text="'Montant Paye : '+${#numbers.formatInteger(total,3,'POINT')}+' F CFA'"
+                                       th:with="total=${approvision.montantPaye}"
+                                    ></i>
+                                </div>
+                                <div class="card-tools">
+                                    <h6 th:text="'Total : '+${#numbers.formatInteger(total,3,'POINT')}+' F CFA'"
+                                        th:with="total=${approvision.montantTotal}"></h6>
+                                </div>
                             </div>
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-sm table-hover text-nowrap table-striped">
@@ -36,16 +49,22 @@
                                     <tbody>
 
                                     <tr th:each="io_p : ${ approvision.io_produits }">
+                                        <td th:text="${ io_p.produit.nom }"></td>
                                         <td th:text="${ io_p.quantite }"></td>
-                                        <td th:text="${ io_p.produit.prix }"></td>
-                                        <td th:text="${${ io_p.produit.prix }*${ io_p.produit.prix }}"></td>
+                                        <td th:text="${#numbers.formatInteger(prix,3,'POINT')}+' F CFA'"
+                                            th:with="prix = ${ io_p.prix }"></td>
+                                        <td th:text="${#numbers.formatInteger(montant,3,'POINT')}+' F CFA'"
+                                            th:with="prix=${ io_p.prix },
+                                        quantite=${ io_p.quantite }, montant=${prix * quantite} "></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="card-footer text-center">
                                 <button class="btn btn-outline-danger" type="button"><i
-                                        class="fas fa-cancel"></i> <a th:href="@{/approvision/add}">Retour</a>
+                                        class="fas fa-cancel"></i> <a th:href="${#httpServletRequest.requestURI==urlCurrent}
+                                        ?@{/approvision/liste}:@{/approvision/add}"
+                                                                      th:with="urlCurrent=@{/approvision/info}">Retour</a>
                                 </button>
                             </div>
                             <!-- /.card-body -->

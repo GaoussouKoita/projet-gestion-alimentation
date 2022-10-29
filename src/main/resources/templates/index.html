@@ -22,7 +22,14 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Nombre de Vente du jour</span>
-                                <i class="info-box-number" th:text="${nbreProduit}+' Produits Vendus'"></i>
+                                <em class="info-box-number" th:text="${nbreProduit}+' Produits Vendus'"></em>
+                                <!-- Modal-->
+
+                                <button class="btn" data-target="#modal-default" data-toggle="modal" type="button">
+                                    <i class="fas fa-list-alt text-info">Produits</i>
+                                </button>
+
+                                <div th:replace="vente/io_prod_modal"></div>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -36,7 +43,9 @@
                             <div class="info-box-content">
                                 <i class="info-box-text">Total Vente <b
                                         th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy')}"></b></i>
-                                <i class="info-box-number" th:text="${totalVente}+' F CFA'"></i>
+                                <i class="info-box-number"
+                                   th:text="${#numbers.formatInteger(totalVente,3,'POINT')}+' F CFA'"
+                                   th:with="totalVente=${totalVente}"></i>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -44,9 +53,91 @@
                     </div>
                 </div>
 
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Ventes par Intervalle de Date</h3>
+                                <div class="card-tools">
+                                    <button class="btn btn-tool" data-card-widget="collapse" title="Collapse"
+                                            type="button">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button class="btn btn-tool" data-card-widget="remove" title="Remove"
+                                            type="button">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form class="navbar-form navbar-right" method="GET"
+                                      th:action="@{/details}">
+                                    <div class="form-group">
+                                        <i class="mr-4">Du</i>
+                                        <input class="form-control-sm" name="date1"
+                                               required type="date">
+                                        <i class="ml-2 mr-4">Au</i>
+                                        <input class="form-control-sm"
+                                               name="date2"
+                                               placeholder="Entre le nom"
+                                               required type="date">
+                                        <button class="btn btn-sm btn-default ml-3" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="card-footer text-center" th:if="${dateDebut} and ${dateFin}">
+                                <h4 th:text="${#temporals.format(dateDebut, 'dd MMM yyyy') }+' - '+${#temporals.format(dateFin, 'dd MMM yyyy') }"></h4>
+                                <b class="mr-5">Total: <i class="info-box-number text-success "
+                                                          th:text="${#numbers.formatInteger(totalVente,3,'POINT')}+' F CFA'"
+                                                          th:with="totalVente=${totalVenteBetween}"></i></b>
+                                <b>Nombre de produits: <i class="info-box-number"
+                                                          th:text="${nbreProduitBetween}"></i></b>
+
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Produits en Rupture de Stock</h3>
+                                <div class="card-tools">
+                                    <button class="btn btn-tool" data-card-widget="collapse" title="Collapse"
+                                            type="button">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button class="btn btn-tool" data-card-widget="remove" title="Remove"
+                                            type="button">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <th:block th:each="stock : ${stocks}">
+                                    <span class="text-danger"
+                                          th:text="${stock.produit.categorie.nom}+' '+${stock.produit.nom}">
+                                    </span> <b class="text-danger" th:text="' : '+${stock.quantite}"></b>
+                                    <i class="text-danger" th:text="' restants à '+${stock.magasin.nom}+' '
+                                    +${stock.magasin.adresse}"></i>
+
+                                    <br/>
+                                </th:block>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+
                 <div class="row ">
                     <!-- ./Histogramme -->
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
@@ -82,24 +173,9 @@
                         </div>
                         <!-- /.card -->
                     </div>
-
                     <!-- ./col -->
-                    <div class="col-lg-4">
-                        <div class="card card-danger">
-                            <div class="card-header">
-                                <h3 class="card-title">Produits en Rupture de Stock</h3>
-                            </div>
-                            <div class="card-body">
-                                <th:block th:each="stock : ${stocks}">
-                                    <i class="text-danger"
-                                       th:text="${stock.produit.categorie.nom}+' '+${stock.produit.nom}+' : '+${stock.quantite}+' restant.s'"></i><br/>
-                                </th:block>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
                 </div>
+
 
             </div>
         </section>

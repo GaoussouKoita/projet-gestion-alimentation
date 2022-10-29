@@ -7,6 +7,7 @@ import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Vente {
     private Magasin magasin;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @NotEmpty(message = "Veuillez renseigner les produits de la vente")
     private List<IO_Produits> io_produits = new ArrayList<>();
 
 }

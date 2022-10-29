@@ -23,7 +23,6 @@ public class Produit {
     private String typeEngros;
     private int nombreEngros;
     @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] image;
     @Min(value = 1, message = "Veuillez inserer le prix engros du produit >= 1 svp !")
     private double prixEngros;

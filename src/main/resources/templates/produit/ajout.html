@@ -24,7 +24,7 @@
                             <!-- /.card-header -->
                             <!-- form start -->
                             <form class="form-horizontal" method="post"
-                                  th:action="@{/produit/add}" th:object="${produit}">
+                                  enctype="multipart/form-data" th:action="@{/produit/add}" th:object="${produit}">
                                 <div class="card-body">
 
                                     <input th:field="*{id}" type="hidden">
@@ -42,10 +42,11 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Nom</label>
+                                        <label class="col-lg-2 col-form-label">Nom<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le nom" th:field="*{nom}"
-                                                   type="text">
+                                                   required type="text">
                                             <span class="text-danger" th:errors="*{nom}"></span>
                                         </div>
                                     </div>
@@ -56,6 +57,7 @@
                                             <select class="form-control select2bs4" id="sel1" th:field="*{typeEngros}">
                                                 <option th:text="Bidon" th:value="Bidon"></option>
                                                 <option th:text="Boite" th:value="Boite"></option>
+                                                <option th:text="Bouteille" th:value="Bouteille"></option>
                                                 <option th:text="Caisse" th:value="Caisse"></option>
                                                 <option th:text="Carton" th:value="Carton"></option>
                                                 <option th:text="Paquet" th:value="Paquet"></option>
@@ -66,48 +68,58 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Nombre Engros</label>
+                                        <label class="col-lg-2 col-form-label">Nombre Engros<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le nombre par vente engros"
                                                    th:field="*{nombreEngros}"
-                                                   type="number">
+                                                   required type="number">
                                             <span class="text-danger" th:errors="*{nombreEngros}"></span>
                                         </div>
-                                    </div><div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Prix Engros</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Prix Engros<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le prix par vente engros"
                                                    th:field="*{prixEngros}"
-                                                   type="number">
+                                                   required type="number">
                                             <span class="text-danger" th:errors="*{prixEngros}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Prix </label>
+                                        <label class="col-lg-2 col-form-label">Prix<span class="text-danger">*</span>
+                                        </label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le prix "
                                                    th:field="*{prix}"
-                                                   type="number">
+                                                   required type="number">
                                             <span class="text-danger" th:errors="*{prix}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Image </label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control"
-                                                   th:field="*{image}"
-                                                   type="text">
-                                            <span class="text-danger" th:errors="*{image}"></span>
+                                        <label class="col-lg-2 col-form-label">Image</label>
+                                        <div class="input-group col-lg-10">
+                                            <div class="custom-file">
+                                                <input accept="image/jpeg" class="custom-file-input" name="file"
+                                                       required type="file">
+                                                <label class="custom-file-label">Ajouter l'image</label>
+                                                <span class="text-danger" th:errors="*{image}"></span>
+                                            </div>
                                         </div>
-                                    </div><div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Code Barre 1 </label>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">Code Barre 1<span
+                                                class="text-danger">*</span> </small></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le code barre 1 "
                                                    th:field="*{codeBarre1}"
-                                                   type="number">
+                                                   required type="number">
                                             <span class="text-danger" th:errors="*{codeBarre1}"></span>
                                         </div>
-                                    </div><div class="form-group row">
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Code Barre 2 </label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le code barre 2 "

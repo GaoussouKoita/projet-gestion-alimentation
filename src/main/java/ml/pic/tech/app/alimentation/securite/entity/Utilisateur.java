@@ -2,6 +2,7 @@ package ml.pic.tech.app.alimentation.securite.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class Utilisateur {
     @Id
@@ -32,10 +33,5 @@ public class Utilisateur {
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
-
-    public Utilisateur() {
-
-        roles = new ArrayList<>();
-    }
 
 }

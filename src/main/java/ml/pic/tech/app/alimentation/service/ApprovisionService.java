@@ -23,14 +23,21 @@ public class ApprovisionService {
     private ApprovisionRepository approvisionRepository;
     @Autowired
     private StockService stockService;
+    @Autowired
+    private IO_ProduitsService io_produitsService;
+    @Autowired
+    private ProduitService produitService;
 
 
-    public void ajout(Approvision approvision) {
+    public Approvision ajout(Approvision approvision) {
 
-        double total =0;
+        double total = 0;
         List<IO_Produits> io_produits = approvision.getIo_produits();
         for (IO_Produits io_p : io_produits) {
             total += io_p.getQuantite() * io_p.getPrix();
+
+            io_p.setProduit(produitService.prodParCodeBarre1(io_p.getProduit().getCodeBarre1()));
+            System.err.println(io_p.getProduit());
             Stock stock = stockService.rechercheParProdAndMag(io_p.getProduit(), approvision.getMagasin());
             if (stock == null) {
                 stock = new Stock();
@@ -44,11 +51,13 @@ public class ApprovisionService {
             }
         }
 
+        io_produits = io_produitsService.ajoutListe(io_produits);
+
         approvision.setMontantTotal(total);
         approvision.setMontantRestant(total - approvision.getMontantPaye());
+        approvision.setIo_produits(io_produits);
 
-        System.err.println(approvision);
-        approvisionRepository.save(approvision);
+        return approvisionRepository.save(approvision);
 
     }
 

@@ -27,15 +27,19 @@
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Statut</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" th:field="*{statutApprovision}" type="number"/>
-                                            <span class="text-danger" th:errors="*{statutApprovision}"></span>
+                                            <select class="form-control select2bs4" th:field="*{statutApprovision}">
+                                                <option th:text="REGLER" th:value="REGLER"></option>
+                                                <option th:text="NON_REGLER" th:value="NON_REGLER"></option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-md-2">Montant Payé</label>
+                                        <label class="control-label col-md-2">Montant Payé<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-md-10">
-                                            <input class="form-control" th:field="*{montantPaye}" type="number"/>
+                                            <input class="form-control" required th:field="*{montantPaye}"
+                                                   type="number"/>
                                             <span class="text-danger" th:errors="*{montantPaye}"></span>
                                         </div>
                                     </div>
@@ -67,19 +71,42 @@
                                         <div class="col-md-10">
                                             <div class="panel panel-info">
                                                 <div class="panel-body">
-                                                    <button class="btn btn-md btn-info" id="addBtn" type="button">
-                                                        New
-                                                    </button>
                                                     <table class="table table-striped">
                                                         <thead>
                                                         <tr>
+                                                            <th>Produit</th>
                                                             <th>Quantite</th>
                                                             <th>Prix</th>
-                                                            <th>Type</th>
-                                                            <th>Produit</th>
+                                                            <th>Type
+                                                                <input class="btn btn-xs btn-info ml-5" id="addBtn"
+                                                                       type="button" value="Nouveau">
+                                                            </th>
+
                                                         </tr>
                                                         </thead>
-                                                        <tbody id="tbody" name="io_produits"></tbody>
+                                                        <tbody id="tbody">
+                                                        <tr>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].produit.codeBarre1"
+                                                                       placeholder="Sacnner le produit" required
+                                                                       type="text"/></td>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].quantite"
+                                                                       placeholder="Entrer la quantite" required
+                                                                       type="number"/></td>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].prix"
+                                                                       placeholder="Entrer le prix d'achat par unite de type"
+                                                                       required
+                                                                       type="number"/>
+                                                            </td>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].type"
+                                                                       placeholder="Bidon, Boite, Sac ... " required
+                                                                       type="text"/></td>
+
+                                                        </tr>
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -91,7 +118,7 @@
                                 </div>
 
                                 <div class="card-footer text-center">
-                                    <button class="btn btn-info" id="save" onclick="saving()">
+                                    <button class="btn btn-info" type="submit">
                                         <i class="fas fa-save"></i> Enregistre
                                     </button>
                                     <button class="btn btn-outline-danger" type="button"><i

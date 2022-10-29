@@ -64,17 +64,6 @@ public class TransfertStockController {
         return "redirect:liste";
     }
 
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Update d'Approvision");
-        auditService.ajoutAudit(new Audit("Formulaire Update Transfert Stock", service.lecture(id).toString()));
-        model.addAttribute("transfertStock", service.lecture(id));
-        model.addAttribute("produits", produitService.liste());
-        model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("userId", userService.currentUtilisateur().getId());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "transfertStock/ajout";
-    }
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
@@ -86,11 +75,6 @@ public class TransfertStockController {
 
     }
 
-    @GetMapping(Endpoint.INFO_ENDPOINT)
-    public String rechercher(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("transfertStock", service.lecture(id));
-        return "transfertStock/search";
-    }
 
     @GetMapping(Endpoint.DETAILS_ENDPOINT)
     public String rechNom(Model model, @RequestParam String nom, @RequestParam(defaultValue = "0") int page) {

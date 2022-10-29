@@ -179,6 +179,7 @@ public class UtilisateurController {
         model.addAttribute("currentPage", page);
         model.addAttribute("id", id);
         model.addAttribute("user", accountService.currentUtilisateur());
+        model.addAttribute("uAudit", accountService.lecture(id));
 
         return "utilisateur/audit";
     }

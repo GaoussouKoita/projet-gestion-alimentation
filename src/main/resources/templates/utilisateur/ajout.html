@@ -29,28 +29,30 @@
                                 <div class="card-body">
                                     <input th:field="*{id}" type="hidden">
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Nom</label>
+                                        <label class="col-lg-2 col-form-label">Nom<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre le nom" th:field="*{nom}"
-                                                   type="text">
+                                                   required type="text">
                                             <span class="text-danger" th:errors="*{nom}"></span>
 
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Premom</label>
+                                        <label class="col-lg-2 col-form-label">Premom<span class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre le prenom"
-                                                   th:field="*{prenom}" type="text">
+                                                   required th:field="*{prenom}" type="text">
                                             <span class="text-danger" th:errors="*{prenom}"></span>
 
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Email</label>
+                                        <label class="col-lg-2 col-form-label">Email<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre l'email" th:field="*{email}"
-                                                   type="email">
+                                                   required type="email">
                                             <span class="text-danger" th:errors="*{email}"></span>
 
                                         </div>
@@ -64,28 +66,31 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Telephone</label>
+                                        <label class="col-lg-2 col-form-label">Telephone<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre le numero de telephone"
                                                    th:field="*{telephone}"
-                                                   type="number">
+                                                   required type="number">
                                             <span class="text-danger" th:errors="*{telephone}"></span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Password</label>
+                                        <label class="col-lg-2 col-form-label">Password<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre le password"
-                                                   th:field="*{password}" type="password">
+                                                   required th:field="*{password}" type="password">
                                             <span class="text-danger" th:errors="*{password}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Confirmation</label>
+                                        <label class="col-lg-2 col-form-label">Confirmation<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control " placeholder="Entre a nouveau le password"
-                                                   th:field="*{confirmation}" type="password">
+                                                   required th:field="*{confirmation}" type="password">
                                             <span class="text-danger" th:errors="*{confirmation}"></span>
 
                                         </div>

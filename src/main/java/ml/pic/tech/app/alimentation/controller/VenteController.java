@@ -20,11 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
-import java.util.Date;
 
 @Controller
 @RequestMapping(Endpoint.VENTE_ENDPOINT)
@@ -51,7 +46,6 @@ public class VenteController {
         model.addAttribute("vente", new Vente());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("produits", produitService.liste());
-//        model.addAttribute("io_prods", new ArrayList<IO_Produits>());
         model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("magasins", magasinService.liste());
         return "vente/ajout";
@@ -65,32 +59,22 @@ public class VenteController {
 
         auditService.ajoutAudit(new Audit("Ajout/Update Vente", vente.toString()));
 
-        if (errors.hasErrors()) {
+        if (!service.isVerifieVenteStockSup(vente) || errors.hasErrors()) {
             model.addAttribute("userId", userService.currentUtilisateur().getId());
             model.addAttribute("produits", produitService.liste());
-            model.addAttribute("produits", produitService.liste());
-//            model.addAttribute("io_prods", new ArrayList<IO_Produits>());
             model.addAttribute("magasins", magasinService.liste());
+
+            errors.rejectValue("io_produits", "La quantite " +
+                    "de stock est inferieure a la demande");
             return "vente/ajout";
         }
-//        vente.setIo_produits(io_produits);
-            service.ajout(vente);
-            model.addAttribute("vente", service.lecture(vente.getId()));
+
+        vente = service.ajout(vente);
+        model.addAttribute("vente", vente);
 
         return "vente/info";
     }
 
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Update de Vente");
-        auditService.ajoutAudit(new Audit("Formulaire Update Vente", service.lecture(id).toString()));
-        model.addAttribute("vente", service.lecture(id));
-        model.addAttribute("userId", userService.currentUtilisateur().getId());
-        model.addAttribute("produits", produitService.liste());
-        model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "vente/ajout";
-    }
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {

@@ -6,57 +6,10 @@
         <nav class="mt-3 mb-5">
             <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">  <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-header">Gestion Utilisateur</li>
 
-                <li class="nav-item"  sec:authorize="hasAuthority('ADMINISTRATEUR')">
-                    <a class="nav-link" th:href="@{/}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>Utilisateur
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/utilisateur/add}">
-                                <i class="fas fa-user-plus mx-4"></i>
-                                <p>Nouveau</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/utilisateur/liste}">
-                                <i class="fas fa-users mx-4"></i>
-                                <p>Liste</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Produit</li>
 
                 <li class="nav-item"  sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
-                        <i class="nav-icon far fa-user"></i>
-                        <p>Client Fournisseur
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/client-fournisseur/add}">
-                                <i class="fas fa-user-plus mx-4"></i>
-                                <p>Nouveau</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/client-fournisseur/liste}">
-                                <i class="fas fa-users mx-4"></i>
-                                <p>Liste</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-header">Gestion Produit</li>
-
-                <li class="nav-item">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Categorie
@@ -79,7 +32,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Produit
@@ -101,9 +54,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">Gestion Stock</li>
+                <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Stock</li>
 
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle "></i>
                         <p>Magasin
@@ -125,7 +78,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon fas fa-store"></i>
                         <p>Stock
@@ -147,7 +100,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Transfert Stock
@@ -170,8 +123,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-header">Gestion Entree/Sorties</li>
-                <li class="nav-item">
+                <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Entree/Sorties</li>
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Vente
@@ -193,7 +146,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Approvision
@@ -215,7 +168,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Retour Produit
@@ -238,8 +191,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-header">Gestion Depense/Dette</li>
-                <li class="nav-item">
+                <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Depense/Dette</li>
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Depense
@@ -261,7 +214,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
                     <a class="nav-link" th:href="@{/}">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Dette
@@ -278,6 +231,54 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/dette-client/liste}">
                                 <i class="fas fa-list mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Utilisateur</li>
+
+                <li class="nav-item" sec:authorize="hasAuthority('ADMINISTRATEUR')">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Utilisateur
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/utilisateur/add}">
+                                <i class="fas fa-user-plus mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/utilisateur/liste}">
+                                <i class="fas fa-users mx-4"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>Client Fournisseur
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/client-fournisseur/add}">
+                                <i class="fas fa-user-plus mx-4"></i>
+                                <p>Nouveau</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/client-fournisseur/liste}">
+                                <i class="fas fa-users mx-4"></i>
                                 <p>Liste</p>
                             </a>
                         </li>

@@ -14,7 +14,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     @Modifying
     @Query("UPDATE Utilisateur u SET u.password=?2 WHERE u.email=?1")
-    void updateUtilisateurByLogin(String email, String newPassword);
+    void updateUtilisateurByEmail(String email, String newPassword);
 
     Page<Utilisateur> findByNomContaining(String nom, Pageable pageable);
 }

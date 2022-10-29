@@ -3,9 +3,7 @@ package ml.pic.tech.app.alimentation.securite.config;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,11 +24,6 @@ public class SecuriteConfig {
     private AccountService service;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
-    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -56,9 +49,6 @@ public class SecuriteConfig {
                 and().sessionManagement(session -> {
             session.maximumSessions(1);
         });
-
-//                http.authorizeRequests().anyRequest().permitAll();
-//                http.csrf().disable().build();
         return http.build();
 
 

@@ -1,6 +1,8 @@
 package ml.pic.tech.app.alimentation.repository;
 
 import ml.pic.tech.app.alimentation.domaine.Produit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,6 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     public Produit findByCodeBarre1(Long codeBarre1);
 
-    public List<Produit> findByNomContaining(String nom);
+    public Page<Produit> findByNomContaining(String nom, Pageable pageable);
 
 }

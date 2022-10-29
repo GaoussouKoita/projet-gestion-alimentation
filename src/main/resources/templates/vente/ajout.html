@@ -55,82 +55,39 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-md-2">Produit</label>
+                                        <label class="control-label col-md-2">Produits</label>
                                         <div class="col-md-10">
-                                            <button class="btn btn-info" data-target="#myModal" data-toggle="modal"
-                                                    type="button">
-                                                Produits
-                                            </button>
-                                            <div class="modal fade" id="myModal" role="dialog">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Ajout Prouit</h4>
-                                                            <button aria-label="Close" class="close" data-dismiss="modal"
-                                                                    type="button">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="card card-info">
-                                                                <div class="card-body">
-                                                                    <div class="text-right">
-                                                                        <a class="btn btn-info" id="plus">+
-                                                                        </a>
-                                                                    </div>
-                                                                    <table class="table table-striped" id="tbl">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>Quantite</th>
-                                                                            <th>Prix</th>
-                                                                            <th>Type</th>
-                                                                            <th>Produit</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody id="tableProd">
-                                                                        <tr id="line">
-                                                                            <td><input class="form-control"
-                                                                                       name="io_produits.io_produit.quantite"
-                                                                                       type="number"/>
-                                                                            </td>
-                                                                            <td><input class="form-control"
-                                                                                       name="io_produits.io_produit.prix"
-                                                                                       type="number"/>
-                                                                            </td>
-                                                                            <td><input class="form-control"
-                                                                                       name="io_produits.io_produit.type"
-                                                                                       type="text"/>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="form-group row text-left">
-                                                                                    <select class="form-control select2bs4"
-                                                                                            id="sel5"
-                                                                                            name="io_produits.io_produit.produit">
-                                                                                        <option th:each="produit:${produits}"
-                                                                                                th:text="${produit.categorie.nom}+' '+${produit.nom}"
-                                                                                                th:value="${produit.id}"></option>
-                                                                                    </select></div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button class="btn btn-default" data-dismiss="modal"
-                                                                    type="button">Close
-                                                            </button>
-                                                            <button class="btn btn-info" type="button">Save changes
-                                                            </button>
-                                                        </div>
+                                            <div class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Produit</th>
+                                                            <th>Quantite
+                                                                <input class="btn btn-xs btn-info ml-5" id="addBtnVente"
+                                                                       type="button" value="Nouveau">
+                                                            </th>
 
-                                                    </div>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbody">
+                                                        <tr>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].produit.codeBarre1"
+                                                                       placeholder="Sacnner le produit" required
+                                                                       type="text"/>
+                                                            </td>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].quantite"
+                                                                       placeholder="Entrer la quantite" required
+                                                                       type="number"/></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <input name="user.id" th:value="${userId}" type="hidden"/>
 

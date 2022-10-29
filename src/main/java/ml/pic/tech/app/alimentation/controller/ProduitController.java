@@ -7,6 +7,7 @@ import ml.pic.tech.app.alimentation.service.AuditService;
 import ml.pic.tech.app.alimentation.service.CategorieService;
 import ml.pic.tech.app.alimentation.service.ProduitService;
 import ml.pic.tech.app.alimentation.utils.Endpoint;
+import ml.pic.tech.app.alimentation.utils.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(Endpoint.PRODUIT_ENDPOINT)
@@ -44,7 +47,8 @@ public class ProduitController {
     }
 
     @PostMapping(Endpoint.AJOUT_ENDPOINT)
-    public String add(@ModelAttribute("produit") @Valid Produit produit, Errors errors, Model model) {
+    public String add(@ModelAttribute("produit") @Valid Produit produit, @RequestParam MultipartFile file,
+                      Errors errors, Model model) throws IOException {
         LOGGER.info("Ajout de Produit dans la bd");
         auditService.ajoutAudit(new Audit("Ajout/Update", produit.toString()));
         model.addAttribute("categories", categorieService.liste());
@@ -53,6 +57,7 @@ public class ProduitController {
             model.addAttribute("categories", categorieService.liste());
             return "produit/ajout";
         } else {
+            produit.setImage(file.getBytes());
             service.ajout(produit);
         }
 
@@ -82,8 +87,10 @@ public class ProduitController {
     public String rechercher(@RequestParam("nom") String nom, @RequestParam(defaultValue = "0") int page, Model model) {
         LOGGER.info("Recherche de produit par nom");
         auditService.ajoutAudit(new Audit("Recherche Produit par nom", nom));
-        Page<Produit> produitPage = service.rechParNom(nom);
+        Page<Produit> produitPage = service.rechParNom(nom, page);
         model.addAttribute("produits", produitPage.getContent());
+        model.addAttribute("imageUtil", new ImageUtil());
+
 
         model.addAttribute("totalElement", produitPage.getTotalElements());
         model.addAttribute("totalPage", new int[produitPage.getTotalPages()]);
@@ -99,13 +106,14 @@ public class ProduitController {
         auditService.ajoutAudit(new Audit("Liste Produit", "Produits"));
 
         Page<Produit> produitPage = service.liste(page);
+        model.addAttribute("user", userService.currentUtilisateur());
+        model.addAttribute("imageUtil", new ImageUtil());
         model.addAttribute("produits", produitPage.getContent());
 
         model.addAttribute("totalElement", produitPage.getTotalElements());
         model.addAttribute("totalPage", new int[produitPage.getTotalPages()]);
         model.addAttribute("nbTotalPage", produitPage.getTotalPages());
         model.addAttribute("currentPage", page);
-        model.addAttribute("user", userService.currentUtilisateur());
         return "produit/liste";
     }
 }

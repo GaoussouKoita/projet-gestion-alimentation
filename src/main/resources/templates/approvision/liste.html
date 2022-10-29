@@ -73,10 +73,10 @@
                                         <td th:text="${approvision.personne.prenom}+' '+${approvision.personne.nom}"></option>
                                         </td>
                                         <td th:text="${approvision.user.prenom}+' '+${approvision.user.nom}"></td>
-                                        <td  sec:authorize="hasAuthority('ADMINISTRATEUR')">
-                                            <!--<a class="text-info"
-                                               th:href="@{/approvision/update(id=${approvision.id})}"><i
-                                                    class="fas fa-edit"></i></a>-->
+                                        <td sec:authorize="hasAuthority('ADMINISTRATEUR')">
+                                            <a class="text-info"
+                                               th:href="@{/approvision/info(id=${approvision.id})}"><i
+                                                    class="fas fa-info"></i></a>
                                             <a class="btn swalDefaultError"
                                                th:href="@{/approvision/delete(id=${approvision.id})}">
                                                 <i class="fas fa-trash-alt text-danger"></i> </a>
@@ -150,7 +150,7 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/approvision/liste(page=${nbTotalPage+1})}">&raquo;</a></li>
+                                               th:href="@{/approvision/liste(page=${currentPage+1})}">&raquo;</a></li>
 
                                     </th:block>
                                 </ul>

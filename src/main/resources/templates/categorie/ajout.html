@@ -30,10 +30,11 @@
                                     <input th:field="*{id}" type="hidden">
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Nom</label>
+                                        <label class="col-lg-2 col-form-label">Nom<span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-10">
                                             <input class="form-control" placeholder="Entre le nom" th:field="*{nom}"
-                                                   type="text">
+                                                   required type="text">
                                             <span class="text-danger" th:errors="*{nom}"></span>
                                         </div>
                                     </div>

@@ -21,14 +21,17 @@ public class ProduitService {
         produitRepository.save(produit);
     }
 
-    public Page<Produit> rechParNom(String nom) {
-        PageImpl<Produit> produits =
-                new PageImpl<>(produitRepository.findByNomContaining(nom));
-        return produits;
+    public Page<Produit> rechParNom(String nom, int page) {
+       return produitRepository.findByNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE,
+               Sort.by("nom").ascending().and(Sort.by("categorie.nom").ascending())));
     }
 
     public Produit lecture(Long id) {
         return produitRepository.findById(id).get();
+    }
+
+    public Produit prodParCodeBarre1(Long codeBarre1) {
+        return produitRepository.findByCodeBarre1(codeBarre1);
     }
 
     public void suppression(Long id) {
@@ -42,6 +45,6 @@ public class ProduitService {
 
     public Page<Produit> liste(int page) {
         return produitRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
-                Sort.by("nom").ascending()));
+                Sort.by("nom").ascending().and(Sort.by("categorie.nom").ascending())));
     }
 }

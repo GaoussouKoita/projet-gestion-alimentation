@@ -14,12 +14,15 @@ import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -39,23 +42,14 @@ public class HomeController {
 
     @GetMapping(Endpoint.ACCEUIL_ENDPOINT)
     public String home(Model model) {
-        Integer nbreProduitVendu = 0;
-        double totalVente = 0;
-        List<Vente> venteDuJour = venteService.listeParDate(LocalDate.now());
-        List<Stock> stockProdRupture = new ArrayList<>();
 
-        for (Stock stock : stockService.liste()) {
-            if (stock.getQuantite() <= Constante.NBRE_STOCK_RUPTURE) {
-                stockProdRupture.add(stock);
-            }
-        }
+        List<Vente> ventesDuJour = venteService.listeParDate(LocalDate.now());
+        List<Stock> stockProdRupture = ruptureStock();
 
-        for (Vente vente : venteDuJour) {
-            for (IO_Produits io_produits : vente.getIo_produits()) {
-                nbreProduitVendu += io_produits.getQuantite();
-            }
-            totalVente += vente.getMontant();
-        }
+        int nbreProduitVendu = Integer.valueOf(String.valueOf(ventesDuJour(ventesDuJour).get("nbreProduitVendu")));
+        double totalVente = Double.valueOf(String.valueOf(ventesDuJour(ventesDuJour).get("totalVente")));
+
+        List<IO_Produits> prodsVente = produitsDeLaVente(ventesDuJour);
 
         LOGGER.info("Page d'acceuil");
         auditService.ajoutAudit(new Audit("Acceuil", "Page Principale"));
@@ -63,17 +57,70 @@ public class HomeController {
         model.addAttribute("stocks", stockProdRupture);
         model.addAttribute("nbreProduit", nbreProduitVendu);
         model.addAttribute("totalVente", totalVente);
+        model.addAttribute("io_produits", prodsVente);
         model.addAttribute("user", userService.currentUtilisateur());
         return "index";
     }
 
 
+    @GetMapping(Endpoint.DETAILS_ENDPOINT)
+    public String venteBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2,
+                               Model model) {
 
-    @GetMapping(Endpoint.LOGIN_ENDPOINT)
-    public String login() {
-        LOGGER.info("Page d'Authentification");
-        auditService.ajoutAudit(new Audit("Demande Authentification", "Login page"));
-        return "login";
+        List<Vente> ventesBetween = venteService.listeDateBetween(date1, date2);
+        int nbreProduitVenduBetween = Integer.valueOf(String.valueOf(ventesDuJour(ventesBetween)
+                .get("nbreProduitVendu")));
+        double totalVenteBetween = ventesDuJour(ventesBetween).get("totalVente");
+
+        model.addAttribute("nbreProduitBetween", nbreProduitVenduBetween);
+        model.addAttribute("totalVenteBetween", totalVenteBetween);
+        model.addAttribute("dateDebut", date1);
+        model.addAttribute("dateFin", date2);
+
+        home(model);
+
+        return "index";
     }
+
+    private List<IO_Produits> produitsDeLaVente(List<Vente> ventes) {
+
+        List<IO_Produits> io_produits = new ArrayList<>();
+
+        for (Vente vente : ventes) {
+            io_produits.addAll(vente.getIo_produits());
+        }
+
+        return io_produits;
+    }
+
+    private HashMap<String, Long> ventesDuJour(List<Vente> ventes) {
+        HashMap<String, Long> nbProdVenduTotalVente = new HashMap<>();
+        long nbreProduitVendu = 0;
+        long totalVente = 0;
+
+        for (Vente vente : ventes) {
+            for (IO_Produits io_produits : vente.getIo_produits()) {
+                nbreProduitVendu += io_produits.getQuantite();
+            }
+            totalVente += vente.getMontant();
+        }
+        nbProdVenduTotalVente.put("nbreProduitVendu", nbreProduitVendu);
+        nbProdVenduTotalVente.put("totalVente", totalVente);
+
+        return nbProdVenduTotalVente;
+    }
+
+    private List<Stock> ruptureStock() {
+        List<Stock> stockProdRupture = new ArrayList<>();
+
+        for (Stock stock : stockService.liste()) {
+            if (stock.getQuantite() < Constante.NBRE_STOCK_RUPTURE) {
+                stockProdRupture.add(stock);
+            }
+        }
+        return stockProdRupture;
+    }
+
 
 }

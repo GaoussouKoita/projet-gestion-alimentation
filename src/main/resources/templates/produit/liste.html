@@ -63,7 +63,9 @@
                                     <tbody>
 
                                     <tr th:each="prod : ${ produits }">
-                                        <td th:text="${ prod.image }"></td>
+                                        <td><img
+                                                alt=" Image"
+                                                class="image img-rounded" height="40" th:src="'data:image/png;base64,'+${imageUtil.getImgData(prod.image)}" width="60"/></td>
                                         <td th:text="${ prod.categorie.nom }"></td>
                                         <td th:text="${ prod.nom }"></td>
                                         <td th:text="${ prod.typeEngros }"></td>
@@ -150,7 +152,7 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/produit/liste(page=${nbTotalPage+1})}">&raquo;</a></li>
+                                               th:href="@{/produit/liste(page=${currentPage+1})}">&raquo;</a></li>
 
                                     </th:block>
                                 </ul>

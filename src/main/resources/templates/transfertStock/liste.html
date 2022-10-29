@@ -69,9 +69,7 @@
             <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
             <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
             <td  sec:authorize="hasAuthority('ADMINISTRATEUR')">
-               <!-- <a class="text-info"
-                   th:href="@{/transfert-stock/update(id=${transfertStock.id})}"><i
-                        class="fas fa-edit"></i></a>-->
+
                 <a class="btn swalDefaultError"
                    th:href="@{/transfert-stock/delete(id=${transfertStock.id})}">
                     <i class="fas fa-trash-alt text-danger"></i> </a>
@@ -145,7 +143,8 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/transfert-stock/liste(page=${nbTotalPage+1})}">&raquo;</a></li>
+                                               th:href="@{/transfert-stock/liste(page=${currentPage+1})}">&raquo;</a>
+                                        </li>
 
                                     </th:block>
                                 </ul>

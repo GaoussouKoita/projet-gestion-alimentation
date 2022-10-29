@@ -74,20 +74,6 @@ public class RetourProduitController {
         return "redirect:liste";
     }
 
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Mise a jour de Retour Produit");
-        auditService.ajoutAudit(new Audit("Formulaire Update Retour Produit", service.lecture(id).toString()));
-
-        model.addAttribute("retourProduit", service.lecture(id));
-        model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("produits", produitService.liste());
-        model.addAttribute("ventes", venteService.liste());
-        model.addAttribute("userId", userService.currentUtilisateur().getId());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "retourProduit/ajout";
-    }
-
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression d'une Retour Produit");
@@ -96,13 +82,6 @@ public class RetourProduitController {
         service.suppression(id);
         return "redirect:liste";
 
-    }
-
-    @GetMapping(Endpoint.INFO_ENDPOINT)
-    public String rechercher(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("retourProduit", service.lecture(id));
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "retourProduit/search";
     }
 
     @GetMapping(Endpoint.DETAILS_ENDPOINT)
@@ -120,6 +99,7 @@ public class RetourProduitController {
         model.addAttribute("user", userService.currentUtilisateur());
         return "retourProduit/liste";
     }
+
     @GetMapping(Endpoint.LISTE_ENDPOINT)
     public String all(Model model, @RequestParam(defaultValue = "0") int page) {
         LOGGER.info("Lister retourProduits");

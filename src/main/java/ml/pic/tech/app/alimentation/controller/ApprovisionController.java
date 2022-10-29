@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Controller
 @RequestMapping(Endpoint.APPROVISION_ENDPOINT)
@@ -69,26 +68,14 @@ public class ApprovisionController {
             model.addAttribute("magasins", magasinService.liste());
 
             return "approvision/ajout";
-        } else {
-            service.ajout(approvision);
         }
+        approvision = service.ajout(approvision);
+
         model.addAttribute("approvision", service.lecture(approvision.getId()));
+
         return "approvision/info";
     }
 
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        /*LOGGER.info("Mise a jour d'un Approvision");
-        auditService.ajoutAudit(new Audit("Formulaire Update", ));
-
-        model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("userId", userService.currentUtilisateur().getId());
-        model.addAttribute("produits", produitService.liste());
-        model.addAttribute("magasins", magasinService.liste());
-        model.addAttribute("user", userService.currentUtilisateur());
-*/
-        return "approvision/ajout";
-    }
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
@@ -102,6 +89,7 @@ public class ApprovisionController {
 
     @GetMapping(Endpoint.INFO_ENDPOINT)
     public String rechercher(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("approvision", service.lecture(id));
         return "approvision/info";
     }

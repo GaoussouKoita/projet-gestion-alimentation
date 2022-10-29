@@ -83,15 +83,14 @@ public class AccountService implements UserDetailsService {
 
     public Utilisateur currentUtilisateur() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String login = authentication.getName();
-        Utilisateur utilisateur = utilisateurRepository.findByEmail(login);
+        String email = authentication.getName();
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email);
         return utilisateur;
     }
 
     public void updatePassword(String email, String newPassword) {
         String newPasswordEncode = passwordEncoder.encode(newPassword);
-
-        utilisateurRepository.updateUtilisateurByLogin(email, newPasswordEncode);
+        utilisateurRepository.updateUtilisateurByEmail(email, newPasswordEncode);
     }
 
     public boolean passwordEncodeVerifie(String oldPassword, String password) {

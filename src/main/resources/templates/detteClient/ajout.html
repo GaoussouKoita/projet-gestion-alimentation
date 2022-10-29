@@ -29,9 +29,9 @@
                                     <input class="form-control" th:field="*{id}" type="hidden"/>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-md-2">Montant</label>
+                                        <label class="control-label col-md-2">Montant<span class="text-danger">*</span></label>
                                         <div class="col-md-10">
-                                            <input class="form-control" th:field="*{montant}" type="number"/>
+                                            <input class="form-control" required th:field="*{montant}" type="number"/>
                                             <span class="text-danger" th:errors="*{montant}"></span>
                                         </div>
                                     </div>
