@@ -25,11 +25,11 @@
                                 <em class="info-box-number" th:text="${nbreProduit}+' Produits Vendus'"></em>
                                 <!-- Modal-->
 
-                                <button class="btn" data-target="#modal-default" data-toggle="modal" type="button">
-                                    <i class="fas fa-list-alt text-info">Produits</i>
+                                <button class="btn" data-target="#modalVente" data-toggle="modal" type="button">
+                                    <i class="fas fa-list-alt text-info"> Produits</i>
                                 </button>
 
-                                <div th:replace="vente/io_prod_modal"></div>
+                                <div th:replace="vente/ioProdVenteModal.html"></div>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -80,7 +80,6 @@
                                         <i class="ml-2 mr-4">Au</i>
                                         <input class="form-control-sm"
                                                name="date2"
-                                               placeholder="Entre le nom"
                                                required type="date">
                                         <button class="btn btn-sm btn-default ml-3" type="submit">
                                             <i class="fas fa-search"></i>
@@ -96,6 +95,11 @@
                                                           th:with="totalVente=${totalVenteBetween}"></i></b>
                                 <b>Nombre de produits: <i class="info-box-number"
                                                           th:text="${nbreProduitBetween}"></i></b>
+                                <button class="btn" data-target="#modalVenteBetween" data-toggle="modal" type="button">
+                                    <i class="fas fa-list-alt text-info"> Produits</i>
+                                </button>
+
+                                <div th:replace="vente/ioProdVenteBetweenModal.html"></div>
 
                             </div>
                             <!-- /.card-body -->

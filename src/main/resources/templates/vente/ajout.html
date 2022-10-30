@@ -24,7 +24,42 @@
                             <form class="form-horizontal" method="POST" th:action="@{/vente/add}"
                                   th:object="${vente}">
                                 <div class="card-body">
-                                    <input class="form-control" th:field="*{id}" type="hidden"/>
+                                    <input th:field="*{id}" type="hidden"/>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Produits</label>
+                                        <div class="col-md-10">
+                                            <div class="panel panel-info">
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Produit</th>
+                                                            <th>Quantite
+                                                                <input class="btn btn-xs btn-info ml-5" id="addBtnVente"
+                                                                       type="button" value="Nouveau">
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbody">
+                                                        <tr>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].produit.codeBarre1"
+                                                                       placeholder="Sacnner le produit" required
+                                                                       type="text" autofocus/>
+                                                            </td>
+                                                            <td><input class="form-control"
+                                                                       name="io_produits[0].quantite"
+                                                                       placeholder="Entrer la quantite" required
+                                                                       type="number"/></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Remise</label>
@@ -51,41 +86,6 @@
                                                         th:text="${magasin.nom}+' '+${magasin.adresse}"
                                                         th:value="${magasin.id}"></option>
                                             </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Produits</label>
-                                        <div class="col-md-10">
-                                            <div class="panel panel-info">
-                                                <div class="panel-body">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Produit</th>
-                                                            <th>Quantite
-                                                                <input class="btn btn-xs btn-info ml-5" id="addBtnVente"
-                                                                       type="button" value="Nouveau">
-                                                            </th>
-
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody id="tbody">
-                                                        <tr>
-                                                            <td><input class="form-control"
-                                                                       name="io_produits[0].produit.codeBarre1"
-                                                                       placeholder="Sacnner le produit" required
-                                                                       type="text"/>
-                                                            </td>
-                                                            <td><input class="form-control"
-                                                                       name="io_produits[0].quantite"
-                                                                       placeholder="Entrer la quantite" required
-                                                                       type="number"/></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 

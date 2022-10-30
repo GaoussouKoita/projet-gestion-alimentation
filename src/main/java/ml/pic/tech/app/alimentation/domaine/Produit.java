@@ -17,8 +17,9 @@ public class Produit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "Veuillez inserer le nom du produit svp !")
+    @Column(unique = true)
     private String nom;
-   @Min(value = 1, message = "Veuillez inserer le prix du produit svp !")
+    @Min(value = 1, message = "Veuillez inserer le prix du produit svp !")
     private double prix;
     private String typeEngros;
     private int nombreEngros;
@@ -27,6 +28,7 @@ public class Produit {
     @Min(value = 1, message = "Veuillez inserer le prix engros du produit >= 1 svp !")
     private double prixEngros;
     @NotNull(message = "Veuillez inserer le code barre du produit svp !")
+    @Column(unique = true)
     private Long codeBarre1;
     private Long codeBarre2;
 

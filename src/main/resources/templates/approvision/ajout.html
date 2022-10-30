@@ -24,47 +24,7 @@
                             <form class="form-horizontal"  method="POST" th:action="@{/approvision/add}"
                                   th:object="${approvision}">
                                 <div class="card-body">
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Statut</label>
-                                        <div class="col-md-10">
-                                            <select class="form-control select2bs4" th:field="*{statutApprovision}">
-                                                <option th:text="REGLER" th:value="REGLER"></option>
-                                                <option th:text="NON_REGLER" th:value="NON_REGLER"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Montant Payé<span
-                                                class="text-danger">*</span></label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" required th:field="*{montantPaye}"
-                                                   type="number"/>
-                                            <span class="text-danger" th:errors="*{montantPaye}"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Magasin</label>
-                                        <div class="col-md-10">
-                                            <select class="form-control select2bs4" th:field="*{magasin.id}">
-                                                <option th:each="magasin:${magasins}"
-                                                        th:text="${magasin.nom}+' '+${magasin.adresse}"
-                                                        th:value="${magasin.id}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Client Fournisseur</label>
-                                        <div class="col-md-10">
-                                            <select class="form-control select2bs4" th:field="*{personne.id}">
-                                                <option th:each="personne:${personnes}"
-                                                        th:text="${personne.prenom}+' '+${personne.nom}"
-                                                        th:value="${personne.id}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input th:field="*{id}" type="hidden"/>
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Produits</label>
@@ -110,6 +70,48 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Statut</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" th:field="*{statutApprovision}">
+                                                <option th:text="REGLER" th:value="REGLER"></option>
+                                                <option th:text="NON_REGLER" th:value="NON_REGLER"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Montant Payé<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" required th:field="*{montantPaye}"
+                                                   type="number"/>
+                                            <span class="text-danger" th:errors="*{montantPaye}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Magasin</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" th:field="*{magasin.id}">
+                                                <option th:each="magasin:${magasins}"
+                                                        th:text="${magasin.nom}+' '+${magasin.adresse}"
+                                                        th:value="${magasin.id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Client Fournisseur</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2bs4" th:field="*{personne.id}">
+                                                <option th:each="personne:${personnes}"
+                                                        th:text="${personne.prenom}+' '+${personne.nom}"
+                                                        th:value="${personne.id}"></option>
+                                            </select>
                                         </div>
                                     </div>
 

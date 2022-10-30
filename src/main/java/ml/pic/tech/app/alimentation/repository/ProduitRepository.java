@@ -15,4 +15,5 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     public Page<Produit> findByNomContaining(String nom, Pageable pageable);
 
+    Produit findByNom(String nom);
 }

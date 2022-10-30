@@ -42,14 +42,16 @@ public class ErrorPersonnalise implements ErrorController {
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                errorPage += "403";
+            } else if (statusCode == HttpStatus.NOT_FOUND.value()) {
 
                 errorPage += "404";
 
-            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            }else if (statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()) {
+                errorPage += "erreur";
+            }else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 errorPage += "500";
-            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                errorPage += "403";
             } else {
                 errorPage += "erreur";
             }

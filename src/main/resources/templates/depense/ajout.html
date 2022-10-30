@@ -42,6 +42,7 @@
                                             <span class="text-danger" th:errors="*{montant}"></span>
                                         </div>
                                     </div>
+                                    <input class="form-control" name="detteClient.id" th:value="${detteId}" type="hidden"/>
                                     <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
                                 </div>
                                 <div class="card-footer text-center">

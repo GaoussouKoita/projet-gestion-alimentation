@@ -1,6 +1,7 @@
 package ml.pic.tech.app.alimentation.service;
 
 import ml.pic.tech.app.alimentation.domaine.Approvision;
+import ml.pic.tech.app.alimentation.domaine.DetteClient;
 import ml.pic.tech.app.alimentation.domaine.IO_Produits;
 import ml.pic.tech.app.alimentation.domaine.Stock;
 import ml.pic.tech.app.alimentation.repository.ApprovisionRepository;
@@ -27,6 +28,8 @@ public class ApprovisionService {
     private IO_ProduitsService io_produitsService;
     @Autowired
     private ProduitService produitService;
+    @Autowired
+    private DetteClientService detteService;
 
 
     public Approvision ajout(Approvision approvision) {
@@ -56,8 +59,20 @@ public class ApprovisionService {
         approvision.setMontantTotal(total);
         approvision.setMontantRestant(total - approvision.getMontantPaye());
         approvision.setIo_produits(io_produits);
+        approvision = approvisionRepository.save(approvision);
 
-        return approvisionRepository.save(approvision);
+        if (approvision.getMontantRestant()>0) {
+            DetteClient dette = new DetteClient();
+            dette.setDate(approvision.getDate());
+            dette.setHeure(approvision.getHeure());
+            dette.setMontant(approvision.getMontantRestant());
+            dette.setPersonne(approvision.getPersonne());
+            dette.setStatutDette(approvision.getStatutApprovision());
+            dette.setApprovision(approvision);
+            detteService.ajout(dette);
+        }
+
+        return approvision;
 
     }
 

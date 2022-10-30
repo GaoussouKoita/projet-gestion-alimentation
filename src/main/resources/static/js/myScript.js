@@ -46,7 +46,7 @@ $(document).ready(function () {
         $('#addBtn').on('click', function () {
             // Adding a row inside the tbody.
             $('#tbody').append(`<tr>
-                <td><input class="form-control" name="io_produits[${rowIdx}].produit.id"
+                <td><input class="form-control" name="io_produits[${rowIdx}].produit.codeBarre1"
                      placeholder="Sacnner le produit"   required  type="text"/></td>
                 <td><input class="form-control" name="io_produits[${rowIdx}].quantite"
                     type="number" required placeholder="Entrer la quantite"  /></td>
@@ -61,6 +61,8 @@ $(document).ready(function () {
 
     });
 
+
+//new prod Vente
 $(document).ready(function () {
                // jQuery button click event to add a row
                var rowIdx =1;
@@ -68,7 +70,7 @@ $(document).ready(function () {
         $('#addBtnVente').on('click', function () {
             // Adding a row inside the tbody.
             $('#tbody').append(`<tr>
-            <td><input class="form-control"  name="io_produits[${rowIdx}].produit.id"
+            <td><input class="form-control"  name="io_produits[${rowIdx}].produit.codeBarre1"
                     placeholder="Sacnner le produit" required type="text"/></td>
             <td><input class="form-control" name="io_produits[${rowIdx}].quantite"
                     placeholder="Entrer la quantite" required type="number"/></td>

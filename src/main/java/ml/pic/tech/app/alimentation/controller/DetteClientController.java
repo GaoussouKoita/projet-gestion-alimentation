@@ -34,39 +34,6 @@ public class DetteClientController {
     private AuditService auditService;
 
 
-    @GetMapping(Endpoint.AJOUT_ENDPOINT)
-    public String addForm(Model model) {
-        LOGGER.info("Formulaire Dette");
-        auditService.ajoutAudit(new Audit("Formulaire Dette Client", "Nouvelle Dette Client"));
-        model.addAttribute("detteClient", new DetteClient());
-        model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "detteClient/ajout";
-    }
-
-    @PostMapping(Endpoint.AJOUT_ENDPOINT)
-    public String add(@ModelAttribute("detteClient") @Valid DetteClient detteClient, Errors errors, Model model) {
-        LOGGER.info("Ajout de Dette dans la bd");
-        auditService.ajoutAudit(new Audit("Ajout/Update Dette Client", detteClient.toString()));
-        model.addAttribute("user", userService.currentUtilisateur());
-        if (errors.hasErrors()) {
-            model.addAttribute("personnes", personneService.liste());
-            return "detteClient/ajout";
-        } else {
-        service.ajout(detteClient);}
-        return "redirect:liste";
-    }
-
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Update de Dette");
-        auditService.ajoutAudit(new Audit("Formulaire Update Dette Client", service.lecture(id).toString()));
-        model.addAttribute("detteClient", service.lecture(id));
-        model.addAttribute("personnes", personneService.liste());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "detteClient/ajout";
-    }
-
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
         LOGGER.info("Suppression de Dette");

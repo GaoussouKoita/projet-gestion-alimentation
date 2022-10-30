@@ -30,6 +30,10 @@ public class ProduitService {
         return produitRepository.findById(id).get();
     }
 
+    public Produit lecture(String nom) {
+        return produitRepository.findByNom(nom);
+    }
+
     public Produit prodParCodeBarre1(Long codeBarre1) {
         return produitRepository.findByCodeBarre1(codeBarre1);
     }
@@ -47,4 +51,6 @@ public class ProduitService {
         return produitRepository.findAll(PageRequest.of(page, Constante.NBRE_PAR_PAGE,
                 Sort.by("nom").ascending().and(Sort.by("categorie.nom").ascending())));
     }
+
+
 }

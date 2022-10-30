@@ -3,6 +3,8 @@ package ml.pic.tech.app.alimentation.domaine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import net.bytebuddy.agent.builder.AgentBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,4 +32,10 @@ public class DetteClient {
 
     @ManyToOne
     private Personne personne;
+    @ManyToOne
+    private Approvision approvision;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "detteClient")
+    private List<Depense> depenses;
 }

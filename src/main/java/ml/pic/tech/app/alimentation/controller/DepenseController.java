@@ -31,14 +31,14 @@ public class DepenseController {
     private AuditService auditService;
 
     @GetMapping(Endpoint.AJOUT_ENDPOINT)
-    public String addForm(Model model) {
+    public String addForm(Model model, @RequestParam Long id) {
         LOGGER.info("Formulaire Depense");
         auditService.ajoutAudit(new Audit("Formulaire Depense", "Nouvelle Depense"));
 
         model.addAttribute("depense", new Depense());
         model.addAttribute("userId", userService.currentUtilisateur().getId());
         model.addAttribute("user", userService.currentUtilisateur());
-
+        model.addAttribute("detteId", id);
         return "depense/ajout";
     }
 
@@ -52,18 +52,10 @@ public class DepenseController {
             model.addAttribute("userId", userService.currentUtilisateur().getId());
             return "depense/ajout";
         } else {
-        service.ajout(depense);}
+            service.ajout(depense);
+        }
+        System.err.println(depense);
         return "redirect:liste";
-    }
-
-    @GetMapping(Endpoint.UPDATE_ENDPOINT)
-    public String modifier(@RequestParam("id") Long id, Model model) {
-        LOGGER.info("Update de Depense");
-        auditService.ajoutAudit(new Audit("Formulaire Update Depense", service.lecture(id).toString()));
-        model.addAttribute("depense", service.lecture(id));
-        model.addAttribute("userId", userService.currentUtilisateur().getId());
-        model.addAttribute("user", userService.currentUtilisateur());
-        return "depense/ajout";
     }
 
     @GetMapping("/delete")

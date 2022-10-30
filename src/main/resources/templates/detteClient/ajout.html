@@ -26,8 +26,6 @@
                             <form class="form-horizontal" method="POST" th:action="@{/dette-client/add}"
                                   th:object="${detteClient}">
                                 <div class="card-body">
-                                    <input class="form-control" th:field="*{id}" type="hidden"/>
-
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Montant<span class="text-danger">*</span></label>
                                         <div class="col-md-10">

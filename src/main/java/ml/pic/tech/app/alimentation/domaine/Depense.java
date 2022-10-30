@@ -27,4 +27,6 @@ public class Depense {
 
     @ManyToOne
     private Utilisateur user;
+    @ManyToOne
+    private DetteClient detteClient;
 }

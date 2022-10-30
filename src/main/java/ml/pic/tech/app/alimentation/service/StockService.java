@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -66,4 +67,16 @@ public class StockService {
     public Page<Stock> listeProdNom(String nom,int page) {
         return stockRepository.findByProduitNomContaining(nom, PageRequest.of(page, Constante.NBRE_PAR_PAGE));
     }
+
+    public List<Stock> ruptureStock() {
+        List<Stock> stockProdRupture = new ArrayList<>();
+
+        for (Stock stock :liste()) {
+            if (stock.getQuantite() < Constante.NBRE_STOCK_RUPTURE) {
+                stockProdRupture.add(stock);
+            }
+        }
+        return stockProdRupture;
+    }
+
 }
