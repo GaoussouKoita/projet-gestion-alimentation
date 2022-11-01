@@ -1,6 +1,6 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="nav nav-tabs" sec:authorize="hasAuthority('UTILISATEUR')">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
@@ -16,6 +16,18 @@
             <a class="nav-link" th:classappend="${#httpServletRequest.requestURI==urlCurrent}
             ?'active text-info':''" th:href="@{/approvision/liste}" th:with="urlCurrent=@{/approvision/liste}">Approvision</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI==urlCurrent}
+            ?'active text-info':''" th:href="@{/stock/liste}" th:with="urlCurrent=@{/stock/liste}">Stock</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI==urlCurrent}
+            ?'active text-info':''" th:href="@{/categorie/liste}" th:with="urlCurrent=@{/categorie/liste}">Categorie</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI==urlCurrent}
+            ?'active text-info':''" th:href="@{/produit/liste}" th:with="urlCurrent=@{/produit/liste}">Produit</a>
+        </li>
 
     </ul>
 
@@ -26,7 +38,7 @@
 
 
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="fas fa-user-tie fa-2x text-info">
+                <i class="fas fa-user-tie text-info">
                 </i>
             </a>
 
@@ -40,7 +52,7 @@
                          th:text="${user.prenom}+' ' +${user.nom}">
                     </div>
                 </a>
-
+                  <ol class="dropdown-divider"></ol>
                 <a class="dropdown-item" th:href="@{/utilisateur/password}">
                     <i class="fas fa-lock"></i><span> Changer Password</span>
                 </a>

@@ -1,5 +1,6 @@
 package ml.pic.tech.app.alimentation.securite.service;
 
+import ml.pic.tech.app.alimentation.securite.entity.ChangePassword;
 import ml.pic.tech.app.alimentation.securite.entity.Role;
 import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import ml.pic.tech.app.alimentation.securite.repository.RoleRepository;
@@ -46,9 +47,10 @@ public class AccountService implements UserDetailsService {
         return utilisateurRepository.findByEmail(email);
     }
 
-    public void suppression(Long id) {
-
-        utilisateurRepository.deleteById(id);
+    public void desactiver(Long id) {
+        Utilisateur utilisateur = lecture(id);
+        utilisateur.setRoles(null);
+        utilisateurRepository.save(utilisateur);
     }
 
     public Utilisateur lecture(Long id) {
@@ -93,8 +95,23 @@ public class AccountService implements UserDetailsService {
         utilisateurRepository.updateUtilisateurByEmail(email, newPasswordEncode);
     }
 
-    public boolean passwordEncodeVerifie(String oldPassword, String password) {
-        return passwordEncoder.matches(oldPassword, password);
+    public int passwordEncodeVerifie(ChangePassword changePassword) {
+
+        Utilisateur user = currentUtilisateur();
+        String oldPassword = changePassword.getOldPassword();
+        String newPassword = changePassword.getNewPassword();
+        String confirmation = changePassword.getConfirmation();
+
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+            if (newPassword.equals(confirmation)) {
+                updatePassword(user.getEmail(), newPassword);
+                return 0;
+            } else { //No matche new password and confirmatin
+                return 1;
+            }
+        }
+        //No match old password
+        return -1;
     }
 
     @Override

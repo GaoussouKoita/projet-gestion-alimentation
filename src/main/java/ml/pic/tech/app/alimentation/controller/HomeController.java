@@ -79,6 +79,7 @@ public class HomeController {
         double totalVenteBetween = venteService.
                 ventesDuJour(ventesBetween).get("totalVente");
 
+        model.addAttribute("user", userService.currentUtilisateur());
         model.addAttribute("nbreProduitBetween", nbreProduitVenduBetween);
         model.addAttribute("totalVenteBetween", totalVenteBetween);
         model.addAttribute("io_prodVenteBetween", prodsVente);

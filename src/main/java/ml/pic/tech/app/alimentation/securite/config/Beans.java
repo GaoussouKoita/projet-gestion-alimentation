@@ -3,6 +3,7 @@ package ml.pic.tech.app.alimentation.securite.config;
 import ml.pic.tech.app.alimentation.securite.entity.Role;
 import ml.pic.tech.app.alimentation.securite.entity.Utilisateur;
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.service.StockService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +39,8 @@ public class Beans {
                     76684788L, "admin@g", "1234","1234" ,roles));
 
             roles.remove(role1);
-                accontService.addUtilisateur(new Utilisateur(2L, "BRIBAUD", "Yannick", "Dakar",
-                        773332211L, "user@g", "1234", "1234",roles));
+            accontService.addUtilisateur(new Utilisateur(2L, "BRIBAUD", "Yannick", "Dakar",
+                    773332211L, "user@g", "1234", "1234",roles));
         };
     }
 }

@@ -28,6 +28,15 @@
                                 <div class="card-body">
                                     <input class="form-control" th:field="*{id}" type="hidden"/>
 
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-md-2">Montant<span class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" required th:field="*{montant}" type="number"  autofocus/>
+                                            <span class="text-danger" th:errors="*{montant}"></span>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Libelle<span class="text-danger">*</span></label>
                                         <div class="col-md-10">
@@ -35,15 +44,9 @@
                                             <span class="text-danger" th:errors="*{libelle}"></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2">Montant<span class="text-danger">*</span></label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" required th:field="*{montant}" type="number"/>
-                                            <span class="text-danger" th:errors="*{montant}"></span>
-                                        </div>
-                                    </div>
-                                    <input class="form-control" name="detteClient.id" th:value="${detteId}" type="hidden"/>
-                                    <input class="form-control" name="user.id" th:value="${userId}" type="hidden"/>
+
+                                    <input name="detteClient.id" th:value="${detteId}" type="hidden"/>
+                                    <input name="user.id" th:value="${userId}" type="hidden"/>
                                 </div>
                                 <div class="card-footer text-center">
                                     <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>

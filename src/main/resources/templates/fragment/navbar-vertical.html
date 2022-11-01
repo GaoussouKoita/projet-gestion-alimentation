@@ -4,13 +4,16 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <nav class="mt-3 mb-5">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">  <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
+            <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">
+
 
                 <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Produit</li>
 
                 <li class="nav-item"  sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/categorie/add' or
+                        #httpServletRequest.requestURI=='/categorie/update'   or
+                        #httpServletRequest.requestURI=='/categorie/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Categorie
                             <i class="right fas fa-angle-left"></i>
@@ -33,7 +36,11 @@
                 </li>
 
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/produit/add' or
+                        #httpServletRequest.requestURI=='/produit/update' or
+                        #httpServletRequest.requestURI=='/produit/details' or
+                        #httpServletRequest.requestURI=='/produit/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Produit
                             <i class="right fas fa-angle-left"></i>
@@ -57,7 +64,10 @@
                 <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Stock</li>
 
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/magasin/add' or
+                        #httpServletRequest.requestURI=='/magasin/update'  or
+                        #httpServletRequest.requestURI=='/magasin/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle "></i>
                         <p>Magasin
                             <i class="right fas fa-angle-left"></i>
@@ -79,7 +89,10 @@
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/stock/add' or
+                        #httpServletRequest.requestURI=='/stock/details' or
+                        #httpServletRequest.requestURI=='/stock/liste'  }?'active':''">
                         <i class="nav-icon fas fa-store"></i>
                         <p>Stock
                             <i class="right fas fa-angle-left"></i>
@@ -101,7 +114,10 @@
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/transfert-stock/add' or
+                        #httpServletRequest.requestURI=='/transfert-stock/details' or
+                        #httpServletRequest.requestURI=='/transfert-stock/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Transfert Stock
                             <i class="right fas fa-angle-left"></i>
@@ -125,7 +141,10 @@
 
                 <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Entree/Sorties</li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/vente/add' or
+                        #httpServletRequest.requestURI=='/vente/liste' or
+                        #httpServletRequest.requestURI=='/vente/info'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Vente
                             <i class="right fas fa-angle-left"></i>
@@ -147,7 +166,10 @@
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/approvision/add' or
+                        #httpServletRequest.requestURI=='/approvision/liste'  or
+                        #httpServletRequest.requestURI=='/approvision/info'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Approvision
                             <i class="right fas fa-angle-left"></i>
@@ -169,7 +191,10 @@
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/retour-produit/add' or
+                        #httpServletRequest.requestURI=='/retour-produit/details'  or
+                        #httpServletRequest.requestURI=='/retour-produit/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Retour Produit
                             <i class="right fas fa-angle-left"></i>
@@ -193,7 +218,10 @@
 
                 <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Depense/Dette</li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${
+                        #httpServletRequest.requestURI=='/depense/add' or
+                        #httpServletRequest.requestURI=='/depense/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Depense
                             <i class="right fas fa-angle-left"></i>
@@ -209,7 +237,9 @@
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${
+                        #httpServletRequest.requestURI=='/dette-client/liste'  }?'active':''">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Dette
                             <i class="right fas fa-angle-left"></i>
@@ -228,7 +258,12 @@
                 <li class="nav-header" sec:authorize="hasAuthority('UTILISATEUR')">Gestion Utilisateur</li>
 
                 <li class="nav-item" sec:authorize="hasAuthority('ADMINISTRATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/utilisateur/add' or
+                        #httpServletRequest.requestURI=='/utilisateur/update' or
+                        #httpServletRequest.requestURI=='/utilisateur/info'  or
+                        #httpServletRequest.requestURI=='/utilisateur/audit' or
+                        #httpServletRequest.requestURI=='/utilisateur/liste'  }?'active':''">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Utilisateur
                             <i class="right fas fa-angle-left"></i>
@@ -251,7 +286,10 @@
                 </li>
 
                 <li class="nav-item" sec:authorize="hasAuthority('UTILISATEUR')">
-                    <a class="nav-link" th:href="@{/}">
+                    <a class="nav-link" th:href="@{/}"
+                       th:classappend="${#httpServletRequest.requestURI=='/client-fournisseur/add' or
+                        #httpServletRequest.requestURI=='/client-fournisseur/update' or
+                        #httpServletRequest.requestURI=='/client-fournisseur/liste'  }?'active':''">
                         <i class="nav-icon far fa-user"></i>
                         <p>Client Fournisseur
                             <i class="right fas fa-angle-left"></i>

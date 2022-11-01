@@ -38,7 +38,7 @@ public class SecuriteConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.
-                authorizeRequests().antMatchers("/login", "/error", "/utilisateur/password", "/css/**", "/js/**", "/webfonts/**").permitAll().
+                authorizeRequests().antMatchers("/login", "/error", "/css/**", "/js/**", "/webfonts/**").permitAll().
                 and().authorizeRequests().antMatchers("/utilisateur/**").hasAuthority("ADMINISTRATEUR").
                 and().authorizeRequests().antMatchers("/utilisateur/password").hasAnyAuthority("UTILISATEUR", "ADMINISTRATEUR").
                 and().authorizeRequests().antMatchers("/**/**").hasAuthority("UTILISATEUR").

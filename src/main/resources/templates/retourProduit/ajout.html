@@ -42,7 +42,8 @@
                                         <label class="control-label col-lg-2">Motif<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" required th:field="*{motif}" type="text"/>
+                                            <input class="form-control" autofocus
+                                                   placeholder="Entre le motif du retour" required th:field="*{motif}" type="text"/>
                                             <span class="text-danger" th:errors="*{motif}"></span>
                                         </div>
                                     </div>

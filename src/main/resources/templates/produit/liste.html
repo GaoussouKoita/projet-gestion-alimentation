@@ -62,25 +62,48 @@
                                     </thead>
                                     <tbody>
 
-                                    <tr th:each="prod : ${ produits }">
-                                        <td><img
+                                    <tr th:each="produit : ${ produits }">
+                                       <td><img
                                                 alt=" Image"
-                                                class="image img-rounded" height="40" th:src="'data:image/png;base64,'+${imageUtil.getImgData(prod.image)}" width="60"/></td>
-                                        <td th:text="${ prod.categorie.nom }"></td>
-                                        <td th:text="${ prod.nom }"></td>
-                                        <td th:text="${ prod.typeEngros }"></td>
-                                        <td th:text="${ prod.nombreEngros }"></td>
-                                        <td th:text="${ prod.prix }+' F CFA'"></td>
-                                        <td th:text="${ prod.prixEngros }+' F CFA'"></td>
-                                        <td th:text="${ prod.codeBarre1 }"></td>
-                                        <td th:text="${ prod.codeBarre2 }"></td>
+                                                class="image img-rounded" height="40"  width="60"
+                                                th:src="'data:image/png;base64,'+${imageUtil.getImgData(produit.image)}"/></td>
+                                        <td th:text="${ produit.categorie.nom }"></td>
+                                        <td th:text="${ produit.nom }"></td>
+                                        <td th:text="${ produit.typeEngros }"></td>
+                                        <td th:text="${ produit.nombreEngros }"></td>
+                                        <td th:text="${ produit.prix }+' F CFA'"></td>
+                                        <td th:text="${ produit.prixEngros }+' F CFA'"></td>
+                                        <td th:text="${ produit.codeBarre1 }"></td>
+                                        <td th:text="${ produit.codeBarre2 }"></td>
                                         <td>
-                                            <a class="text-info"
-                                               th:href="@{/produit/update(id=${prod.id})}"><i
+                                            <a class="text-info" data-toggle="tooltip" title="Modifier"
+                                               th:href="@{/produit/update(id=${produit.id})}"><i
                                                     class="fas fa-edit"></i></a>
-                                            <a class="btn swalDefaultError"
-                                               th:href="@{/produit/delete(id=${prod.id})}">
-                                                <i class="fas fa-trash-alt text-danger"></i> </a>
+                                            <button class="btn" th:attr="data-target='#modalSupp'+${produit.id}" data-toggle="modal" type="button">
+                                                <i class="fas fa-trash-alt text-danger" data-toggle="tooltip" title="Supprimer"></i></i>
+                                            </button>
+                                            <div class="modal fade" th:attr="id='modalSupp'+${produit.id}">
+                                                <div class="modal-dialog modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h4 class="modal-title ">Suppression</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <h1 class="text-center">Êtes-vous sûr ? </h1>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-outline-danger" th:href="@{/produit/delete(id=${produit.id})}"></i> OUI</a>
+                                                            <button type="button" class="btn btn-outline-info" data-dismiss="modal">Non</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>

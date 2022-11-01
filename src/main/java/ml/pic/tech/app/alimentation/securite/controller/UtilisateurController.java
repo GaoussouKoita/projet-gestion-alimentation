@@ -15,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSessionBindingListener;
 import javax.validation.Valid;
 
 @Controller
@@ -72,10 +75,10 @@ public class UtilisateurController {
 
     @GetMapping(Endpoint.DELETE_ENDPOINT)
     public String delete(@RequestParam("id") Long id) {
-        LOGGER.warn("Suppression user");
+        LOGGER.warn("Desactivation user");
         auditService.ajoutAudit(new Audit("Suppression Utilisateur", accountService.lecture(id).toString()));
 
-        accountService.suppression(id);
+        accountService.desactiver(id);
         return "redirect:liste";
 
     }
@@ -129,36 +132,23 @@ public class UtilisateurController {
     }
 
     @PostMapping(Endpoint.PASSWORD_ENDPOINT)
-    public String PasswordForm(@ModelAttribute("changePassword") @Valid ChangePassword changePassword, Errors errors, Model model) {
+    public String PasswordForm(@ModelAttribute("changePassword") @Valid ChangePassword changePassword,
+                              Errors errors, Model model) throws ServletException {
         LOGGER.info("Changement de Password");
         auditService.ajoutAudit(new Audit("Chamgment de Password",
-        accountService.currentUtilisateur().getPrenom() + " "
-                + accountService.currentUtilisateur().getNom()));
+                accountService.currentUtilisateur().getPrenom() + " "
+                        + accountService.currentUtilisateur().getNom()));
         model.addAttribute("user", accountService.currentUtilisateur());
 
-        Utilisateur user = accountService.currentUtilisateur();
-        String email = user.getEmail();
-        String oldPassword = changePassword.getOldPassword();
-        String newPassword = changePassword.getNewPassword();
-        String confirmation = changePassword.getConfirmation();
-
-        if (accountService.passwordEncodeVerifie(oldPassword, user.getPassword())) {
-            if (newPassword.equals(confirmation)) {
-                accountService.updatePassword(email, newPassword);
-                return "redirect:/";
-            } else {
-                errors.rejectValue("newPassword", "",
-                        "Le password et la confirmation sont different");
-            }
-
+        if (accountService.passwordEncodeVerifie(changePassword) == 0) {
+            accountService.passwordEncodeVerifie(changePassword);
+            return "redirect:/";
+        } else if (accountService.passwordEncodeVerifie(changePassword) == 1) {
+            errors.rejectValue("newPassword", "",
+                    "Le password et la confirmation sont different");
         } else {
             errors.rejectValue("oldPassword", "",
                     "L'ancien password est incorrect");
-
-        }
-
-        if (errors.hasErrors()) {
-            return "utilisateur/password";
         }
         return "utilisateur/password";
     }

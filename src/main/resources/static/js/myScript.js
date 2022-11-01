@@ -231,3 +231,11 @@ $(function () {
 })
 
 // lgtm [js/unused-local-variable]
+
+
+
+//ToolTip
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+

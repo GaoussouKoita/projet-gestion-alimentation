@@ -70,15 +70,40 @@
                                             </th:block>
                                         </td>
                                         <td><a class="text-info mx-1"
-                                               th:href="@{/utilisateur/update(id=${utilisateur.id})}">
+                                               th:href="@{/utilisateur/update(id=${utilisateur.id})}"
+                                               data-toggle="tooltip" title="Modifier">
                                             <i class="fas fa-edit"></i></a>
-                                            <a th:href="@{/utilisateur/info(id=${utilisateur.id})}">
+                                            <a th:href="@{/utilisateur/info(id=${utilisateur.id})}"
+                                               data-toggle="tooltip" title="Info">
                                                 <i class="fas fa-info-circle text-default"></i></a>
-                                            <a th:href="@{/utilisateur/audit(id=${utilisateur.id})}">
+                                            <a th:href="@{/utilisateur/audit(id=${utilisateur.id})}"
+                                               data-toggle="tooltip" title="Audit">
                                                 <i class="fas fa-th text-secondary"></i></a>
-                                            <a class="btn swalDefaultError"
-                                               th:href="@{/utilisateur/delete(id=${utilisateur.id})}">
-                                                <i class="fas fa-trash-alt text-danger"></i></a>
+                                            <button class="btn" th:attr="data-target='#modalSupp'+${utilisateur.id}" data-toggle="modal" type="button">
+                                                <i class="fas fa-trash-alt text-danger" data-toggle="tooltip" title="Desactiver"></i></i>
+                                            </button>
+                                            <div class="modal fade" th:attr="id='modalSupp'+${utilisateur.id}">
+                                                <div class="modal-dialog modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h4 class="modal-title ">Desactivation</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <h1 class="text-center">Êtes-vous sûr ? </h1>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-outline-danger" th:href="@{/utilisateur/delete(id=${utilisateur.id})}"></i> OUI</a>
+                                                            <button type="button" class="btn btn-outline-info" data-dismiss="modal">Non</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
 
                                         </td>
                                     </tr>
