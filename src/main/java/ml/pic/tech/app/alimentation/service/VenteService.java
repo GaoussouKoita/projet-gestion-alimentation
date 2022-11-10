@@ -36,17 +36,15 @@ public class VenteService {
         List<IO_Produits> io_produits = vente.getIo_produits();
 
         for (IO_Produits io_p : io_produits) {
-            io_p.setType(vente.getTypeVente());
-
             io_p.setProduit(produitService.prodParCodeBarre1(io_p.getProduit().getCodeBarre1()));
 
-            if (vente.getTypeVente().toUpperCase().equals("ENGROS")) {
+            if (io_p.getType().toUpperCase().equals("ENGROS")) {
                 io_p.setPrix(io_p.getProduit().getPrixEngros());
-                total += io_p.getQuantite() * io_p.getPrix();
             } else {
                 io_p.setPrix(io_p.getProduit().getPrix());
-                total += io_p.getQuantite() * io_p.getPrix();
+
             }
+            total += io_p.getQuantite() * io_p.getPrix();
             Stock stock = stockService.rechercheParProdAndMag(io_p.getProduit(), vente.getMagasin());
             if (stock == null) {
                 stock = new Stock();
@@ -143,6 +141,7 @@ public class VenteService {
             int quantite = (int) entry.getValue();
 
             Produit produit = produitService.lecture(nom);
+            produit.setImage(null);
             IO_Produits ioProduits = new IO_Produits();
             ioProduits.setProduit(produit);
             ioProduits.setQuantite(quantite);

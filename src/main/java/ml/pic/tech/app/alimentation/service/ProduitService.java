@@ -35,7 +35,7 @@ public class ProduitService {
     }
 
     public Produit prodParCodeBarre1(Long codeBarre1) {
-        return produitRepository.findByCodeBarre1(codeBarre1);
+        return produitRepository.findByCodeBarre1OrCodeBarre2(codeBarre1, codeBarre1);
     }
 
     public void suppression(Long id) {

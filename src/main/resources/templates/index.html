@@ -15,7 +15,7 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-lg-6 mt-2">
+                    <div class="col-lg-6 my-2">
                         <div class="info-box">
                             <span class="info-box-icon bg-info elevation-1">
                                 <i class="fas fa-shopping-cart"></i>
@@ -122,13 +122,18 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="card-body scroll pt-1">
+                            <p th:text="${#arrays.isEmpty(stocks)}?'Aucun Produit en rupture de stock'"
+                               class="text-center text-success my-1" th:with="stocks=${stocks}"></p>
+                            <div class="card-body scroll pt-1" th:unless="${#arrays.isEmpty(stocks)}">
                                 <th:block th:each="stock : ${stocks}">
-                                    <span class="text-danger"
+                                    <span  th:class="${stock.quantite}<50?'text-danger':'text-warning'"
                                           th:text="${stock.produit.categorie.nom}+' '+${stock.produit.nom}">
-                                    </span> <b class="text-danger" th:text="' : '+${stock.quantite}"></b>
-                                    <i class="text-danger" th:text="' restants à '+${stock.magasin.nom}+' '
-                                    +${stock.magasin.adresse}"></i>
+                                    </span>
+                                    <b th:class="${stock.quantite}<50?'text-danger':'text-warning'"
+                                       th:text="' : '+${stock.quantite}"></b>
+                                    <i th:class="${stock.quantite}<50?'text-danger':'text-warning'"
+                                       th:text="' restants à '+${stock.magasin.nom}+' '
+                                       +${stock.magasin.adresse}"></i>
 
                                     <br/>
                                 </th:block>
@@ -139,46 +144,38 @@
                     </div>
                 </div>
 
-                <div class="row ">
-                    <!-- ./Histogramme -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header border-0">
-                                <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">Sales</h3>
-                                    <a href="javascript:void(0);">View Report</a>
+                <th:block th:if="${#arrays.length(io_produits)} > 0 or ${io_prodVenteBetween} != null"
+                          th:with="io_produits = ${io_produits}">
+                    <div class="row ">
+                        <!-- ./Histogramme -->
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header  card-title text-center border-0">
+                                    <h3 class="text-info">Produits vendus par quantite</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <p class="d-flex flex-column">
+                                            <span>Quantites</span>
+                                        </p>
+                                    </div>
+                                    <!-- /.d-flex -->
+
+
+                                    <div class="position-relative mb-4">
+                                        <canvas height="350" id="vente-chart"></canvas>
+                                    </div>
+
+                                    <div class="d-flex flex-row justify-content-end">
+                                        <span class="mr-2">Produit</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <p class="d-flex flex-column">
-                                        <span class="text-bold text-lg">$18,230.00</span>
-                                        <span>Sales Over Time</span>
-                                    </p>
-                                    <p class="ml-auto d-flex flex-column text-right">
-                                        <span class="text-success">
-                                          <i class="fas fa-arrow-up"></i> 33.1%
-                                        </span> <span class="text-muted">Since last month</span>
-                                    </p>
-                                </div>
-                                <!-- /.d-flex -->
-
-                                <div class="position-relative mb-4">
-                                    <canvas height="200" id="sales-chart"></canvas>
-                                </div>
-
-                                <div class="d-flex flex-row justify-content-end">
-                                  <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This year
-                                  </span>
-                                    <span> <i class="fas fa-square text-gray"></i> Last year </span>
-                                </div>
-                            </div>
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
+                        <!-- ./col -->
                     </div>
-                    <!-- ./col -->
-                </div>
+                </th:block>
 
 
             </div>

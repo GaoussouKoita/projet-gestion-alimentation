@@ -254,4 +254,7 @@
 .scroll{
     height:190px;
     overflow-y:scroll;
+}.scroll-250{
+    height:250px;
+    overflow-y:scroll;
 }

@@ -8,6 +8,7 @@ import ml.pic.tech.app.alimentation.utils.Constante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +72,7 @@ public class StockService {
     public List<Stock> ruptureStock() {
         List<Stock> stockProdRupture = new ArrayList<>();
 
-        for (Stock stock :liste()) {
+        for (Stock stock :stockRepository.findAll(Sort.by("quantite").ascending())) {
             if (stock.getQuantite() < Constante.NBRE_STOCK_RUPTURE) {
                 stockProdRupture.add(stock);
             }

@@ -49,8 +49,8 @@
                                     <thead>
                                     <tr>
                                         <th>Image</th>
-                                        <th>Categorie</th>
                                         <th>Nom</th>
+                                        <th>Categorie</th>
                                         <th>Type Engros</th>
                                         <th>Nombre Engros</th>
                                         <th>Prix</th>
@@ -66,9 +66,10 @@
                                        <td><img
                                                 alt=" Image"
                                                 class="image img-rounded" height="40"  width="60"
-                                                th:src="'data:image/png;base64,'+${imageUtil.getImgData(produit.image)}"/></td>
-                                        <td th:text="${ produit.categorie.nom }"></td>
+                                                th:src="${produit.image}?'data:image/png;base64,'
+                                                    +${imageUtil.getImgData(produit.image)}:''"/></td>
                                         <td th:text="${ produit.nom }"></td>
+                                        <td th:text="${ produit.categorie.nom }"></td>
                                         <td th:text="${ produit.typeEngros }"></td>
                                         <td th:text="${ produit.nombreEngros }"></td>
                                         <td th:text="${ produit.prix }+' F CFA'"></td>

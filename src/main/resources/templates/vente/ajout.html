@@ -15,7 +15,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12 my-4">
+                    <div class="col-lg-12 my-2">
 
                         <div class="card card-info">
                             <div class="card-header">
@@ -30,29 +30,36 @@
                                         <label class="control-label col-md-2">Produits</label>
                                         <div class="col-md-10">
                                             <div class="panel panel-info">
-                                                <div class="panel-body">
-                                                    <table class="table table-striped">
+                                                <div class="panel-body scroll-250 mb-2">
+                                                    <table class="table table-sm table-striped ">
                                                         <thead>
                                                         <tr>
                                                             <th>Produit</th>
-                                                            <th>Quantite
-                                                                <input class="btn btn-xs btn-info ml-5" id="addBtnVente"
-                                                                       type="button" value="Nouveau">
+                                                            <th>Quantite</th>
+                                                            <th>Type
+                                                                <button class="btn btn-xs btn-outline-success ml-5" id="addBtnVente"
+                                                                        type="button"><i class="fas fa-plus"></i> Nouveau</button>
                                                             </th>
 
                                                         </tr>
                                                         </thead>
                                                         <tbody id="tbody">
                                                         <tr>
-                                                            <td><input class="form-control"
+                                                            <td><input autofocus
+                                                                       class="form-control"
                                                                        name="io_produits[0].produit.codeBarre1"
-                                                                       placeholder="Sacnner le produit" required
-                                                                       type="text" autofocus/>
+                                                                       placeholder="Sacnner le produit"
+                                                                       required type="number"/>
                                                             </td>
                                                             <td><input class="form-control"
                                                                        name="io_produits[0].quantite"
                                                                        placeholder="Entrer la quantite" required
                                                                        type="number"/></td>
+                                                            <td><select class="form-control"
+                                                                        name="io_produits[0].type">
+                                                                <option th:text="Details" th:value="Details"></option>
+                                                                <option th:text="Engros" th:value="Engros"></option>
+                                                            </select></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -63,18 +70,9 @@
 
                                     <div class="form-group row">
                                         <label class="control-label col-md-2">Remise</label>
-                                        <div class="col-md-10">
+                                        <div class="col-md-10 ">
                                             <input class="form-control" th:field="*{remise}" type="number"/>
                                             <span class="text-danger" th:errors="*{remise}"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-md-2" for="sel1">Type</label>
-                                        <div class="col-md-10">
-                                            <select class="form-control select2bs4" id="sel1" th:field="*{typeVente}">
-                                                <option th:text="DETAILS" th:value="DETAILS"></option>
-                                                <option th:text="ENGROS" th:value="ENGROS"></option>
-                                            </select>
                                         </div>
                                     </div>
 
@@ -93,7 +91,8 @@
 
                                 </div>
                                 <div class="card-footer text-center">
-                                    <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre</button>
+                                    <button class="btn btn-info" type="submit"><i class="fas fa-save"></i> Enregistre
+                                    </button>
                                     <button class="btn btn-outline-danger" type="button"><i
                                             class="fa fa-cancel"></i> <a th:href="@{/}">Annuler</a>
                                     </button>

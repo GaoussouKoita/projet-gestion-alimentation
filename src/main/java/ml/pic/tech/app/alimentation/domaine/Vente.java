@@ -28,7 +28,6 @@ public class Vente {
     private LocalTime heure = LocalTime.now();
     private double montant;
     private double remise;
-    private String typeVente;
 
     @ManyToOne
     private Utilisateur user;

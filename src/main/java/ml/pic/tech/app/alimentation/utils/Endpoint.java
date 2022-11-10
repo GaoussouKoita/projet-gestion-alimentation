@@ -1,5 +1,7 @@
 package ml.pic.tech.app.alimentation.utils;
 
+import org.thymeleaf.util.ArrayUtils;
+
 public interface Endpoint {
     //Endpoint sur les controllers
     String APPROVISION_ENDPOINT = "/approvision";
@@ -25,6 +27,8 @@ public interface Endpoint {
     String DELETE_ENDPOINT = "/delete";
     String INFO_ENDPOINT = "/info";
     String LISTE_ENDPOINT = "/liste";
+    String AUDIT_ENDPOINT = "/audit";
+    String DETAILS_ENDPOINT ="/details" ;
 
     //Endpoint sur les fonctionnalites utiles
     String PASSWORD_ENDPOINT = "/password";
@@ -32,6 +36,20 @@ public interface Endpoint {
     String ACCEUIL_ENDPOINT = "/";
     String LOGIN_ENDPOINT = "/login";
 
-    String AUDIT_ENDPOINT = "/audit";
-    String DETAILS_ENDPOINT ="/details" ;
+    String ALL_RESSOURCE="/**/**";
+
+    String CSS="/css/**";
+    String JS="/js/**";
+    String IMAGE="/image/**";
+    String WEBFONTS="/webfonts/**";
+
+
+    //Ressources par role
+    String[] WHITE_LIST={LOGIN_ENDPOINT, ERROR_ENDPOINT, CSS, JS, WEBFONTS, IMAGE};
+    String[] UTILISATEUR_ROLE_ACCESS={ALL_RESSOURCE,UTILISATEUR_ENDPOINT+PASSWORD_ENDPOINT };
+    String[] ADMINSTRATEUR_ROLE_ACCESS={ UTILISATEUR_ENDPOINT+ALL_RESSOURCE};
+
+
+    String CHART_VENTE_BETWENN_ENDPOINT = "chart-vente-between";
+    String CHART_VENTE_ENDPOINT = "chart-vente";
 }

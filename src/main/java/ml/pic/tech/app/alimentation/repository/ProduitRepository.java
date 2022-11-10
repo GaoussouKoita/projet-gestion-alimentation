@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
-    public Produit findByCodeBarre1(Long codeBarre1);
+    public Produit findByCodeBarre1OrCodeBarre2(Long codeBarre1, Long codeBarre2);
 
     public Page<Produit> findByNomContaining(String nom, Pageable pageable);
 

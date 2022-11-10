@@ -18,7 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -89,6 +91,23 @@ public class HomeController {
         home(model);
 
         return "index";
+    }
+
+
+
+    @GetMapping(Endpoint.CHART_VENTE_ENDPOINT)
+    @ResponseBody
+    public List<IO_Produits> io_produits() {
+            return venteService.produitsDeLaVente(venteService.listeParDate(LocalDate.now()));
+
+    } @GetMapping(Endpoint.CHART_VENTE_BETWENN_ENDPOINT)
+    @ResponseBody
+    public List<IO_Produits> io_produitsBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                  LocalDate date1,
+                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                  LocalDate date2) {
+            return venteService.produitsDeLaVente(venteService.listeDateBetween(date1, date2));
+
     }
 
 

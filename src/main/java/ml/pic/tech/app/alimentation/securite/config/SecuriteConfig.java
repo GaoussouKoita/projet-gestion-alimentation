@@ -1,6 +1,8 @@
 package ml.pic.tech.app.alimentation.securite.config;
 
 import ml.pic.tech.app.alimentation.securite.service.AccountService;
+import ml.pic.tech.app.alimentation.utils.Constante;
+import ml.pic.tech.app.alimentation.utils.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.yaml.snakeyaml.util.ArrayUtils;
+
+import java.util.Arrays;
 
 
 /**
@@ -38,14 +43,13 @@ public class SecuriteConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.
-                authorizeRequests().antMatchers("/login", "/error", "/css/**", "/js/**", "/webfonts/**").permitAll().
-                and().authorizeRequests().antMatchers("/utilisateur/**").hasAuthority("ADMINISTRATEUR").
-                and().authorizeRequests().antMatchers("/utilisateur/password").hasAnyAuthority("UTILISATEUR", "ADMINISTRATEUR").
-                and().authorizeRequests().antMatchers("/**/**").hasAuthority("UTILISATEUR").
+                authorizeRequests().antMatchers(Endpoint.WHITE_LIST).permitAll().
+                and().authorizeRequests().antMatchers(Endpoint.ADMINSTRATEUR_ROLE_ACCESS).hasAuthority(Constante.ADMINISTRATEUR_ROLE).
+                and().authorizeRequests().antMatchers(Endpoint.UTILISATEUR_ROLE_ACCESS).hasAuthority(Constante.UTILISATEUR_ROLE).
                 and().authorizeRequests().anyRequest().authenticated().
-                and().formLogin().loginPage("/login").permitAll().
-                and().logout().deleteCookies("JSESSIONID").
-                and().rememberMe().key("secret").
+                and().formLogin().loginPage(Endpoint.LOGIN_ENDPOINT).permitAll().
+                and().logout().deleteCookies(Constante.SESSION_ID).
+                and().rememberMe().key(Constante.KEY).
                 and().sessionManagement(session -> {
             session.maximumSessions(1);
         });

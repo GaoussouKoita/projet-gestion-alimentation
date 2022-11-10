@@ -49,8 +49,8 @@
         <thead>
         <tr>
             <th>Quantite</th>
-            <th>Magasin</th>
             <th>Produit</th>
+            <th>Magasin</th>
             <th sec:authorize="hasAuthority('ADMINISTRATEUR')">Action</th>
         </tr>
         </thead>
@@ -59,8 +59,8 @@
         <tr th:each="stock : ${ stocks }">
             <td th:class="${ stock.quantite }>=100?'text-success':'text-danger'" th:text="${ stock.quantite }"></td>
 
+            <td th:text="${stock.produit.nom}+' '+${stock.produit.categorie.nom}"></td>
             <td th:text="${stock.magasin.nom}+' '+${stock.magasin.adresse}"></td>
-            <td th:text="${stock.produit.categorie.nom}+' '+${stock.produit.nom}"></td>
             <td sec:authorize="hasAuthority('ADMINISTRATEUR')">
                 <button class="btn" th:attr="data-target='#modalSupp'+${stock.id}" data-toggle="modal" type="button">
                     <i class="fas fa-trash-alt text-danger" data-toggle="tooltip" title="Supprimer"></i></i>

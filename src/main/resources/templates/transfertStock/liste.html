@@ -18,7 +18,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Liste Transgert Stock</h3>
-                                <a th:href="@{/transfert-stock/add}" class="btn-sm btn-info mx-4 "><i class="fas fa-plus"></i></a>
+                                <a class="btn-sm btn-info mx-4 " th:href="@{/transfert-stock/add}"><i
+                                        class="fas fa-plus"></i></a>
                                 <div class="card-tools">
                                     <form class="navbar-form navbar-right" method="GET"
                                           th:action="@{/transfert-stock/details}">
@@ -46,58 +47,66 @@
                             </div>
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-sm table-hover text-nowrap table-striped">
-        <thead>
-        <tr>
-            <th>Quantite</th>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Produit</th>
-            <th>Magasin de Depart</th>
-            <th>Magasin de Destination</th>
-            <th>Utilisateur</th>
-            <th sec:authorize="hasAuthority('ADMINISTRATEUR')">Action</th>
-        </tr>
-        </thead>
-        <tbody>
+                                    <thead>
+                                    <tr>
+                                        <th>Quantite</th>
+                                        <th>Date</th>
+                                        <th>Heure</th>
+                                        <th>Produit</th>
+                                        <th>Magasin de Depart</th>
+                                        <th>Magasin de Destination</th>
+                                        <th>Utilisateur</th>
+                                        <th sec:authorize="hasAuthority('ADMINISTRATEUR')">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="transfertStock : ${ transfertStocks }"
+                                        th:unless="${#arrays.isEmpty(transfertStocks)}">
+                                        <td th:text="${ transfertStock.quantite }"></td>
+                                        <td th:text="${#temporals.format(transfertStock.date, 'E dd MMM yyyy') }"></td>
+                                        <td th:text="${ transfertStock.Heure }"></td>
+                                        <td th:text="${transfertStock.produit.categorie.nom}+' '+${transfertStock.produit.nom}"></td>
+                                        <td th:text="${transfertStock.magasinDepart.nom}+' '+${transfertStock.magasinDepart.adresse}"></td>
+                                        <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
+                                        <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
+                                        <td sec:authorize="hasAuthority('ADMINISTRATEUR')">
 
-        <tr th:each="transfertStock : ${ transfertStocks }">
-            <td th:text="${ transfertStock.quantite }"></td>
-            <td th:text="${#temporals.format(transfertStock.date, 'dd MMM yyyy') }"></td>
-            <td th:text="${ transfertStock.Heure }"></td>
-            <td th:text="${transfertStock.produit.categorie.nom}+' '+${transfertStock.produit.nom}"></td>
-            <td th:text="${transfertStock.magasinDepart.nom}+' '+${transfertStock.magasinDepart.adresse}"></td>
-            <td th:text="${transfertStock.magasinDestination.nom}+' '+${transfertStock.magasinDestination.adresse}"></td>
-            <td th:text="${transfertStock.user.prenom}+' '+${transfertStock.user.nom}"></td>
-            <td  sec:authorize="hasAuthority('ADMINISTRATEUR')">
+                                            <button class="btn" data-toggle="modal"
+                                                    th:attr="data-target='#modalSupp'+${transfertStock.id}" type="button">
+                                                <i class="fas fa-trash-alt text-danger" data-toggle="tooltip"
+                                                   title="Supprimer"></i></i>
+                                            </button>
+                                            <div class="modal fade" th:attr="id='modalSupp'+${transfertStock.id}">
+                                                <div class="modal-dialog modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h4 class="modal-title ">Suppression</h4>
+                                                            <button aria-label="Close" class="close" data-dismiss="modal"
+                                                                    type="button">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
 
-                <button class="btn" th:attr="data-target='#modalSupp'+${transfertStock.id}" data-toggle="modal" type="button">
-                    <i class="fas fa-trash-alt text-danger" data-toggle="tooltip" title="Supprimer"></i></i>
-                </button>
-                <div class="modal fade" th:attr="id='modalSupp'+${transfertStock.id}">
-                    <div class="modal-dialog modal-md">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger">
-                                <h4 class="modal-title ">Suppression</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                                        <div class="modal-body">
+                                                            <h1 class="text-center">Êtes-vous sûr ? </h1>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-outline-danger"
+                                                               th:href="@{/transfert-stock/delete(id=${transfertStock.id})}"></i>
+                                                                OUI</a>
+                                                            <button class="btn btn-outline-info" data-dismiss="modal"
+                                                                    type="button">Non
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                            <div class="modal-body">
-                                <h1 class="text-center">Êtes-vous sûr ? </h1>
-                            </div>
-                            <div class="modal-footer">
-                                <a class="btn btn-outline-danger" th:href="@{/transfert-stock/delete(id=${transfertStock.id})}"></i> OUI</a>
-                                <button type="button" class="btn btn-outline-info" data-dismiss="modal">Non</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-            </td>
-        </tr>
-        </tbody>
+                                    </tbody>
                                 </table>
                             </div>
                             <!--
@@ -114,18 +123,21 @@
                                     <th:block th:if="${nbTotalPage}<=3">
                                         <li class="page-item" th:classappend="${currentPage}==0?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/transfert-stock/liste(page=${currentPage-1})}">&laquo;</a></li>
+                                               th:href="@{/transfert-stock/liste(page=${currentPage-1})}">&laquo;</a>
+                                        </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${status.index}?'active':''"
                                             th:each="page, status : ${totalPage}">
-                                            <a class="page-link" th:href="@{/transfert-stock/liste(page=${status.index})}"
+                                            <a class="page-link"
+                                               th:href="@{/transfert-stock/liste(page=${status.index})}"
                                                th:text="${status.index+1}"></a>
                                         </li>
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'disabled'">
                                             <a class="page-link"
-                                               th:href="@{/transfert-stock/liste(page=${currentPage+1})}">&raquo;</a></li>
+                                               th:href="@{/transfert-stock/liste(page=${currentPage+1})}">&raquo;</a>
+                                        </li>
 
                                     </th:block>
 
@@ -133,7 +145,8 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-nbTotalPage}?'disabled':''">
                                             <a class="page-link"
-                                               th:href="@{/transfert-stock/liste(page=${currentPage-1})}">&laquo;</a></li>
+                                               th:href="@{/transfert-stock/liste(page=${currentPage-1})}">&laquo;</a>
+                                        </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-nbTotalPage}?'active':''">
@@ -153,13 +166,15 @@
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-2}?'active':''"
                                             th:if="${nbTotalPage}>4">
-                                            <a class="page-link" th:href="@{/transfert-stock/liste(page=${nbTotalPage-2})}"
+                                            <a class="page-link"
+                                               th:href="@{/transfert-stock/liste(page=${nbTotalPage-2})}"
                                                th:text="${nbTotalPage-2}"></a>
                                         </li>
 
                                         <li class="page-item"
                                             th:classappend="${currentPage}==${nbTotalPage-1}?'active':''">
-                                            <a class="page-link" th:href="@{/transfert-stock/liste(page=${nbTotalPage-1})}"
+                                            <a class="page-link"
+                                               th:href="@{/transfert-stock/liste(page=${nbTotalPage-1})}"
                                                th:text="${nbTotalPage-1}"></a>
                                         </li>
                                         <li class="page-item"
